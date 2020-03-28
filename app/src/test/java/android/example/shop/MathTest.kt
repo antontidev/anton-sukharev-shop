@@ -25,4 +25,11 @@ class MathTest {
         var j = 2
         assertEquals(i * j, 8)
     }
+
+    @Test
+    fun subtraction_test() {
+        var i = 4
+        var j = 2
+        assertEquals(4 - 2,2)
+    }
 }
