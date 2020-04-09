@@ -10,7 +10,7 @@ class FourthHomeTask {
     @Test
     fun consolePrintTest() {
 
-        val iphoneCase = Product(price = 123.5, salePercent = 30)
+        val iphoneCase = Product(price = 123.5, salePercent = 30, productName = "IPhone case")
 
         val pricePrinter: PricePrinter = ConsolePricePrinter()
 
@@ -20,7 +20,7 @@ class FourthHomeTask {
 
     @Test
     fun filePrintTest() {
-        val samsungCase = Product(price = 250.5, salePercent = 20)
+        val samsungCase = Product(price = 250.5, salePercent = 20, productName = "Samsung case")
 
         /**
          * File price.txt placed at ../app/price.txt directory

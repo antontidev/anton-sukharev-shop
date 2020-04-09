@@ -13,19 +13,19 @@ class ShoppingCartPrinterConsole : ShoppingCartPrinter {
     override fun print(shoppingCart: ShoppingCart) {
         var pricePrinter = ConsolePricePrinter()
 
-        shoppingCart.productList.forEach {
+        shoppingCart.forEachProduct {
             pricePrinter.print(it.calcDiscountPrice())
         }
     }
 }
 
 class ShoppingCartPrinterFile(
-    val fileName: String
+    private val fileName: String
 ) : ShoppingCartPrinter {
     override fun print(shoppingCart: ShoppingCart) {
         var pricePrinter = FilePricePrinter(fileName)
 
-        shoppingCart.productList.forEach() {
+        shoppingCart.forEachProduct {
             pricePrinter.print(it.calcDiscountPrice())
         }
     }

@@ -10,11 +10,23 @@ interface PricePrinter {
      * If price have fractional part than it will be rounded for 2 symbols after "."
      */
     fun print(price: Double)
+
+    fun print(name: String)
+
+    fun print(product: Product)
 }
 
 class ConsolePricePrinter : PricePrinter {
     override fun print(price: Double) {
         println(price.toString())
+    }
+
+    override fun print(name: String) {
+        println(name)
+    }
+
+    override fun print(product: Product) {
+        println("${product.getProductName()}: ${product.calcDiscountPrice()}")
     }
 
 }
@@ -32,6 +44,14 @@ class FilePricePrinter(
     }
 
     override fun print(price: Double) {
-        File(filePath).appendText(price.toString() + System.lineSeparator())
+        file.appendText(price.toString() + System.lineSeparator())
+    }
+
+    override fun print(name: String) {
+        file.appendText(name + System.lineSeparator())
+    }
+
+    override fun print(product: Product) {
+        file.appendText("${product.getProductName()}: ${product.calcDiscountPrice()}")
     }
 }
