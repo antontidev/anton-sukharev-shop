@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">anton-sukharev-shop</string>
+    <string name="checkoutHeaderText">Оформление заказа</string>
+    <string name="total_price_text">итого</string>
+    <string name="checkout_text">оформить заказ</string>
+    <string name="money_image_text">изображение доллара</string>
+    <string name="price_without_discount">цена</string>
+    <string name="discount_text">скидка</string>
+    <string name="name_hint">Имя</string>
+    <string name="second_name_hint">Фамилия</string>
+    <string name="third_name_hint">Отчество</string>
+    <string name="phone_hint">Телефон</string>
 </resources>

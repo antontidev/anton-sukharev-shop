@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ShoppingCartView {
 
@@ -13,6 +14,20 @@ class MainActivity : AppCompatActivity(), ShoppingCartView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val priceProducts = 10000
+        val discountInPercent = 13
+        val discountPrice = priceProducts - (priceProducts * discountInPercent / 100.0)
+
+        priceWithoutDiscount.text = priceProducts.toString()
+        discount.text = (priceProducts - discountPrice).toString()
+        price.text = discountPrice.toString()
+
+        checkoutButton.setOnClickListener {
+            val firstName =
+            Toast.makeText(this, "Уважаемый ${secondNameEdit.text} " +
+                                              "${nameEdit.text} ${thirdNameEdit.text}, " +
+                                              "ваш заказ оформлен!", Toast.LENGTH_LONG).show()
+        }
         presenter.printShoppingCart()
     }
 
