@@ -9,9 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ShoppingCartView {
+class MainActivity : AppCompatActivity(), MainView {
 
-    private val presenter = ShoppingCartPresenter()
+    private val presenter = MainViewPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
