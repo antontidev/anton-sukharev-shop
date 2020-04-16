@@ -1,10 +1,29 @@
 package android.example.shop
 
-class ShoppingCartPresenter(
-    private val view: ShoppingCartView
-){
+import moxy.MvpPresenter
+
+class ShoppingCartPresenter : MvpPresenter<ShoppingCartView>(){
     private val iphoneCase = Product(price = 123.5, salePercent = 30, productName = "IPhone case")
     private val samsungCase = Product(price = 250.5, salePercent = 20, productName = "Samsung case")
+
+    private fun checkSymbols(text: String) = text.length < 3
+
+    private val model = CreateOrderModel()
+
+    fun checkFirstName(text: String) {
+        if (!checkSymbols(text)) model.firstName = text
+        viewState.showErrorFirstName(checkSymbols(text))
+    }
+
+    fun checkSecondName(text: String) {
+        if (!checkSymbols(text)) model.firstName = text
+        viewState.showErrorFirstName(checkSymbols(text))
+    }
+
+    fun checkMiddleName(text: String) {
+        if (!checkSymbols(text)) model.firstName = text
+        viewState.showErrorFirstName(checkSymbols(text))
+    }
 
     private var shoppingCart: ShoppingCart
 
@@ -15,13 +34,13 @@ class ShoppingCartPresenter(
 
     fun printPrices() {
         shoppingCart.forEachProduct{
-            view.print(it.calcDiscountPrice())
+            viewState.print(it.calcDiscountPrice())
         }
     }
 
     fun printProductsName() {
         shoppingCart.forEachProduct {
-            view.print(it.getProductName())
+            viewState.print(it.getProductName())
         }
     }
 
@@ -30,9 +49,9 @@ class ShoppingCartPresenter(
      */
     fun printShoppingCart() {
         shoppingCart.forEachProduct {
-            view.print(it)
+            viewState.print(it)
         }
 
-        view.print(shoppingCart.calcProductsPrice())
+        viewState.print(shoppingCart.calcProductsPrice())
     }
 }

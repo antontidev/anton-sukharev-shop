@@ -119,7 +119,7 @@
             app:layout_constraintTop_toTopOf="@+id/discountText" />
     
         <EditText
-            android:id="@+id/secondNameEdit"
+            android:id="@+id/checkoutName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -139,9 +139,9 @@
             android:ems="10"
             android:hint="@string/name_hint"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/secondNameEdit"
-            app:layout_constraintStart_toStartOf="@+id/secondNameEdit"
-            app:layout_constraintTop_toBottomOf="@+id/secondNameEdit" />
+            app:layout_constraintEnd_toEndOf="@+id/checkoutName"
+            app:layout_constraintStart_toStartOf="@+id/checkoutName"
+            app:layout_constraintTop_toBottomOf="@+id/checkoutName" />
     
         <EditText
             android:id="@+id/thirdNameEdit"
