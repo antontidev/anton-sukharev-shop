@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity(), ShoppingCartView {
 
         checkoutButton.setOnClickListener {
             val firstName =
-            Toast.makeText(this, "Уважаемый ${checkoutName.text} " +
-                                              "${nameEdit.text} ${thirdNameEdit.text}, " +
+            Toast.makeText(this, "Уважаемый ${checkoutLastName.text} " +
+                                              "${checkoutFirstName.text} ${checkoutMiddleName.text}, " +
                                               "ваш заказ оформлен!", Toast.LENGTH_LONG).show()
         }
 
@@ -43,16 +43,16 @@ class MainActivity : AppCompatActivity(), ShoppingCartView {
     }
 
     private fun setListeners() {
-        checkoutName.addTextChangedListener(object: TextWatcher{
+        checkoutLastName.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                presenter.checkSecondName(s.toString())
+                presenter.checkLastName(s.toString())
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        nameEdit.addTextChangedListener(object: TextWatcher{
+        checkoutFirstName.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {
                 presenter.checkFirstName(s.toString())
             }
@@ -61,9 +61,18 @@ class MainActivity : AppCompatActivity(), ShoppingCartView {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        thirdNameEdit.addTextChangedListener(object: TextWatcher{
+        checkoutMiddleName.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {
                 presenter.checkMiddleName(s.toString())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        checkoutPhone.addTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                presenter.checkPhone(s.toString())
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -79,15 +88,19 @@ class MainActivity : AppCompatActivity(), ShoppingCartView {
     }
 
     override fun showErrorFirstName(visible: Boolean) {
-        nameEdit.showError(visible)
+        checkoutFirstName.showError(visible)
     }
 
-    override fun showErrorSecondName(visible: Boolean) {
-        checkoutName.showError(visible)
+    override fun showErrorLastName(visible: Boolean) {
+        checkoutLastName.showError(visible)
     }
 
-    override fun showErrorMiddlename(visible: Boolean) {
-        thirdNameEdit.showError(visible)
+    override fun showErrorMiddleName(visible: Boolean) {
+        checkoutMiddleName.showError(visible)
+    }
+
+    override fun showErrorPhone(visible: Boolean) {
+        checkoutPhone.showError(visible)
     }
 
     /**

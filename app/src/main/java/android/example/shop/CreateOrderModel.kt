@@ -5,7 +5,7 @@ package android.example.shop
  */
 data class CreateOrderModel(
     var firstName: String = "",
-    var secondName: String = "",
+    var lastName: String = "",
     var middleName: String = "",
     var phone: String = ""
 )

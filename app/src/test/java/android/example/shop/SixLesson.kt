@@ -1,16 +1,14 @@
-import android.example.shop.ConsolePricePrinter
-import android.example.shop.FilePricePrinter
-import android.example.shop.PricePrinter
+import android.example.shop.obsolete.ConsolePricePrinter
+import android.example.shop.obsolete.PricePrinter
 import android.example.shop.Product
 import org.junit.Test
-import java.io.Console
-import java.io.File
 
 class SixLesson {
 
     @Test
     fun consolePrintTest() {
-        val pricePrinter: PricePrinter = ConsolePricePrinter()
+        val pricePrinter: PricePrinter =
+            ConsolePricePrinter()
 
         val presenter = Presenter()
 
@@ -24,7 +22,8 @@ class SixLesson {
         private val productList = listOf(iphoneCase, samsungCase)
 
         fun printPrice() {
-            val pricePrinter = ConsolePricePrinter()
+            val pricePrinter =
+                ConsolePricePrinter()
 
             productList.forEach {
                 pricePrinter.print(it.calcDiscountPrice())
@@ -32,7 +31,8 @@ class SixLesson {
         }
 
         fun productNamePrint() {
-            val pricePrinter = ConsolePricePrinter()
+            val pricePrinter =
+                ConsolePricePrinter()
 
             productList.forEach {
                 pricePrinter.print(it.getProductName())
@@ -40,7 +40,8 @@ class SixLesson {
         }
 
         fun printAllProducts() {
-            val pricePrinter = ConsolePricePrinter()
+            val pricePrinter =
+                ConsolePricePrinter()
 
             productList.forEach {
                 pricePrinter.print(it)

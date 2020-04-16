@@ -119,7 +119,7 @@
             app:layout_constraintTop_toTopOf="@+id/discountText" />
     
         <EditText
-            android:id="@+id/checkoutName"
+            android:id="@+id/checkoutLastName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -132,40 +132,40 @@
             android:autofillHints="" />
     
         <EditText
-            android:id="@+id/nameEdit"
+            android:id="@+id/checkoutFirstName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="@string/name_hint"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/checkoutName"
-            app:layout_constraintStart_toStartOf="@+id/checkoutName"
-            app:layout_constraintTop_toBottomOf="@+id/checkoutName" />
+            app:layout_constraintEnd_toEndOf="@+id/checkoutLastName"
+            app:layout_constraintStart_toStartOf="@+id/checkoutLastName"
+            app:layout_constraintTop_toBottomOf="@+id/checkoutLastName" />
     
         <EditText
-            android:id="@+id/thirdNameEdit"
+            android:id="@+id/checkoutMiddleName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="@string/third_name_hint"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/nameEdit"
-            app:layout_constraintStart_toStartOf="@+id/nameEdit"
-            app:layout_constraintTop_toBottomOf="@+id/nameEdit" />
+            app:layout_constraintEnd_toEndOf="@+id/checkoutFirstName"
+            app:layout_constraintStart_toStartOf="@+id/checkoutFirstName"
+            app:layout_constraintTop_toBottomOf="@+id/checkoutFirstName" />
     
         <EditText
-            android:id="@+id/phoneEdit"
+            android:id="@+id/checkoutPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="@string/phone_hint"
             android:inputType="phone"
-            app:layout_constraintEnd_toEndOf="@+id/thirdNameEdit"
-            app:layout_constraintStart_toStartOf="@+id/thirdNameEdit"
-            app:layout_constraintTop_toBottomOf="@+id/thirdNameEdit" />
+            app:layout_constraintEnd_toEndOf="@+id/checkoutMiddleName"
+            app:layout_constraintStart_toStartOf="@+id/checkoutMiddleName"
+            app:layout_constraintTop_toBottomOf="@+id/checkoutMiddleName" />
     
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,6 @@
-package android.example.shop
+package android.example.shop.obsolete
 
+import android.example.shop.Product
 import java.io.File
 
 interface PricePrinter {

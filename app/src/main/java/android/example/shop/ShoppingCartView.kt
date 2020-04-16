@@ -24,8 +24,11 @@ interface ShoppingCartView : MvpView{
     fun showErrorFirstName(visible: Boolean)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun showErrorSecondName(visible: Boolean)
+    fun showErrorLastName(visible: Boolean)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun showErrorMiddlename(visible: Boolean)
+    fun showErrorMiddleName(visible: Boolean)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showErrorPhone(visible: Boolean)
 }

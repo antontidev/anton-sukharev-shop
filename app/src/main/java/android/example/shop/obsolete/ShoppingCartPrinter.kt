@@ -1,6 +1,6 @@
-package android.example.shop
+package android.example.shop.obsolete
 
-import java.io.File
+import android.example.shop.ShoppingCart
 
 interface ShoppingCartPrinter {
     /**
@@ -9,7 +9,8 @@ interface ShoppingCartPrinter {
     fun print(shoppingCart: ShoppingCart)
 }
 
-class ShoppingCartPrinterConsole : ShoppingCartPrinter {
+class ShoppingCartPrinterConsole :
+    ShoppingCartPrinter {
     override fun print(shoppingCart: ShoppingCart) {
         var pricePrinter = ConsolePricePrinter()
 
@@ -23,7 +24,8 @@ class ShoppingCartPrinterFile(
     private val fileName: String
 ) : ShoppingCartPrinter {
     override fun print(shoppingCart: ShoppingCart) {
-        var pricePrinter = FilePricePrinter(fileName)
+        var pricePrinter =
+            FilePricePrinter(fileName)
 
         shoppingCart.forEachProduct {
             pricePrinter.print(it.calcDiscountPrice())

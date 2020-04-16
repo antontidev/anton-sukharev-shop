@@ -6,23 +6,37 @@ class ShoppingCartPresenter : MvpPresenter<ShoppingCartView>(){
     private val iphoneCase = Product(price = 123.5, salePercent = 30, productName = "IPhone case")
     private val samsungCase = Product(price = 250.5, salePercent = 20, productName = "Samsung case")
 
-    private fun checkSymbols(text: String) = text.length < 3
+    private fun checkSymbols(text: String) = text.length > 3
+
+    private fun checkSymbolsPhone(text: String) = text.length > 12
+
+    private fun checkFirstPhoneSymbol(text: String): Boolean {
+        val firstSymbol = text.getOrElse(0) { 0.toChar() }
+        return firstSymbol == '8'
+    }
 
     private val model = CreateOrderModel()
 
     fun checkFirstName(text: String) {
-        if (!checkSymbols(text)) model.firstName = text
+        if (checkSymbols(text)) model.firstName = text
         viewState.showErrorFirstName(checkSymbols(text))
     }
 
-    fun checkSecondName(text: String) {
-        if (!checkSymbols(text)) model.firstName = text
-        viewState.showErrorFirstName(checkSymbols(text))
+    fun checkLastName(text: String) {
+        if (checkSymbols(text)) model.lastName = text
+        viewState.showErrorLastName(checkSymbols(text))
     }
 
     fun checkMiddleName(text: String) {
-        if (!checkSymbols(text)) model.firstName = text
-        viewState.showErrorFirstName(checkSymbols(text))
+        if (checkSymbols(text)) model.middleName = text
+        viewState.showErrorMiddleName(checkSymbols(text))
+    }
+
+    fun checkPhone(text: String) {
+        val correctPhone = checkFirstPhoneSymbol(text) && checkSymbolsPhone(text)
+
+        if (correctPhone) model.phone = text
+        viewState.showErrorPhone(!correctPhone)
     }
 
     private var shoppingCart: ShoppingCart

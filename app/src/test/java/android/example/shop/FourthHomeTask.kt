@@ -1,9 +1,8 @@
-import android.example.shop.ConsolePricePrinter
-import android.example.shop.FilePricePrinter
-import android.example.shop.PricePrinter
+import android.example.shop.obsolete.ConsolePricePrinter
+import android.example.shop.obsolete.FilePricePrinter
+import android.example.shop.obsolete.PricePrinter
 import android.example.shop.Product
 import org.junit.Test
-import java.io.File
 
 class FourthHomeTask {
 
@@ -12,7 +11,8 @@ class FourthHomeTask {
 
         val iphoneCase = Product(price = 123.5, salePercent = 30, productName = "IPhone case")
 
-        val pricePrinter: PricePrinter = ConsolePricePrinter()
+        val pricePrinter: PricePrinter =
+            ConsolePricePrinter()
 
         val discountIphoneCasePrice = iphoneCase.calcDiscountPrice()
         pricePrinter.print(discountIphoneCasePrice)
@@ -25,7 +25,8 @@ class FourthHomeTask {
         /**
          * File price.txt placed at ../app/price.txt directory
          */
-        val pricePrinter: PricePrinter = FilePricePrinter("price.txt")
+        val pricePrinter: PricePrinter =
+            FilePricePrinter("price.txt")
 
         val discountSamsungCasePrice = samsungCase.calcDiscountPrice()
         pricePrinter.print(discountSamsungCasePrice)
