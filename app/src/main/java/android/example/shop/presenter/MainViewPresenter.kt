@@ -17,7 +17,7 @@ class MainViewPresenter : MvpPresenter<MainView>(){
         productName = "Samsung case"
     )
 
-    private fun checkSymbols(text: String) = text.length > 3
+    private fun checkSymbols(text: String) = text.length < 3
 
     private fun checkSymbolsPhone(text: String) = text.length > 12
 

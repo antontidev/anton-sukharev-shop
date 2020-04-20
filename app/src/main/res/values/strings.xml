@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">anton-sukharev-shop</string>
+    <string name="app_name">Магазин</string>
     <string name="checkoutHeaderText">Оформление заказа</string>
     <string name="total_price_text">итого</string>
     <string name="checkout_text">оформить заказ</string>

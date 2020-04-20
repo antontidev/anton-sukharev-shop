@@ -1,28 +1,37 @@
 package android.example.shop.ui
 
+import android.content.Intent
 import android.example.shop.presenter.MainView
 import android.example.shop.presenter.MainViewPresenter
 import android.example.shop.Product
 import android.example.shop.R
+import android.example.shop.ui.CatalogActivity.Companion.IS_USER_AUTH
+import android.example.shop.ui.CatalogActivity.Companion.PRODUCT_ID
+import android.example.shop.ui.CatalogActivity.Companion.REQUEST_AUTH
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.myapplication.ui.BaseActivity
+import kotlinx.android.synthetic.main.checkout_layout.*
 
-class MainActivity : AppCompatActivity(),
+class CheckoutActivity : BaseActivity(),
     MainView {
 
     private val presenter = MainViewPresenter()
+    private var isAuth = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.checkout_layout)
 
         presenter.attachView(this)
+
+        val productID = intent.extras?.getInt(PRODUCT_ID, -1)
+
+        Log.d(tag, productID.toString())
 
         val priceProducts = 10000
         val discountInPercent = 13
@@ -32,7 +41,14 @@ class MainActivity : AppCompatActivity(),
         discount.text = (priceProducts - discountPrice).toString()
         price.text = discountPrice.toString()
 
-        checkoutButton.setOnClickListener {
+        checkoutPay.setOnClickListener {
+            isAuth = true
+            setResult(REQUEST_AUTH, Intent().apply {
+                putExtra(IS_USER_AUTH, isAuth )
+            })
+        }
+
+        catalogCheckoutBtn.setOnClickListener {
             val firstName =
             Toast.makeText(this, "Уважаемый ${checkoutLastName.text} " +
                                               "${checkoutFirstName.text} ${checkoutMiddleName.text}, " +
