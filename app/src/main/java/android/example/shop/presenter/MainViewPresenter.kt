@@ -1,10 +1,21 @@
-package android.example.shop
+package android.example.shop.presenter
 
+import android.example.shop.CreateOrderModel
+import android.example.shop.Product
+import android.example.shop.ShoppingCart
 import moxy.MvpPresenter
 
 class MainViewPresenter : MvpPresenter<MainView>(){
-    private val iphoneCase = Product(price = 123.5, salePercent = 30, productName = "IPhone case")
-    private val samsungCase = Product(price = 250.5, salePercent = 20, productName = "Samsung case")
+    private val iphoneCase = Product(
+        price = 123.5,
+        salePercent = 30,
+        productName = "IPhone case"
+    )
+    private val samsungCase = Product(
+        price = 250.5,
+        salePercent = 20,
+        productName = "Samsung case"
+    )
 
     private fun checkSymbols(text: String) = text.length > 3
 

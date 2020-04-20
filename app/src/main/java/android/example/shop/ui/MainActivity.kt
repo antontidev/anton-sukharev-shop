@@ -1,5 +1,9 @@
-package android.example.shop
+package android.example.shop.ui
 
+import android.example.shop.presenter.MainView
+import android.example.shop.presenter.MainViewPresenter
+import android.example.shop.Product
+import android.example.shop.R
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +13,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : AppCompatActivity(),
+    MainView {
 
     private val presenter = MainViewPresenter()
 

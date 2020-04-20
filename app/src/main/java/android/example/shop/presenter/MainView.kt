@@ -1,5 +1,6 @@
-package android.example.shop
+package android.example.shop.presenter
 
+import android.example.shop.Product
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
