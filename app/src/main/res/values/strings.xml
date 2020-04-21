@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Магазин</string>
-    <string name="checkoutHeaderText">Оформление заказа</string>
     <string name="total_price_text">итого</string>
     <string name="checkout_text">оформить заказ</string>
     <string name="money_image_text">изображение доллара</string>
@@ -10,4 +9,9 @@
     <string name="second_name_hint">Фамилия</string>
     <string name="third_name_hint">Отчество</string>
     <string name="phone_hint">Телефон</string>
+    <string name="make_auth">авторизироваться</string>
+    <string name="catalog_header">Каталог</string>
+    <string name="shopping_cart_header">Корзина</string>
+    <string name="checkout_header">Оформить заказ</string>
+    <string name="product_description_header">Информация о товаре</string>
 </resources>

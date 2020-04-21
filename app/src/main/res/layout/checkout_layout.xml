@@ -7,23 +7,18 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ui.CheckoutActivity">
-    
-        <TextView
-            android:id="@+id/checkoutHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:text="@string/checkoutHeaderText"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.051" />
-    
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/checkout_header"
+        android:textSize="@dimen/header_text_size"
+        app:layout_constraintStart_toEndOf="@id/backButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
@@ -73,7 +68,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-    
+
         <TextView
             android:id="@+id/priceWithoutDiscountText"
             android:layout_width="wrap_content"
@@ -83,7 +78,7 @@
             android:textColor="#000"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/totalPriceText"
-            app:layout_constraintTop_toBottomOf="@+id/checkoutHeader" />
+            app:layout_constraintTop_toBottomOf="@+id/header" />
     
         <TextView
             android:id="@+id/priceWithoutDiscount"
@@ -167,20 +162,30 @@
             app:layout_constraintStart_toStartOf="@+id/checkoutMiddleName"
             app:layout_constraintTop_toBottomOf="@+id/checkoutMiddleName" />
 
-    <Button
-        android:id="@+id/checkoutPay"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/black"
-        android:text="оплатить"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/catalogCheckoutBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkoutPhone"
-        app:layout_constraintVertical_bias="0.86" />
+        <Button
+            android:id="@+id/checkoutPay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/black"
+            android:text="оплатить"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/catalogCheckoutBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkoutPhone"
+            app:layout_constraintVertical_bias="0.86" />
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/header"
+            app:srcCompat="@drawable/ic_arrow_back" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

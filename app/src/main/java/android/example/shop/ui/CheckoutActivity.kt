@@ -1,13 +1,14 @@
 package android.example.shop.ui
 
 import android.content.Intent
-import android.example.shop.presenter.MainView
-import android.example.shop.presenter.MainViewPresenter
+import android.example.shop.presenter.CheckoutView
+import android.example.shop.presenter.CkeckoutViewPresenter
 import android.example.shop.Product
 import android.example.shop.R
 import android.example.shop.ui.CatalogActivity.Companion.IS_USER_AUTH
 import android.example.shop.ui.CatalogActivity.Companion.PRODUCT_ID
 import android.example.shop.ui.CatalogActivity.Companion.REQUEST_AUTH
+import android.example.shop.utils.setHeader
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,9 +19,9 @@ import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.checkout_layout.*
 
 class CheckoutActivity : BaseActivity(),
-    MainView {
+    CheckoutView {
 
-    private val presenter = MainViewPresenter()
+    private val presenter = CkeckoutViewPresenter()
     private var isAuth = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,10 @@ class CheckoutActivity : BaseActivity(),
         val productID = intent.extras?.getInt(PRODUCT_ID, -1)
 
         Log.d(tag, productID.toString())
+
+        backButton.setOnClickListener {
+            finish()
+        }
 
         val priceProducts = 10000
         val discountInPercent = 13

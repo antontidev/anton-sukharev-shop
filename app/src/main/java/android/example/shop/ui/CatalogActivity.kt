@@ -14,6 +14,9 @@ class CatalogActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.catalog_layout)
 
+
+
+
         catalogCheckoutBtn.setOnClickListener{
             val intent = Intent(this, CheckoutActivity::class.java).apply {
                 putExtra(PRODUCT_ID, 1000)
