@@ -7,15 +7,19 @@ import android.example.shop.presenter.ShoppingCartPresenter
 import android.example.shop.presenter.ShoppingCartView
 import android.example.shop.utils.ShoppingCartAdapter
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.daimajia.swipe.SwipeLayout
+import com.daimajia.swipe.SwipeLayout.SwipeListener
 import com.example.myapplication.ui.BaseActivity
+import kotlinx.android.synthetic.main.item_shopping_cart.*
 import kotlinx.android.synthetic.main.shopping_cart_layout.*
+
 
 class ShoppingCartActivity: BaseActivity(), ShoppingCartView {
     private val shoppingCartPresenter = ShoppingCartPresenter()
     private val adapter = ShoppingCartAdapter() { item ->
-        callActivity(item)
+        shoppingCartPresenter.removeItem(item)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +37,7 @@ class ShoppingCartActivity: BaseActivity(), ShoppingCartView {
         }
     }
 
+
     override fun removeFromShoppingCart(position: Int) {
         adapter.notifyItemRemoved(position)
     }
@@ -41,11 +46,19 @@ class ShoppingCartActivity: BaseActivity(), ShoppingCartView {
         adapter.setData(list)
     }
 
-    private fun callActivity(shoppingCartItem: TestShoppingCartItemModel) {
+    private fun showDetailProductInformation(shoppingCartItem: TestShoppingCartItemModel) {
         val intent = Intent(this, ProductDescriptionActivity::class.java)
+        /**
+         *
+        Start ugly code
+         */
         intent.putExtra(IMAGE, shoppingCartItem.id)
         intent.putExtra(DESCRIPTION, shoppingCartItem.fullDescription)
         intent.putExtra(PRICE, shoppingCartItem.price)
+        intent.putExtra(NAME, shoppingCartItem.name)
+        /**
+         * End ugly code
+         */
         startActivity(intent)
     }
 
@@ -54,5 +67,6 @@ class ShoppingCartActivity: BaseActivity(), ShoppingCartView {
         const val IMAGE = "IMAGE"
         const val DESCRIPTION = "DESCRIPTION"
         const val PRICE = "PRICE"
+        const val NAME = "NAME"
     }
 }
