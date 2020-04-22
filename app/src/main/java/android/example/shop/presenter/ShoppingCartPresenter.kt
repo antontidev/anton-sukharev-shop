@@ -26,9 +26,9 @@ class ShoppingCartPresenter: MvpPresenter<ShoppingCartView>() {
         viewState.setShoppingCart(list)
     }
 
-    fun removeItem(string: TestShoppingCartItemModel) {
-        val position = list.indexOf(string)
-        list.remove(string)
+    fun removeItem(item: TestShoppingCartItemModel) {
+        val position = list.indexOf(item)
+        list.remove(item)
         viewState.removeFromShoppingCart(position)
     }
 }
