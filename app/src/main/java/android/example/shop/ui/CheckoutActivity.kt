@@ -8,7 +8,6 @@ import android.example.shop.R
 import android.example.shop.ui.CatalogActivity.Companion.IS_USER_AUTH
 import android.example.shop.ui.CatalogActivity.Companion.PRODUCT_ID
 import android.example.shop.ui.CatalogActivity.Companion.REQUEST_AUTH
-import android.example.shop.utils.setHeader
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,6 +15,7 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import com.example.myapplication.ui.BaseActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.checkout_layout.*
 
 class CheckoutActivity : BaseActivity(),
@@ -27,6 +27,8 @@ class CheckoutActivity : BaseActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.checkout_layout)
+
+        getUserInfo()
 
         presenter.attachView(this)
 
@@ -66,6 +68,11 @@ class CheckoutActivity : BaseActivity(),
          * This call could be removed someday
          */
         presenter.printShoppingCart()
+    }
+
+    private fun getUserInfo() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        checkoutFirstName.setText(currentUser?.displayName)
     }
 
     private fun setListeners() {

@@ -1,6 +1,6 @@
 package android.example.shop.presenter
 
-import android.example.shop.CreateOrderModel
+import android.example.shop.model.CreateOrderModel
 import android.example.shop.Product
 import android.example.shop.ShoppingCart
 import moxy.MvpPresenter

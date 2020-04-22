@@ -1,4 +1,4 @@
-package android.example.shop
+package android.example.shop.model
 
 /**
  * Model for creating order
