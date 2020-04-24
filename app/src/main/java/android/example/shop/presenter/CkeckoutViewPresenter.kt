@@ -1,6 +1,6 @@
 package android.example.shop.presenter
 
-import android.example.shop.model.CreateOrderModel
+import android.example.shop.domain.model.CreateOrderModel
 import android.example.shop.Product
 import android.example.shop.ShoppingCart
 import moxy.MvpPresenter
@@ -26,7 +26,8 @@ class CkeckoutViewPresenter : MvpPresenter<CheckoutView>(){
         return firstSymbol == '8'
     }
 
-    private val model = CreateOrderModel()
+    private val model =
+        CreateOrderModel()
 
     fun checkFirstName(text: String) {
         if (checkSymbols(text)) model.firstName = text

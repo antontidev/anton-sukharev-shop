@@ -2,25 +2,25 @@ package android.example.shop.ui
 
 import android.content.Intent
 import android.example.shop.R
-import android.example.shop.model.TestShoppingCartItemModel
+import android.example.shop.domain.model.TestShoppingCartItemModel
 import android.example.shop.presenter.ShoppingCartPresenter
 import android.example.shop.presenter.ShoppingCartView
 import android.example.shop.utils.ShoppingCartAdapter
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.daimajia.swipe.SwipeLayout
-import com.daimajia.swipe.SwipeLayout.SwipeListener
 import com.example.myapplication.ui.BaseActivity
-import kotlinx.android.synthetic.main.item_shopping_cart.*
 import kotlinx.android.synthetic.main.shopping_cart_layout.*
 
 
 class ShoppingCartActivity: BaseActivity(), ShoppingCartView {
     private val shoppingCartPresenter = ShoppingCartPresenter()
-    private val adapter = ShoppingCartAdapter() { item ->
-        shoppingCartPresenter.removeItem(item)
-    }
+    private val adapter = ShoppingCartAdapter(
+        deleteClickListener = ShoppingCartAdapter.ShoppingItemClickListener {
+            shoppingCartPresenter.removeItem(it)
+        },
+        detailInfoClickListener = ShoppingCartAdapter.ShoppingItemClickListener {
+            showDetailProductInformation(it)
+        })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,8 +1,6 @@
 package android.example.shop.presenter
 
-import android.example.shop.model.TestShoppingCartItemModel
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import moxy.MvpPresenter
+import android.example.shop.domain.model.TestShoppingCartItemModel
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType

@@ -1,17 +1,16 @@
 package android.example.shop.utils
 
-import android.example.shop.R
-import android.example.shop.model.TestShoppingCartItemModel
+import android.example.shop.databinding.ItemShoppingCartBinding
+import android.example.shop.domain.model.TestShoppingCartItemModel
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import kotlinx.android.synthetic.main.item_shopping_cart.view.*
-import kotlinx.android.synthetic.main.item_shopping_cart.view.bottomWrapper
 
 class ShoppingCartAdapter(
-    private val onClickAction: (string: TestShoppingCartItemModel) -> Unit
+     val deleteClickListener: ShoppingItemClickListener,
+     val detailInfoClickListener: ShoppingItemClickListener
 ): RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder>() {
     private var data: List<TestShoppingCartItemModel> = listOf()
 
@@ -19,32 +18,42 @@ class ShoppingCartAdapter(
         data = list
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(item: TestShoppingCartItemModel) {
-            itemView.deleteButton.setOnClickListener {
-                onClickAction(item)
-            }
-            itemView.priceText.text = item.price.toString()
-            itemView.discountPercentText.text = 0.toString()
+    inner class ViewHolder(private val binding: ItemShoppingCartBinding): RecyclerView.ViewHolder(binding.root) {
+        private val swipeL: SwipeLayout = binding.swipeLayout
+        private val bottomW = binding.bottomWrapper
+        private val bottomWrapperS = binding.bottomWrapperSync
 
-            itemView.productNameText.text = item.name
-            itemView.descriptionText.text = item.description
-//            itemView.imageProduct.setOnClickListener {
-//                onClickAction(text)
-//            }
+        fun bind(item: TestShoppingCartItemModel) {
+            binding.shoppingCartItem = item
+            binding.deleteClickListener = deleteClickListener
+            binding.detailInfoClickListener = detailInfoClickListener
+            binding.executePendingBindings()
         }
 
+        fun setSwipes() {
+            swipeL.dragEdgeMap.clear()
+            swipeL.addDrag(SwipeLayout.DragEdge.Left, bottomW)
+            swipeL.addDrag(SwipeLayout.DragEdge.Right, bottomWrapperS)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-         return ViewHolder(LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_shopping_cart, parent, false))
+        val layoutInflater = LayoutInflater.from(parent.context)
+        var binding = ItemShoppingCartBinding.inflate(layoutInflater, parent, false)
+
+        val item =  ViewHolder(binding)
+
+        item.setSwipes()
+        return item
     }
 
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(data[position])
+    }
+
+    class ShoppingItemClickListener(val clickListener: (itemName: TestShoppingCartItemModel) -> Unit) {
+        fun onClick(item: TestShoppingCartItemModel) = clickListener(item)
     }
 }
