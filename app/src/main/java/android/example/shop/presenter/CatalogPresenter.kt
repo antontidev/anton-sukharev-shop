@@ -14,4 +14,5 @@ class CatalogPresenter: MvpPresenter<CatalogView>() {
         list.remove(string)
         viewState.removeItem(position)
     }
+
 }

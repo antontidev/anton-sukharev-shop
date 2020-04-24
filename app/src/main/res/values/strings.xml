@@ -14,4 +14,6 @@
     <string name="shopping_cart_header">Корзина</string>
     <string name="checkout_header">Оформить заказ</string>
     <string name="product_description_header">Информация о товаре</string>
+    <string name="detail_description_price_text">Цена</string>
+    <string name="price_units">Руб</string>
 </resources>

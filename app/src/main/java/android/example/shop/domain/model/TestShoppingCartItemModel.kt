@@ -1,4 +1,4 @@
-package android.example.shop.model
+package android.example.shop.domain.model
 
 data class TestShoppingCartItemModel(
     var name: String = "",

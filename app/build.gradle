@@ -10,6 +10,9 @@ android {
     buildToolsVersion "29.0.3"
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
 
+    dataBinding {
+        enabled = true
+    }
 
     defaultConfig {
         applicationId "android.example.shop"
@@ -48,6 +51,8 @@ dependencies {
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
 
     implementation "com.github.moxy-community:moxy:$moxy_version"
+    implementation "com.github.moxy-community:moxy-androidx:$moxy_version"
+    implementation "com.github.moxy-community:moxy-ktx:$moxy_version"
     kapt "com.github.moxy-community:moxy-compiler:$moxy_version"
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
 }
