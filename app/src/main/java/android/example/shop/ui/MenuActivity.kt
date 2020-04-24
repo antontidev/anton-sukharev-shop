@@ -3,16 +3,22 @@ package android.example.shop.ui
 import android.content.Intent
 import android.example.shop.R
 import android.os.Bundle
+import com.daimajia.swipe.SwipeLayout
 import com.example.myapplication.ui.BaseActivity
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.menu_layout.*
+import moxy.MvpAppCompatActivity
+import moxy.MvpView
 
-class MenuActivity: BaseActivity() {
+class MenuActivity: MvpAppCompatActivity() {
     private val isAuth = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView((R.layout.menu_layout))
+
+        swipeLayout.dragEdgeMap.clear()
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, bottomWrapper)
 
         makeAuth.setOnClickListener {
             val providers = arrayListOf(AuthUI.IdpConfig.GoogleBuilder().build())
