@@ -19,28 +19,26 @@ class ShoppingCartAdapter(
     }
 
     inner class ViewHolder(private val binding: ItemShoppingCartBinding): RecyclerView.ViewHolder(binding.root) {
-        private val swipeL: SwipeLayout = binding.swipeLayout
-        private val bottomW = binding.bottomWrapper
-        private val bottomWrapperS = binding.bottomWrapperSync
-
         fun bind(item: TestShoppingCartItemModel) {
             binding.shoppingCartItem = item
-            binding.deleteClickListener = deleteClickListener
-            binding.detailInfoClickListener = detailInfoClickListener
             binding.executePendingBindings()
         }
 
         fun setSwipes() {
-            swipeL.dragEdgeMap.clear()
-            swipeL.addDrag(SwipeLayout.DragEdge.Left, bottomW)
-            swipeL.addDrag(SwipeLayout.DragEdge.Right, bottomWrapperS)
+            binding.swipeLayout.apply {
+                dragEdgeMap.clear()
+                addDrag(SwipeLayout.DragEdge.Right, binding.bottomWrapper)
+            }
+            //swipeL.addDrag(SwipeLayout.DragEdge.Right, bottomWrapperS)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         var binding = ItemShoppingCartBinding.inflate(layoutInflater, parent, false)
-
+        
+        binding.deleteClickListener = deleteClickListener
+        binding.detailInfoClickListener = detailInfoClickListener
         val item =  ViewHolder(binding)
 
         item.setSwipes()

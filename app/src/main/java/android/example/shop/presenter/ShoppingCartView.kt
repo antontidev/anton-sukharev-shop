@@ -13,4 +13,7 @@ interface ShoppingCartView: MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setShoppingCart(list: List<TestShoppingCartItemModel>)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun addShoppingCartItem(position: Int)
 }
