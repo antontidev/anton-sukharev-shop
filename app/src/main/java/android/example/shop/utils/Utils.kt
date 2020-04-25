@@ -4,13 +4,30 @@ import android.example.shop.R
 import android.example.shop.domain.model.TestShoppingCartItemModel
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import kotlin.math.roundToInt
 
 @BindingAdapter("priceFormatted")
-fun TextView.formatPrice(item: TestShoppingCartItemModel?) {
-    item?.let {
-        val intPrice = it.price.toInt().toString()
+fun TextView.formatPrice(item: TestShoppingCartItemModel) {
         val priceUnit = resources.getString(R.string.price_units)
+        text =  formatString(item.price, priceUnit)
+}
 
-        text =  "$intPrice $priceUnit"
-    }
+@BindingAdapter("discountFormatted")
+fun TextView.formatDiscount(item: TestShoppingCartItemModel) {
+        text = formatString(item.discount, "%")
+}
+
+@BindingAdapter("priceWithDiscountFormatted")
+fun TextView.formatPriceWithDiscount(item: TestShoppingCartItemModel) {
+    val totalPrice: Double = item.price * (1 - item.discount / 100.0)
+    val priceUnit = resources.getString(R.string.price_units)
+
+    text = formatString(totalPrice, priceUnit)
+}
+
+
+private fun formatString(num: Double, unit: String = ""): String {
+    val intPrice = num.toInt().toString()
+
+    return "$intPrice $unit"
 }

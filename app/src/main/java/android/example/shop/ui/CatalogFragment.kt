@@ -1,37 +1,46 @@
 package android.example.shop.ui
 
 import android.content.Intent
-import android.example.shop.R
+import android.example.shop.databinding.CatalogFragmentBinding
 import android.example.shop.presenter.CatalogPresenter
 import android.example.shop.presenter.CatalogView
 import android.example.shop.utils.CategoryAdapter
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.ui.BaseActivity
-import kotlinx.android.synthetic.main.catalog_layout.*
+import com.example.myapplication.ui.BaseFragment
 
-class CatalogActivity: BaseActivity(), CatalogView {
+class CatalogFragment: BaseFragment(), CatalogView {
     private val catalogPresenter = CatalogPresenter()
-    private val adapter = CategoryAdapter() {category ->
+    private val adapter = CategoryAdapter { category ->
         catalogPresenter.removeItem(category)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.catalog_layout)
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        val binding: CatalogFragmentBinding =  CatalogFragmentBinding.inflate(inflater, container, false)
 
-        backButton.setOnClickListener {
-            finish()
+        binding.backButton.setOnClickListener {
+            activity?.onBackPressed()
         }
 
-        catalogRv.layoutManager = LinearLayoutManager(this)
-        catalogRv.adapter = adapter
+        binding.catalogRv.layoutManager = LinearLayoutManager(activity)
+        binding.catalogRv.adapter = adapter
 
         catalogPresenter.attachView(this)
         catalogPresenter.setData()
+
+        return binding.root
     }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(SAVE_INT_STATE, 42)

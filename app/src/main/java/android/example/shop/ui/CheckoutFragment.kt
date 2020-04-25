@@ -5,39 +5,52 @@ import android.example.shop.presenter.CheckoutView
 import android.example.shop.presenter.CkeckoutViewPresenter
 import android.example.shop.Product
 import android.example.shop.R
-import android.example.shop.ui.CatalogActivity.Companion.IS_USER_AUTH
-import android.example.shop.ui.CatalogActivity.Companion.PRODUCT_ID
-import android.example.shop.ui.CatalogActivity.Companion.REQUEST_AUTH
+import android.example.shop.databinding.CheckoutFragmentBinding
+import android.example.shop.ui.CatalogFragment.Companion.IS_USER_AUTH
+import android.example.shop.ui.CatalogFragment.Companion.PRODUCT_ID
+import android.example.shop.ui.CatalogFragment.Companion.REQUEST_AUTH
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.example.myapplication.ui.BaseActivity
+import com.example.myapplication.ui.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.checkout_layout.*
+import kotlinx.android.synthetic.main.checkout_fragment.*
 
-class CheckoutActivity : BaseActivity(),
+class CheckoutFragment : BaseFragment(),
     CheckoutView {
 
     private val presenter = CkeckoutViewPresenter()
     private var isAuth = true
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.checkout_layout)
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        val binding: CheckoutFragmentBinding = CheckoutFragmentBinding.inflate(inflater,
+            container,
+            false)
 
         getUserInfo()
 
         presenter.attachView(this)
 
-        val productID = intent.extras?.getInt(PRODUCT_ID, -1)
+        //val productID = intent.extras?.getInt(PRODUCT_ID, -1)
 
-        Log.d(tag, productID.toString())
+        //Log.d(tag, productID.toString())
 
         backButton.setOnClickListener {
-            finish()
+            activity?.onBackPressed()
         }
 
         val priceProducts = 10000
@@ -50,16 +63,16 @@ class CheckoutActivity : BaseActivity(),
 
         checkoutPay.setOnClickListener {
             isAuth = true
-            setResult(REQUEST_AUTH, Intent().apply {
-                putExtra(IS_USER_AUTH, isAuth )
-            })
+//            setResult(REQUEST_AUTH, Intent().apply {
+//                putExtra(IS_USER_AUTH, isAuth )
+//            })
         }
 
         catalogCheckoutBtn.setOnClickListener {
             val firstName =
-            Toast.makeText(this, "Уважаемый ${checkoutLastName.text} " +
-                                              "${checkoutFirstName.text} ${checkoutMiddleName.text}, " +
-                                              "ваш заказ оформлен!", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, "Уважаемый ${checkoutLastName.text} " +
+                        "${checkoutFirstName.text} ${checkoutMiddleName.text}, " +
+                        "ваш заказ оформлен!", Toast.LENGTH_LONG).show()
         }
 
         setListeners()
@@ -68,7 +81,10 @@ class CheckoutActivity : BaseActivity(),
          * This call could be removed someday
          */
         presenter.printShoppingCart()
+
+        return binding.root
     }
+
 
     private fun getUserInfo() {
         val currentUser = FirebaseAuth.getInstance().currentUser

@@ -3,29 +3,30 @@ package android.example.shop.presenter
 import android.example.shop.R
 import android.example.shop.domain.model.TestShoppingCartItemModel
 import moxy.MvpPresenter
+import kotlin.random.Random
 
 class ShoppingCartPresenter: MvpPresenter<ShoppingCartView>() {
     val list = mutableListOf(
-        TestShoppingCartItemModel(
-            "Iphone 8",
-            "Beautiful phone",
-            "Best phone ever maden. Add it to shopping cart",
-            25000.0,
-            R.drawable.common_full_open_on_phone
+        TestShoppingCartItemModel(name = "Iphone 8",
+            description = "Beautiful phone",
+            fullDescription = "Best phone ever maden. Add it to shopping cart",
+            price = 25000.0,
+            discount = 20.0,
+            id = R.drawable.common_full_open_on_phone
         ),
-        TestShoppingCartItemModel(
-            "Samsung S20",
-            "New Samsung phone",
-            "Cool phone with branch of brand new features. Good camera.",
-            80000.0,
-            R.drawable.common_google_signin_btn_icon_dark
+        TestShoppingCartItemModel(name = "Samsung S20",
+            description = "New Samsung phone",
+            fullDescription = "Cool phone with branch of brand new features. Good camera.",
+            price = 80000.0,
+            discount = 5.0,
+            id = R.drawable.common_google_signin_btn_icon_dark
         ),
-        TestShoppingCartItemModel(
-            "Meizu m6 note",
-            "Good chinese phone.",
-            "Not so good as you mentioned. Best choice for grandmas. You can buy it at your own risk.",
-            10000.0,
-            R.drawable.fui_ic_microsoft_24dp
+        TestShoppingCartItemModel(name = "Meizu m6 note",
+            description = "Good chinese phone.",
+            fullDescription = "Not so good as you mentioned. Best choice for grandmas. You can buy it at your own risk.",
+            price = 10000.0,
+            discount = 10.0,
+            id = R.drawable.fui_ic_microsoft_24dp
         )
     )
 
@@ -37,5 +38,11 @@ class ShoppingCartPresenter: MvpPresenter<ShoppingCartView>() {
         val position = list.indexOf(item)
         list.remove(item)
         viewState.removeFromShoppingCart(position)
+    }
+
+    fun addItem(item: TestShoppingCartItemModel) {
+        list.add(item)
+        val position = list.indexOf(item)
+        viewState.addShoppingCartItem(position)
     }
 }

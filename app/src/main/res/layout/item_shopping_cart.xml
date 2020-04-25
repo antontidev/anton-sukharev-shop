@@ -16,7 +16,7 @@
             type="android.example.shop.utils.ShoppingCartAdapter.ShoppingItemClickListener" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,29 +44,13 @@
                     android:onClick="@{() -> deleteClickListener.onClick(shoppingCartItem) }"
                     android:tint="@android:color/holo_red_light"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:srcCompat="@drawable/ic_delete" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/bottomWrapperSync"
-                android:layout_width="80dp"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/syncButton"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="4dp"
-                    android:tint="@android:color/holo_green_light"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_sync" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -111,9 +95,11 @@
                     android:id="@+id/discountPercentText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/darker_gray"
                     app:layout_constraintBottom_toBottomOf="@+id/priceText"
                     app:layout_constraintEnd_toEndOf="@+id/priceWithDiscountText"
-                    app:layout_constraintTop_toTopOf="@+id/priceText" />
+                    app:layout_constraintTop_toTopOf="@+id/priceText"
+                    app:discountFormatted="@{ shoppingCartItem }"/>
 
                 <TextView
                     android:id="@+id/priceWithDiscountText"
@@ -122,8 +108,9 @@
                     android:layout_marginEnd="8dp"
                     app:layout_constraintBottom_toBottomOf="@+id/descriptionText"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/priceText" />
+                    app:layout_constraintStart_toStartOf="@+id/priceText"
+                    app:priceWithDiscountFormatted="@{ shoppingCartItem }"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.daimajia.swipe.SwipeLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

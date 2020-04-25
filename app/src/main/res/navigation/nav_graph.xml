@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/shoppingCartFragment">
+    <fragment
+        android:id="@+id/catalogFragment"
+        android:name="android.example.shop.ui.CatalogFragment"
+        android:label="CatalogFragment"
+        tools:layout="@layout/catalog_fragment">
+        <action
+            android:id="@+id/action_catalogFragment_to_shoppingCartFragment"
+            app:destination="@id/shoppingCartFragment" />
+        <action
+            android:id="@+id/action_catalogFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment" />
+        <action
+            android:id="@+id/action_catalogFragment_to_productDescriptionFragment"
+            app:destination="@id/productDescriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingCartFragment"
+        android:name="android.example.shop.ui.ShoppingCartFragment"
+        android:label="ShoppingCartFragment"
+        tools:layout="@layout/shopping_cart_fragment">
+        <action
+            android:id="@+id/action_shoppingCartFragment_to_catalogFragment"
+            app:destination="@id/catalogFragment" />
+        <action
+            android:id="@+id/action_shoppingCartFragment_to_productDescriptionFragment"
+            app:destination="@id/productDescriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="android.example.shop.ui.UserInfoFragment"
+        android:label="UserInfoFragment"
+        tools:layout="@layout/user_info_fragment">
+        <action
+            android:id="@+id/action_userInfoFragment_to_catalogFragment"
+            app:destination="@id/catalogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDescriptionFragment"
+        android:name="android.example.shop.ui.ProductDescriptionFragment"
+        android:label="ProductDescriptionFragment"
+        tools:layout="@layout/description_fragment">
+        <action
+            android:id="@+id/action_productDescriptionFragment_to_catalogFragment"
+            app:destination="@id/catalogFragment" />
+        <action
+            android:id="@+id/action_productDescriptionFragment_to_shoppingCartFragment"
+            app:destination="@id/shoppingCartFragment" />
+        <argument
+            android:name="shoppingCartItem"
+            app:argType="android.example.shop.domain.model.TestShoppingCartItemModel" />
+    </fragment>
+</navigation>
