@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="shoppingCartItem"
             type="android.example.shop.domain.model.TestShoppingCartItemModel" />
+
         <variable
             name="deleteClickListener"
-            type="android.example.shop.utils.ShoppingCartAdapter.ShoppingItemClickListener" />
+            type="android.example.shop.utils.RvItemClickListener" />
+
         <variable
             name="detailInfoClickListener"
-            type="android.example.shop.utils.ShoppingCartAdapter.ShoppingItemClickListener" />
+            type="android.example.shop.utils.RvItemClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -22,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        app:cardElevation="6dp"
         app:cardCornerRadius="4dp"
+        app:cardElevation="6dp"
         app:cardUseCompatPadding="true">
 
         <com.daimajia.swipe.SwipeLayout
@@ -44,9 +46,9 @@
                     android:onClick="@{() -> deleteClickListener.onClick(shoppingCartItem) }"
                     android:tint="@android:color/holo_red_light"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:srcCompat="@drawable/ic_delete" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -96,10 +98,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/darker_gray"
+                    app:discountFormatted="@{ shoppingCartItem }"
                     app:layout_constraintBottom_toBottomOf="@+id/priceText"
                     app:layout_constraintEnd_toEndOf="@+id/priceWithDiscountText"
-                    app:layout_constraintTop_toTopOf="@+id/priceText"
-                    app:discountFormatted="@{ shoppingCartItem }"/>
+                    app:layout_constraintTop_toTopOf="@+id/priceText" />
 
                 <TextView
                     android:id="@+id/priceWithDiscountText"
@@ -109,7 +111,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/descriptionText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/priceText"
-                    app:priceWithDiscountFormatted="@{ shoppingCartItem }"/>
+                    app:priceWithDiscountFormatted="@{ shoppingCartItem }" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.daimajia.swipe.SwipeLayout>
     </com.google.android.material.card.MaterialCardView>

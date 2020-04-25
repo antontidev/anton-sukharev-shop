@@ -1,7 +1,7 @@
+import android.example.shop.Product
 import android.example.shop.obsolete.ConsolePricePrinter
 import android.example.shop.obsolete.FilePricePrinter
 import android.example.shop.obsolete.PricePrinter
-import android.example.shop.Product
 import org.junit.Test
 
 class FourthHomeTask {

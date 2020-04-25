@@ -15,7 +15,7 @@ class ExampleUnityTestTwo {
         }
 
         //Выводим в зависимости от значения скидки
-        when(discount) {
+        when (discount) {
             0 -> print("$roundedPrice/$measure")
             else -> print("$roundedPrice/$measure (скидка $discount%)")
         }

@@ -2,23 +2,36 @@ package android.example.shop.ui
 
 import android.content.Intent
 import android.example.shop.databinding.CatalogFragmentBinding
-import android.example.shop.presenter.CatalogPresenter
-import android.example.shop.presenter.CatalogView
-import android.example.shop.utils.CategoryAdapter
+import android.example.shop.domain.model.TestShoppingCartItemModel
+import android.example.shop.presenter.CategoryPresenter
+import android.example.shop.presenter.CategoryView
+import android.example.shop.presenter.VisitedRecentlyPresenter
+import android.example.shop.presenter.VisitedRecentlyView
+import android.example.shop.utils.RvItemClickListener
+import android.example.shop.utils.adapters.CategoryAdapter
+import android.example.shop.utils.adapters.VisitedRecentlyAdapter
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.ui.BaseFragment
 
-class CatalogFragment: BaseFragment(), CatalogView {
-    private val catalogPresenter = CatalogPresenter()
-    private val adapter = CategoryAdapter { category ->
-        catalogPresenter.removeItem(category)
-    }
-
+class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
+    private val catalogPresenter = CategoryPresenter()
+    private val recentlyVisitedPresenter = VisitedRecentlyPresenter()
+    private val adapter =
+        CategoryAdapter { category ->
+            catalogPresenter.removeItem(category)
+        }
+    private val adapterViewedRecently =
+        VisitedRecentlyAdapter(
+            onClickDescriptionListener = RvItemClickListener {
+                showDetailProductInformation(it)
+            }
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,17 +39,26 @@ class CatalogFragment: BaseFragment(), CatalogView {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val binding: CatalogFragmentBinding =  CatalogFragmentBinding.inflate(inflater, container, false)
+        val binding: CatalogFragmentBinding =
+            CatalogFragmentBinding.inflate(inflater, container, false)
 
-        binding.backButton.setOnClickListener {
-            activity?.onBackPressed()
+        binding.apply {
+            backButton.setOnClickListener {
+                activity?.onBackPressed()
+            }
+
+            catalogRv.layoutManager = LinearLayoutManager(activity)
+            catalogRv.adapter = adapter
+
+            recentlyVisitedRv.layoutManager =
+                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+
+            recentlyVisitedRv.adapter = adapterViewedRecently
         }
-
-        binding.catalogRv.layoutManager = LinearLayoutManager(activity)
-        binding.catalogRv.adapter = adapter
-
         catalogPresenter.attachView(this)
         catalogPresenter.setData()
+        recentlyVisitedPresenter.attachView(this)
+        recentlyVisitedPresenter.setData()
 
         return binding.root
     }
@@ -63,8 +85,19 @@ class CatalogFragment: BaseFragment(), CatalogView {
         const val SAVE_INT_STATE = "SAVE_INT_STATE"
     }
 
+    fun showDetailProductInformation(item: TestShoppingCartItemModel) {
+        val action =
+            CatalogFragmentDirections.actionCatalogFragmentToProductDescriptionFragment(item)
+
+        this.findNavController().navigate(action)
+    }
+
     override fun setCategories(list: List<String>) {
         adapter.setData(list)
+    }
+
+    override fun setRecentlyViewed(list: List<TestShoppingCartItemModel>) {
+        adapterViewedRecently.setData(list)
     }
 
     override fun removeItem(position: Int) {

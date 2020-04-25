@@ -30,6 +30,6 @@ class MathTest {
     fun subtraction_test() {
         var i = 4
         var j = 2
-        assertEquals(4 - 2,2)
+        assertEquals(4 - 2, 2)
     }
 }

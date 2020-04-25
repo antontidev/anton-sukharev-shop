@@ -1,10 +1,6 @@
 package android.example.shop
 
 import org.junit.Test
-
-import org.junit.Assert.*
-import java.text.DecimalFormat
-import kotlin.math.round
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
@@ -30,7 +26,7 @@ class ExampleUnitTest {
             false -> roundedPrice = totalPrice.roundToInt()
         }
 
-        when(discount) {
+        when (discount) {
             0 -> print("$roundedPrice/$measure")
             else -> print("$roundedPrice/$measure (скидка $discount%)")
         }
@@ -48,7 +44,7 @@ class ExampleUnitTest {
     }
 
     fun solveQuadraticEquation(a: Double, b: Double = 0.0, c: Double = 0.0): Pair<Double, Double> {
-        val d = b*b - 4 * c * a
+        val d = b * b - 4 * c * a
         val x1 = (-b + sqrt(d)) / 2 * a
         val x2 = (-b - sqrt(d)) / 2 * a
         return Pair(x1, x2)

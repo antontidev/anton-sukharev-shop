@@ -5,14 +5,14 @@ import android.example.shop.domain.ViewProductDao
 
 class ViewedProductDaoImpl(
     private val sharedPreferences: SharedPreferences
-): ViewProductDao {
+) : ViewProductDao {
     private var savedProductIds: List<Long>
         get() = sharedPreferences.getString(PRODUCT_TAG, null)
             ?.split(",")
-            ?.mapNotNull {it.toLongOrNull()} ?: emptyList()
+            ?.mapNotNull { it.toLongOrNull() } ?: emptyList()
         set(value) {
             sharedPreferences.edit()
-                .putString(PRODUCT_TAG, value.joinToString (","))
+                .putString(PRODUCT_TAG, value.joinToString(",")).apply()
         }
 
 
@@ -21,7 +21,7 @@ class ViewedProductDaoImpl(
 
         val newProductIds = mutableListOf<Long>().apply {
             add(productId)
-            addAll(productIds.filter {it != productId})
+            addAll(productIds.filter { it != productId })
         }
 
         savedProductIds = newProductIds

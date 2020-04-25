@@ -2,7 +2,7 @@ package android.example.shop.presenter
 
 import moxy.MvpPresenter
 
-class CatalogPresenter: MvpPresenter<CatalogView>() {
+class CategoryPresenter : MvpPresenter<CategoryView>() {
     val list = mutableListOf("Телевизоры", "Телефоны", "Планшеты")
 
     fun setData() {

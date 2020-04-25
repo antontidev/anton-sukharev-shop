@@ -1,24 +1,25 @@
-package android.example.shop.utils
+package android.example.shop.utils.adapters
 
 import android.example.shop.databinding.ItemShoppingCartBinding
 import android.example.shop.domain.model.TestShoppingCartItemModel
+import android.example.shop.utils.RvItemClickListener
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
-import kotlinx.android.synthetic.main.item_shopping_cart.view.*
 
 class ShoppingCartAdapter(
-     val deleteClickListener: ShoppingItemClickListener,
-     val detailInfoClickListener: ShoppingItemClickListener
-): RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder>() {
+    val deleteClickListener: RvItemClickListener,
+    val detailInfoClickListener: RvItemClickListener
+) : RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder>() {
     private var data: List<TestShoppingCartItemModel> = listOf()
 
     fun setData(list: List<TestShoppingCartItemModel>) {
         data = list
     }
 
-    inner class ViewHolder(private val binding: ItemShoppingCartBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemShoppingCartBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TestShoppingCartItemModel) {
             binding.shoppingCartItem = item
             binding.executePendingBindings()
@@ -35,11 +36,11 @@ class ShoppingCartAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        var binding = ItemShoppingCartBinding.inflate(layoutInflater, parent, false)
-        
+        val binding = ItemShoppingCartBinding.inflate(layoutInflater, parent, false)
+
         binding.deleteClickListener = deleteClickListener
         binding.detailInfoClickListener = detailInfoClickListener
-        val item =  ViewHolder(binding)
+        val item = ViewHolder(binding)
 
         item.setSwipes()
         return item
@@ -49,9 +50,5 @@ class ShoppingCartAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(data[position])
-    }
-
-    class ShoppingItemClickListener(val clickListener: (itemName: TestShoppingCartItemModel) -> Unit) {
-        fun onClick(item: TestShoppingCartItemModel) = clickListener(item)
     }
 }

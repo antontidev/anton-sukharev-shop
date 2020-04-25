@@ -6,7 +6,7 @@ import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface CheckoutView : MvpView{
+interface CheckoutView : MvpView {
     /**
      * Outputs price in <PRICE>P format.
      * If price have not fractional part than it will be printed as integer

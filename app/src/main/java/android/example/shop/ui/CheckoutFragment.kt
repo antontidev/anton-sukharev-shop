@@ -1,14 +1,10 @@
 package android.example.shop.ui
 
-import android.content.Intent
-import android.example.shop.presenter.CheckoutView
-import android.example.shop.presenter.CkeckoutViewPresenter
 import android.example.shop.Product
 import android.example.shop.R
 import android.example.shop.databinding.CheckoutFragmentBinding
-import android.example.shop.ui.CatalogFragment.Companion.IS_USER_AUTH
-import android.example.shop.ui.CatalogFragment.Companion.PRODUCT_ID
-import android.example.shop.ui.CatalogFragment.Companion.REQUEST_AUTH
+import android.example.shop.presenter.CheckoutView
+import android.example.shop.presenter.CkeckoutViewPresenter
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,8 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import com.example.myapplication.ui.BaseActivity
 import com.example.myapplication.ui.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.checkout_fragment.*
@@ -37,9 +31,11 @@ class CheckoutFragment : BaseFragment(),
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val binding: CheckoutFragmentBinding = CheckoutFragmentBinding.inflate(inflater,
+        val binding: CheckoutFragmentBinding = CheckoutFragmentBinding.inflate(
+            inflater,
             container,
-            false)
+            false
+        )
 
         getUserInfo()
 
@@ -70,9 +66,11 @@ class CheckoutFragment : BaseFragment(),
 
         catalogCheckoutBtn.setOnClickListener {
             val firstName =
-                Toast.makeText(activity, "Уважаемый ${checkoutLastName.text} " +
-                        "${checkoutFirstName.text} ${checkoutMiddleName.text}, " +
-                        "ваш заказ оформлен!", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    activity, "Уважаемый ${checkoutLastName.text} " +
+                            "${checkoutFirstName.text} ${checkoutMiddleName.text}, " +
+                            "ваш заказ оформлен!", Toast.LENGTH_LONG
+                ).show()
         }
 
         setListeners()
@@ -92,37 +90,41 @@ class CheckoutFragment : BaseFragment(),
     }
 
     private fun setListeners() {
-        checkoutLastName.addTextChangedListener(object: TextWatcher{
+        checkoutLastName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 presenter.checkLastName(s.toString())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        checkoutFirstName.addTextChangedListener(object: TextWatcher{
+        checkoutFirstName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 presenter.checkFirstName(s.toString())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        checkoutMiddleName.addTextChangedListener(object: TextWatcher{
+        checkoutMiddleName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 presenter.checkMiddleName(s.toString())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        checkoutPhone.addTextChangedListener(object: TextWatcher{
+        checkoutPhone.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 presenter.checkPhone(s.toString())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}

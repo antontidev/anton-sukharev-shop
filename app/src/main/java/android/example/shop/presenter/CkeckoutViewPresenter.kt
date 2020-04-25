@@ -1,11 +1,11 @@
 package android.example.shop.presenter
 
-import android.example.shop.domain.model.CreateOrderModel
 import android.example.shop.Product
 import android.example.shop.ShoppingCart
+import android.example.shop.domain.model.CreateOrderModel
 import moxy.MvpPresenter
 
-class CkeckoutViewPresenter : MvpPresenter<CheckoutView>(){
+class CkeckoutViewPresenter : MvpPresenter<CheckoutView>() {
     private val iphoneCase = Product(
         price = 123.5,
         salePercent = 30,
@@ -59,7 +59,7 @@ class CkeckoutViewPresenter : MvpPresenter<CheckoutView>(){
     }
 
     fun printPrices() {
-        shoppingCart.forEachProduct{
+        shoppingCart.forEachProduct {
             viewState.print(it.calcDiscountPrice())
         }
     }

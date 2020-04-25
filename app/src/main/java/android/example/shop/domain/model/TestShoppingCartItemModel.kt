@@ -18,4 +18,4 @@ data class TestShoppingCartItemModel(
     var price: Double = 0.0,
     var discount: Double = 0.0,
     var id: Int = -1
-): Parcelable
+) : Parcelable

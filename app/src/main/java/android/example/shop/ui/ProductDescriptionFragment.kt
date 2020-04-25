@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.example.myapplication.ui.BaseFragment
 
-class ProductDescriptionFragment: BaseFragment() {
+class ProductDescriptionFragment : BaseFragment() {
     private val args: ProductDescriptionFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -18,9 +18,11 @@ class ProductDescriptionFragment: BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val binding: DescriptionFragmentBinding = DescriptionFragmentBinding.inflate(inflater,
+        val binding: DescriptionFragmentBinding = DescriptionFragmentBinding.inflate(
+            inflater,
             container,
-            false)
+            false
+        )
 
         binding.apply {
             description.text = args.shoppingCartItem.fullDescription

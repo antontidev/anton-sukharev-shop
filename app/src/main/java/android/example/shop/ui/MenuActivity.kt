@@ -1,15 +1,13 @@
 package android.example.shop.ui
 
-import android.content.Intent
 import android.example.shop.R
 import android.os.Bundle
 import android.view.MotionEvent
-import com.daimajia.swipe.SwipeLayout
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.menu_layout.*
 import moxy.MvpAppCompatActivity
 
-class MenuActivity: MvpAppCompatActivity() {
+class MenuActivity : MvpAppCompatActivity() {
     private val isAuth = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +39,7 @@ class MenuActivity: MvpAppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    companion object{
+    companion object {
         const val RC_SIGN_IN = 12
     }
 }

@@ -1,15 +1,13 @@
 package android.example.shop.presenter
 
+import android.example.shop.domain.model.TestShoppingCartItemModel
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface CatalogView: MvpView {
+interface VisitedRecentlyView : MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun setCategories(list: List<String>)
-
-    @StateStrategyType(AddToEndSingleStrategy::class)
-    fun removeItem(position: Int)
+    fun setRecentlyViewed(list: List<TestShoppingCartItemModel>)
 }

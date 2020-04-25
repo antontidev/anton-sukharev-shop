@@ -3,8 +3,6 @@ package android.example.shop
 class ShoppingCart(
     private val productsList: List<Product>
 ) {
-
-
     /**
      * Hide productsList from internal world to preserve direct access to data
      */
