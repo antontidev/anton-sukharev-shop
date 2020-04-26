@@ -5,7 +5,7 @@ import android.example.shop.ShoppingCart
 import android.example.shop.domain.model.CreateOrderModel
 import moxy.MvpPresenter
 
-class CkeckoutViewPresenter : MvpPresenter<CheckoutView>() {
+class CheckoutViewPresenter : MvpPresenter<CheckoutView>() {
     private val iphoneCase = Product(
         price = 123.5,
         salePercent = 30,

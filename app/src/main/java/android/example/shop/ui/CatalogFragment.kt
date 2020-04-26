@@ -20,11 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.ui.BaseFragment
 
 class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
-    private val catalogPresenter = CategoryPresenter()
+    private val categoryPresenter = CategoryPresenter()
     private val recentlyVisitedPresenter = VisitedRecentlyPresenter()
     private val adapter =
         CategoryAdapter { category ->
-            catalogPresenter.removeItem(category)
+            categoryPresenter.removeItem(category)
         }
     private val adapterViewedRecently =
         VisitedRecentlyAdapter(
@@ -55,8 +55,8 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
 
             recentlyVisitedRv.adapter = adapterViewedRecently
         }
-        catalogPresenter.attachView(this)
-        catalogPresenter.setData()
+        categoryPresenter.attachView(this)
+        categoryPresenter.setData()
         recentlyVisitedPresenter.attachView(this)
         recentlyVisitedPresenter.setData()
 
@@ -85,7 +85,7 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
         const val SAVE_INT_STATE = "SAVE_INT_STATE"
     }
 
-    fun showDetailProductInformation(item: TestShoppingCartItemModel) {
+    private fun showDetailProductInformation(item: TestShoppingCartItemModel) {
         val action =
             CatalogFragmentDirections.actionCatalogFragmentToProductDescriptionFragment(item)
 
@@ -94,6 +94,10 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
 
     override fun setCategories(list: List<String>) {
         adapter.setData(list)
+    }
+
+    override fun addRecentlyVisited(position: Int) {
+        adapter.notifyItemInserted(position)
     }
 
     override fun setRecentlyViewed(list: List<TestShoppingCartItemModel>) {

@@ -4,7 +4,7 @@ import android.example.shop.Product
 import android.example.shop.R
 import android.example.shop.databinding.CheckoutFragmentBinding
 import android.example.shop.presenter.CheckoutView
-import android.example.shop.presenter.CkeckoutViewPresenter
+import android.example.shop.presenter.CheckoutViewPresenter
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.checkout_fragment.*
 class CheckoutFragment : BaseFragment(),
     CheckoutView {
 
-    private val presenter = CkeckoutViewPresenter()
+    private val presenter = CheckoutViewPresenter()
     private var isAuth = true
 
 

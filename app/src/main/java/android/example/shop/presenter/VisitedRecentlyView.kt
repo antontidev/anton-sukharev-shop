@@ -7,7 +7,12 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface VisitedRecentlyView : MvpView {
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun addRecentlyVisited(position: Int)
 
+    /**
+     * Is it necessary?
+     */
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setRecentlyViewed(list: List<TestShoppingCartItemModel>)
 }
