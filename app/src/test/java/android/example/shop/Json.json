@@ -1,0 +1,12 @@
+[
+    {
+        "price" : 123.5,
+        "salePercent" : 10,
+        "productName" : "Samsung case"
+    },
+    {
+        "price" : 123.5,
+        "salePercent" : 10,
+        "productName" : "Iphone Case"
+    }
+]

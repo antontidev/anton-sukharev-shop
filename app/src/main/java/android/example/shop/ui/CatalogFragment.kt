@@ -2,6 +2,7 @@ package android.example.shop.ui
 
 import android.content.Intent
 import android.example.shop.databinding.CatalogFragmentBinding
+import android.example.shop.domain.MainApi
 import android.example.shop.domain.model.TestShoppingCartItemModel
 import android.example.shop.presenter.CategoryPresenter
 import android.example.shop.presenter.CategoryView
@@ -16,16 +17,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.ui.BaseFragment
+import retrofit2.CallAdapter
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
     private val categoryPresenter = CategoryPresenter()
     private val recentlyVisitedPresenter = VisitedRecentlyPresenter()
+
     private val adapter =
         CategoryAdapter { category ->
-            categoryPresenter.removeItem(category)
+            //categoryPresenter.removeItem(category)
+            getCategoryProducts(category)
         }
+
     private val adapterViewedRecently =
         VisitedRecentlyAdapter(
             onClickDescriptionListener = RvItemClickListener {
@@ -47,7 +56,8 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
                 activity?.onBackPressed()
             }
 
-            catalogRv.layoutManager = LinearLayoutManager(activity)
+            val gridLayoutManager = GridLayoutManager(activity, 3)
+            catalogRv.layoutManager = gridLayoutManager
             catalogRv.adapter = adapter
 
             recentlyVisitedRv.layoutManager =
@@ -86,10 +96,15 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
     }
 
     private fun showDetailProductInformation(item: TestShoppingCartItemModel) {
-        val action =
-            CatalogFragmentDirections.actionCatalogFragmentToProductDescriptionFragment(item)
+        val action = CatalogFragmentDirections.actionCatalogFragmentToDescriptionFragment(item)
 
         this.findNavController().navigate(action)
+    }
+
+    private fun getCategoryProducts(category: String) {
+        val action = CatalogFragmentDirections.actionCatalogFragmentToProductsFragment(category)
+
+        findNavController().navigate(action)
     }
 
     override fun setCategories(list: List<String>) {

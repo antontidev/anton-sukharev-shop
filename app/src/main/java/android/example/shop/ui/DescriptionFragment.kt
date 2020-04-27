@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.example.myapplication.ui.BaseFragment
 
-class ProductDescriptionFragment : BaseFragment() {
-    private val args: ProductDescriptionFragmentArgs by navArgs()
+class DescriptionFragment : BaseFragment() {
+    private val args: DescriptionFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,15 +25,15 @@ class ProductDescriptionFragment : BaseFragment() {
         )
 
         binding.apply {
-            description.text = args.shoppingCartItem.fullDescription
+            description.text = args.item.fullDescription
             image.setBackgroundResource(
-                args.shoppingCartItem.id
+                args.item.id
             )
-            price.formatPrice(args.shoppingCartItem)
-            goodName.text = args.shoppingCartItem.name
+            price.formatPrice(args.item)
+            goodName.text = args.item.name
 
             backButton.setOnClickListener {
-                activity?.onBackPressed()
+                //activity?.onBackPressed()
             }
         }
 

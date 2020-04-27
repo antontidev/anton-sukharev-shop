@@ -69,7 +69,7 @@ class ShoppingCartFragment : BaseFragment(), ShoppingCartView {
 
     private fun showDetailProductInformation(shoppingCartItem: TestShoppingCartItemModel) {
         val action = ShoppingCartFragmentDirections
-            .actionShoppingCartFragmentToProductDescriptionFragment(shoppingCartItem)
+            .actionShoppingCartFragment2ToProductDescriptionFragment(shoppingCartItem)
 
         this.findNavController().navigate(action)
     }

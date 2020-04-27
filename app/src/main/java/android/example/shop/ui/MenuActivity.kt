@@ -1,19 +1,20 @@
 package android.example.shop.ui
 
 import android.example.shop.R
-import android.example.shop.databinding.CatalogFragmentBinding
-import android.example.shop.databinding.ShoppingCartFragmentBinding
-import android.example.shop.databinding.UserInfoFragmentBinding
 import android.example.shop.utils.adapters.ScreenPagerAdapter
 import android.os.Bundle
-import android.view.MotionEvent
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavHostController
+import android.os.PersistableBundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.example.myapplication.ui.BaseActivity
 import com.example.myapplication.ui.BaseFragment
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.menu_layout.*
+import java.util.*
+import kotlin.reflect.KClass
 
 class MenuActivity : BaseActivity() {
     private val isAuth = false
@@ -24,27 +25,17 @@ class MenuActivity : BaseActivity() {
 
         val fragmentList = arrayListOf<BaseFragment>(
             UserInfoFragment(),
-            CatalogFragment(),
-            ShoppingCartFragment()
+            HostCatalogFragment(),
+            HostShoppingCartFragment()
         )
 
         viewPager.adapter = ScreenPagerAdapter(this, fragmentList)
+        viewPager.isUserInputEnabled = false
 
         TabLayoutMediator(tabLayout, viewPager,
             TabLayoutMediator.TabConfigurationStrategy { tab, position -> // Styling each tab here
                 tab.text = "Tab $position"
             }).attach()
-
-        /**
-         * Will be deleted
-         */
-//        swipeLayout.dragEdgeMap.clear()
-//        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, bottomWrapper)
-
-//        makeAuth.setOnClickListener {
-//            startAuthUI()
-
-//        }
     }
 
     private fun startAuthUI() {

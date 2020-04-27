@@ -1,15 +1,13 @@
 package android.example.shop.utils.adapters
 
-import android.example.shop.R
+import android.example.shop.databinding.ItemCategoryBinding
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_category.view.*
 
 class CategoryAdapter(
-    private val onDeleteClick: (string: String) -> Unit
+    private val onNavigateClick: (string: String) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private var categories: List<String> = listOf()
@@ -18,20 +16,21 @@ class CategoryAdapter(
         categories = list
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(text: String) {
-            itemView.categoryTv.text = text
-            itemView.deleteIv.setOnClickListener {
-                onDeleteClick(text)
+            binding.categoryTv.text = text
+            binding.root.setOnClickListener {
+                onNavigateClick(text)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.i("Adapter", "OnCreate")
-        return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
-        )
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ItemCategoryBinding.inflate(layoutInflater, parent, false)
+
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int = categories.size
