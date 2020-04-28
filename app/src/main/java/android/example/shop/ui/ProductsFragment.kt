@@ -32,6 +32,11 @@ class ProductsFragment : BaseFragment(), ProductsView {
 
     private val productsPresenter by moxyPresenter {
         val retrofit = Retrofit.Builder()
+            /**
+             * If i will get info from multiple sources, then i need to create multiple retrofit
+             * objects, which will have different [baseUrl] values.
+             * I don't know how would be better to implement this.
+             */
             .baseUrl("https://mars.udacity.com/")
             //.baseUrl("http://207.254.71.167:9191")
             .addConverterFactory(GsonConverterFactory.create())

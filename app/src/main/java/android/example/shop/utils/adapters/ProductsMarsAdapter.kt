@@ -10,6 +10,7 @@ class ProductsMarsAdapter: RecyclerView.Adapter<ProductsMarsAdapter.ViewHolder>(
     inner class ViewHolder(val binding: ItemMarsCatalogBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MarsProperty) {
             binding.property = item
+            binding.executePendingBindings()
         }
     }
 
