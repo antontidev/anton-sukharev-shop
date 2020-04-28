@@ -12,7 +12,7 @@ open class BasePresenter<KView: MvpView>() : MvpPresenter<KView>() {
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
-    fun launch(action: () -> Unit) {
+    fun launch(action: suspend () -> Unit) {
         scope.launch {
             action()
         }
