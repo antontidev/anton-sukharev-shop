@@ -1,7 +1,7 @@
 package android.example.shop.domain
 
-import android.example.shop.Product
-import com.google.gson.JsonArray
+import com.google.gson.annotations.SerializedName
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -21,7 +21,17 @@ data class RemoteProduct(
     )
 }
 
+data class MarsProperty(
+    val id: String,
+    @SerializedName("img_src")
+    val imgSrcUrl: String,
+    val type: String,
+    val price: Double)
+
 interface MainApi {
     @GET("products/all/{author}")
-    fun allProducts(@Path("author") author: String) : Call<List<RemoteProduct>>
+    suspend fun allProducts(@Path("author") author: String): List<RemoteProduct>
+
+    @GET("realestate")
+    suspend fun getPropertiesAsync(): List<MarsProperty>
 }

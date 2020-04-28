@@ -2,8 +2,11 @@ package android.example.shop.utils
 
 import android.example.shop.R
 import android.example.shop.domain.model.TestShoppingCartItemModel
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 
 @BindingAdapter("priceFormatted")
 fun TextView.formatPrice(item: TestShoppingCartItemModel) {
@@ -24,6 +27,15 @@ fun TextView.formatPriceWithDiscount(item: TestShoppingCartItemModel) {
     text = formatString(totalPrice, priceUnit)
 }
 
+@BindingAdapter("imageUrl")
+fun ImageView.bindImage(imgUrl: String?) {
+    imgUrl?.let {
+        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+        Glide.with(context)
+            .load(imgUri)
+            .into(this)
+    }
+}
 
 private fun formatString(num: Double, unit: String = ""): String {
     val intPrice = num.toInt().toString()

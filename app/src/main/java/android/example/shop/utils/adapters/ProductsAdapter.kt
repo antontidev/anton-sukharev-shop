@@ -1,6 +1,7 @@
 package android.example.shop.utils.adapters
 
 import android.example.shop.databinding.ItemCatalogBinding
+import android.example.shop.domain.MarsProperty
 import android.example.shop.domain.RemoteProduct
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,16 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
     private var data: List<RemoteProduct> = listOf()
 
-    inner class ViewHolder(val binding: ItemCatalogBinding) :
+    inner class ViewHolder(private val binding: ItemCatalogBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RemoteProduct) {
             binding.itemCatalogName.text = item.name
         }
-
     }
 
     fun setData(list: List<RemoteProduct>) {
         data = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
