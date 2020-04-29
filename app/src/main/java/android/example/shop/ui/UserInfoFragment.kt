@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.myapplication.ui.BaseFragment
 
-class UserInfoFragment : BaseFragment() {
+class UserInfoFragment() : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

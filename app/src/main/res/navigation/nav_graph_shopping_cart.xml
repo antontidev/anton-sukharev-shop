@@ -12,21 +12,18 @@
         tools:layout="@layout/shopping_cart_fragment">
         <action
             android:id="@+id/action_shoppingCartFragment2_to_productDescriptionFragment"
-            app:destination="@id/productDescriptionFragment" />
+            app:destination="@id/productDescriptionFragment"
+            app:popUpTo="@id/shoppingCartFragment" />
         <action
             android:id="@+id/action_shoppingCartFragment2_to_checkoutFragment"
-            app:destination="@id/checkoutFragment" />
+            app:destination="@id/checkoutFragment"
+            app:popUpTo="@id/shoppingCartFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDescriptionFragment"
         android:name="android.example.shop.ui.DescriptionFragment"
         android:label="ProductDescriptionFragment"
         tools:layout="@layout/description_fragment">
-        <action
-            android:id="@+id/action_productDescriptionFragment2_to_shoppingCartFragment"
-            app:destination="@id/shoppingCartFragment"
-            app:popUpTo="@id/shoppingCartFragment"
-            app:popUpToInclusive="false" />
         <argument
             android:name="item"
             app:argType="android.example.shop.domain.model.TestShoppingCartItemModel" />
@@ -35,10 +32,5 @@
         android:id="@+id/checkoutFragment"
         android:name="android.example.shop.ui.CheckoutFragment"
         android:label="CheckoutFragment"
-        tools:layout="@layout/checkout_fragment">
-        <action
-            android:id="@+id/action_checkoutFragment_to_shoppingCartFragment"
-            app:destination="@id/shoppingCartFragment"
-            app:popUpTo="@id/shoppingCartFragment" />
-    </fragment>
+        tools:layout="@layout/checkout_fragment"/>
 </navigation>

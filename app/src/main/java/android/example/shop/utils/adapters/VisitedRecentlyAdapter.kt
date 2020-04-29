@@ -19,6 +19,7 @@ class VisitedRecentlyAdapter(
 
     fun setData(list: List<TestShoppingCartItemModel>) {
         data = list
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val binding: ViewedRecentlyItemBinding) :

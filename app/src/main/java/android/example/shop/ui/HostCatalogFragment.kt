@@ -1,6 +1,7 @@
 package android.example.shop.ui
 
 import android.example.shop.databinding.HostCatalogFragmentBinding
+import android.example.shop.utils.RvItemClickListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,4 +19,5 @@ class HostCatalogFragment : BaseFragment() {
         val binding = HostCatalogFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
+
 }

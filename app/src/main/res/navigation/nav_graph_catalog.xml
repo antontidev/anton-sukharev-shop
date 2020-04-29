@@ -6,25 +6,10 @@
     app:startDestination="@id/catalogFragment">
 
     <fragment
-        android:id="@+id/catalogFragment"
-        android:name="android.example.shop.ui.CatalogFragment"
-        android:label="CatalogFragment"
-        tools:layout="@layout/catalog_fragment">
-        <action
-            android:id="@+id/action_catalogFragment_to_productsFragment"
-            app:destination="@id/productsFragment" />
-        <action
-            android:id="@+id/action_catalogFragment_to_descriptionFragment"
-            app:destination="@id/descriptionFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/productsFragment"
         android:name="android.example.shop.ui.ProductsFragment"
         android:label="ProductsFragment"
         tools:layout="@layout/products_fragment">
-        <action
-            android:id="@+id/action_productsFragment_to_catalogFragment"
-            app:destination="@id/catalogFragment" />
         <action
             android:id="@+id/action_productsFragment_to_descriptionFragment"
             app:destination="@id/descriptionFragment" />
@@ -37,14 +22,17 @@
         android:name="android.example.shop.ui.DescriptionFragment"
         android:label="DescriptionFragment"
         tools:layout="@layout/description_fragment">
-        <action
-            android:id="@+id/action_descriptionFragment_to_catalogFragment"
-            app:destination="@id/catalogFragment" />
-        <action
-            android:id="@+id/action_descriptionFragment_to_productsFragment"
-            app:destination="@id/productsFragment" />
         <argument
             android:name="item"
             app:argType="android.example.shop.domain.model.TestShoppingCartItemModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/catalogFragment"
+        android:name="android.example.shop.ui.CatalogFragment"
+        android:label="CatalogFragment" >
+        <action
+            android:id="@+id/action_catalogFragment_to_productsFragment"
+            app:destination="@id/productsFragment"
+            app:popUpTo="@id/catalogFragment" />
     </fragment>
 </navigation>

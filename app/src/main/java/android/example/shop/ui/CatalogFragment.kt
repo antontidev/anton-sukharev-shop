@@ -2,7 +2,7 @@ package android.example.shop.ui
 
 import android.content.Intent
 import android.example.shop.databinding.CatalogFragmentBinding
-import android.example.shop.domain.MainApi
+import android.example.shop.domain.VisitedProductDaoImpl.Companion.PRODUCT_TAG
 import android.example.shop.domain.model.TestShoppingCartItemModel
 import android.example.shop.presenter.CategoryPresenter
 import android.example.shop.presenter.CategoryView
@@ -20,15 +20,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.ui.BaseFragment
-import com.google.gson.Gson
-import retrofit2.CallAdapter
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
+import moxy.ktx.moxyPresenter
 
 class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
     private val categoryPresenter = CategoryPresenter()
-    private val recentlyVisitedPresenter = VisitedRecentlyPresenter()
+    private val recentlyVisitedPresenter by moxyPresenter {
+        VisitedRecentlyPresenter(activity?.getSharedPreferences(PRODUCT_TAG, 0)!!)
+    }
 
     private val adapter =
         CategoryAdapter { category ->
@@ -66,10 +64,10 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
 
             recentlyVisitedRv.adapter = adapterViewedRecently
         }
+
         categoryPresenter.attachView(this)
         categoryPresenter.setData()
         recentlyVisitedPresenter.attachView(this)
-        recentlyVisitedPresenter.setData()
 
         return binding.root
     }
@@ -97,9 +95,9 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
     }
 
     private fun showDetailProductInformation(item: TestShoppingCartItemModel) {
-        val action = CatalogFragmentDirections.actionCatalogFragmentToDescriptionFragment(item)
-
-        this.findNavController().navigate(action)
+//        val action = CatalogFragmentDirections.actionCatalogFragmentToDescriptionFragment(item)
+//
+//        this.findNavController().navigate(action)
     }
 
     private fun getCategoryProducts(category: String) {
@@ -112,13 +110,15 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
         adapter.setData(list)
     }
 
-    override fun addRecentlyVisited(position: Int) {
-        adapter.notifyItemInserted(position)
+    override fun addRecentlyVisited() {
+        adapterViewedRecently.notifyItemInserted(0)
     }
 
     override fun setRecentlyViewed(list: List<TestShoppingCartItemModel>) {
         adapterViewedRecently.setData(list)
+        adapterViewedRecently.notifyDataSetChanged()
     }
+
 
     override fun removeItem(position: Int) {
         adapter.notifyItemRemoved(position)

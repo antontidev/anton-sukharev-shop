@@ -29,7 +29,18 @@ class ProductsPresenter(
     private fun setMarsData() {
         launch {
             val all = mainApi.getPropertiesAsync()
-            _dataMarsProperty.value = all
+           _dataMarsProperty.value = all
+//            val list: MutableList<RemoteProduct> = mutableListOf()
+//            all.forEach {
+//                it.asJsonObject.apply {
+//                    val item = RemoteProduct(
+//                        id = get("id").asString,
+//                        imageUrl = get("img_src").asString,
+//                        price = get("price").asDouble,
+//                        description = get("type").asString)
+//                    list.add(item)
+//                }
+//            }
             viewState.setMarsProducts()
         }
     }
