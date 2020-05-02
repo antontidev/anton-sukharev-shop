@@ -5,49 +5,32 @@ import android.example.shop.domain.MarsProperty
 import android.example.shop.domain.RemoteProduct
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import javax.inject.Inject
 
-class ProductsPresenter(
+class ProductsPresenter @Inject constructor(
     private val mainApi: MainApi
 ) : BasePresenter<ProductsView>() {
-    private var _data: MutableLiveData<List<RemoteProduct>> = MutableLiveData<List<RemoteProduct>>()
-    val data: LiveData<List<RemoteProduct>>
-        get() = _data
+    var data: List<RemoteProduct> = listOf()
 
-    private var _dataMarsProperty: MutableLiveData<List<MarsProperty>> = MutableLiveData<List<MarsProperty>>()
-
-    val dataMarsProperty: LiveData<List<MarsProperty>>
-        get() = _dataMarsProperty
-
-    fun setCourseData() {
+    fun setData() {
         launch {
             val all = mainApi.allProducts("default")
-            _data.value = all
-            viewState.setCourseProducts()
+            data = all
+            viewState.setProducts(all)
         }
     }
 
+    fun showProductDetail(item: RemoteProduct) {
+        viewState.navigateToProductDetail(item)
+    }
+
     private fun setMarsData() {
-        launch {
-            val all = mainApi.getPropertiesAsync()
-           _dataMarsProperty.value = all
-//            val list: MutableList<RemoteProduct> = mutableListOf()
-//            all.forEach {
-//                it.asJsonObject.apply {
-//                    val item = RemoteProduct(
-//                        id = get("id").asString,
-//                        imageUrl = get("img_src").asString,
-//                        price = get("price").asDouble,
-//                        description = get("type").asString)
-//                    list.add(item)
-//                }
-//            }
-            viewState.setMarsProducts()
-        }
+
     }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        //setData()
-        setMarsData()
+        setData()
+     //   setMarsData()
     }
 }

@@ -1,13 +1,13 @@
 package android.example.shop.utils.adapters
 
-import android.example.shop.databinding.ItemCategoryBinding
+import android.example.shop.databinding.CategoryItemBinding
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class CategoryAdapter(
-    private val onNavigateClick: (string: String) -> Unit
+    private val onCategoryClick: (string: String) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private var categories: List<String> = listOf()
@@ -16,21 +16,20 @@ class CategoryAdapter(
         categories = list
     }
 
-    inner class ViewHolder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(text: String) {
             binding.categoryTv.text = text
             binding.root.setOnClickListener {
-                onNavigateClick(text)
+                onCategoryClick(text)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        Log.i("Adapter", "OnCreate")
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemCategoryBinding.inflate(layoutInflater, parent, false)
+        val item = CategoryItemBinding.inflate(layoutInflater, parent, false)
 
-        return ViewHolder(binding)
+        return ViewHolder(item)
     }
 
     override fun getItemCount(): Int = categories.size

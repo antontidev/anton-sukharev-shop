@@ -5,9 +5,9 @@ import android.example.shop.domain.model.TestShoppingCartItemModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class VisitedProductDaoImpl(
+class ViewedProductDaoImpl(
     private val sharedPreferences: SharedPreferences
-) : VisitedProductDao {
+) : ViewedProductDao {
 
     private var savedProductIds: List<TestShoppingCartItemModel>
         get() {

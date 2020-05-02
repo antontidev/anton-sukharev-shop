@@ -4,13 +4,14 @@ import android.example.shop.domain.MarsProperty
 import android.example.shop.domain.RemoteProduct
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.SkipStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface ProductsView : MvpView {
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun setCourseProducts()
+    fun setProducts(list: List<RemoteProduct>)
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
-    fun setMarsProducts()
+    @StateStrategyType(SkipStrategy::class)
+    fun navigateToProductDetail(item: RemoteProduct)
 }

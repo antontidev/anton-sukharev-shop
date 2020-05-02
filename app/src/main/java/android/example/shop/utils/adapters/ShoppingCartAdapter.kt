@@ -1,6 +1,6 @@
 package android.example.shop.utils.adapters
 
-import android.example.shop.databinding.ItemShoppingCartBinding
+import android.example.shop.databinding.CartItemBinding
 import android.example.shop.domain.model.TestShoppingCartItemModel
 import android.example.shop.utils.RvItemClickListener
 import android.view.LayoutInflater
@@ -18,7 +18,7 @@ class ShoppingCartAdapter(
         data = list
     }
 
-    inner class ViewHolder(private val binding: ItemShoppingCartBinding) :
+    inner class ViewHolder(private val binding: CartItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TestShoppingCartItemModel) {
             binding.shoppingCartItem = item
@@ -36,7 +36,7 @@ class ShoppingCartAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemShoppingCartBinding.inflate(layoutInflater, parent, false)
+        val binding = CartItemBinding.inflate(layoutInflater, parent, false)
 
         binding.deleteClickListener = deleteClickListener
         binding.detailInfoClickListener = detailInfoClickListener

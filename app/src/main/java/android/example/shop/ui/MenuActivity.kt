@@ -1,62 +1,28 @@
 package android.example.shop.ui
 
+import android.example.shop.NavGraphXmlDirections
 import android.example.shop.R
-import android.example.shop.utils.RvItemClickListener
-import android.example.shop.utils.adapters.ScreenPagerAdapter
+import android.example.shop.presenter.MenuView
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
+import android.util.Log
+import android.view.MenuItem
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.myapplication.ui.BaseActivity
-import com.example.myapplication.ui.BaseFragment
-import com.firebase.ui.auth.AuthUI
-import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.menu_layout.*
-import java.util.*
-import kotlin.reflect.KClass
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_menu.*
 
-class MenuActivity : BaseActivity() {
-    private val isAuth = false
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
+class MenuActivity : BaseActivity(), MenuView {
 
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView((R.layout.menu_layout))
+        setContentView(R.layout.activity_menu)
 
-        val fragmentList = arrayListOf<BaseFragment>(
-            UserInfoFragment(),
-            HostCatalogFragment(),
-            HostShoppingCartFragment()
-        )
-
-        viewPager.adapter = ScreenPagerAdapter(this, fragmentList)
-        viewPager.isUserInputEnabled = false
-
-        TabLayoutMediator(tabLayout, viewPager,
-            TabLayoutMediator.TabConfigurationStrategy { tab, position -> // Styling each tab here
-                tab.text = "Tab $position"
-            }).attach()
-    }
-
-    private fun startAuthUI() {
-        val providers = arrayListOf(AuthUI.IdpConfig.GoogleBuilder().build())
-
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .build(),
-            RC_SIGN_IN
-        )
-    }
-
-    companion object {
-        const val RC_SIGN_IN = 12
+        navController = findNavController(this, R.id.nav_host_fragment)
+        NavigationUI.setupWithNavController(bottomNavigation, navController)
     }
 }

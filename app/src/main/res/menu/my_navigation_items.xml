@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/userFragment"
+        android:title="@string/account_header"
+        android:icon="@drawable/ic_account_box" />
+    <item android:id="@+id/catalogFragment"
+        android:title="@string/catalog_header"
+        android:icon="@drawable/ic_shop_catalog" />
+    <item android:id="@+id/favoriteFragment"
+        android:title="@string/favorite_header"
+        android:icon="@drawable/ic_heart" />
+    <item android:id="@+id/cartFragment"
+        android:title="@string/shopping_cart_header"
+        android:icon="@drawable/ic_shopping_cart" />
+</menu>

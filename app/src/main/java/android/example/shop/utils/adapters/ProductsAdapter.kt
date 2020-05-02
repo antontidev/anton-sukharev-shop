@@ -1,19 +1,24 @@
 package android.example.shop.utils.adapters
 
-import android.example.shop.databinding.ItemCatalogBinding
+import android.example.shop.databinding.CatalogItemBinding
 import android.example.shop.domain.MarsProperty
 import android.example.shop.domain.RemoteProduct
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+class ProductsAdapter(
+    private val onProductClick: (product: RemoteProduct) -> Unit
+) : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
     private var data: List<RemoteProduct> = listOf()
 
-    inner class ViewHolder(private val binding: ItemCatalogBinding) :
+    inner class ViewHolder(private val binding: CatalogItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RemoteProduct) {
             binding.itemCatalogName.text = item.name
+            binding.root.setOnClickListener{
+                onProductClick(item)
+            }
         }
     }
 
@@ -24,7 +29,7 @@ class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemCatalogBinding.inflate(layoutInflater, parent, false)
+        val binding = CatalogItemBinding.inflate(layoutInflater, parent, false)
 
         return ViewHolder(binding)
     }

@@ -1,43 +1,58 @@
 package android.example.shop.ui
 
-import android.content.Intent
-import android.example.shop.databinding.CatalogFragmentBinding
-import android.example.shop.domain.VisitedProductDaoImpl.Companion.PRODUCT_TAG
-import android.example.shop.domain.model.TestShoppingCartItemModel
+import android.example.shop.App
+import android.example.shop.R
+import android.example.shop.domain.MainApi
+import android.example.shop.domain.ViewedProductDao
+import android.example.shop.domain.interactor.AddProductToCartUseCase
 import android.example.shop.presenter.CategoryPresenter
 import android.example.shop.presenter.CategoryView
 import android.example.shop.presenter.VisitedRecentlyPresenter
 import android.example.shop.presenter.VisitedRecentlyView
 import android.example.shop.utils.RvItemClickListener
+import android.example.shop.utils.TestDataSetForAddingProducts
 import android.example.shop.utils.adapters.CategoryAdapter
-import android.example.shop.utils.adapters.VisitedRecentlyAdapter
+import android.example.shop.utils.adapters.ViewedAdapter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.ui.BaseFragment
+import kotlinx.android.synthetic.main.fragment_catalog.*
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
-    private val categoryPresenter = CategoryPresenter()
+    @Inject
+    lateinit var mainApi: MainApi
+
+    @Inject
+    lateinit var viewedProductDao: ViewedProductDao
+
+    @Inject
+    lateinit var addProductToCartUseCase: AddProductToCartUseCase
+
+    private val categoryPresenter: CategoryPresenter by moxyPresenter {
+        CategoryPresenter()
+    }
+
     private val recentlyVisitedPresenter by moxyPresenter {
-        VisitedRecentlyPresenter(activity?.getSharedPreferences(PRODUCT_TAG, 0)!!)
+        VisitedRecentlyPresenter()
     }
 
     private val adapter =
-        CategoryAdapter { category ->
-            //categoryPresenter.removeItem(category)
-            getCategoryProducts(category)
-        }
+        CategoryAdapter(
+            onCategoryClick = {
+                categoryPresenter.showCategoryProducts(it)
+            }
+        )
 
     private val adapterViewedRecently =
-        VisitedRecentlyAdapter(
+        ViewedAdapter(
             onClickDescriptionListener = RvItemClickListener {
-                showDetailProductInformation(it)
+
             }
         )
 
@@ -46,46 +61,46 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        App.appComponent.inject(this)
         super.onCreateView(inflater, container, savedInstanceState)
-        val binding: CatalogFragmentBinding =
-            CatalogFragmentBinding.inflate(inflater, container, false)
+        val view = inflater.inflate(R.layout.fragment_catalog, container, false)
 
-        binding.apply {
-            backButton.setOnClickListener {
-                activity?.onBackPressed()
-            }
-
-            val gridLayoutManager = GridLayoutManager(activity, 3)
-            catalogRv.layoutManager = gridLayoutManager
-            catalogRv.adapter = adapter
-
-            recentlyVisitedRv.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-
-            recentlyVisitedRv.adapter = adapterViewedRecently
-        }
+        viewedProductDao.addProduct(TestDataSetForAddingProducts().getNextItem())
 
         categoryPresenter.attachView(this)
         categoryPresenter.setData()
         recentlyVisitedPresenter.attachView(this)
 
-        return binding.root
+        return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(SAVE_INT_STATE, 42)
-        super.onSaveInstanceState(outState)
-    }
+        catalogRv.layoutManager = GridLayoutManager(activity, 3)
+        catalogRv.adapter = adapter
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+        recentlyVisitedRv.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
-        if (requestCode == REQUEST_AUTH) {
-            val userAuth: Boolean? = data?.extras?.getBoolean(IS_USER_AUTH)
-            Log.d(tag, userAuth.toString())
+        recentlyVisitedRv.adapter = adapterViewedRecently
+
+
+        backButton.setOnClickListener {
+            activity?.onBackPressed()
         }
     }
+
+    override fun setCategories(list: List<String>) {
+        adapter.setData(list)
+    }
+
+    override fun navigateToCategory(category: String) {
+        val action = CatalogFragmentDirections.actionCatalogFragmentToProductsFragment(category)
+
+        findNavController().navigate(action)
+    }
+
 
     companion object {
         const val IS_USER_AUTH = "IS_USER_AUTH"
@@ -94,33 +109,4 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
         const val SAVE_INT_STATE = "SAVE_INT_STATE"
     }
 
-    private fun showDetailProductInformation(item: TestShoppingCartItemModel) {
-//        val action = CatalogFragmentDirections.actionCatalogFragmentToDescriptionFragment(item)
-//
-//        this.findNavController().navigate(action)
-    }
-
-    private fun getCategoryProducts(category: String) {
-        val action = CatalogFragmentDirections.actionCatalogFragmentToProductsFragment(category)
-
-        findNavController().navigate(action)
-    }
-
-    override fun setCategories(list: List<String>) {
-        adapter.setData(list)
-    }
-
-    override fun addRecentlyVisited() {
-        adapterViewedRecently.notifyItemInserted(0)
-    }
-
-    override fun setRecentlyViewed(list: List<TestShoppingCartItemModel>) {
-        adapterViewedRecently.setData(list)
-        adapterViewedRecently.notifyDataSetChanged()
-    }
-
-
-    override fun removeItem(position: Int) {
-        adapter.notifyItemRemoved(position)
-    }
 }
