@@ -36,7 +36,11 @@
         android:id="@+id/detailFragment"
         android:name="android.example.shop.ui.DetailFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/fragment_detail"/>
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="product"
+            app:argType="android.example.shop.domain.RemoteProduct" />
+    </fragment>
     <fragment
         android:id="@+id/productsFragment"
         android:name="android.example.shop.ui.ProductsFragment"
@@ -45,6 +49,9 @@
         <action
             android:id="@+id/action_productsFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <argument
+            android:name="category"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -68,4 +75,7 @@
         android:name="android.example.shop.ui.CheckoutFragment"
         android:label="fragment_checkout"
         tools:layout="@layout/fragment_checkout" />
+    <action
+        android:id="@+id/action_global_favoriteFragment"
+        app:destination="@id/favoriteFragment" />
 </navigation>

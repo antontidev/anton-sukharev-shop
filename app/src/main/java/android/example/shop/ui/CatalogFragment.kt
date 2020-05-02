@@ -17,11 +17,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.fragment_catalog.*
-import kotlinx.android.synthetic.main.fragment_catalog.view.*
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
@@ -35,17 +34,20 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
     @Inject
     lateinit var addProductToCartUseCase: AddProductToCartUseCase
 
-    @Inject
-    lateinit var categoryPresenter: CategoryPresenter
+    private val categoryPresenter: CategoryPresenter by moxyPresenter {
+        CategoryPresenter()
+    }
 
     private val recentlyVisitedPresenter by moxyPresenter {
         VisitedRecentlyPresenter()
     }
 
     private val adapter =
-        CategoryAdapter { category ->
-
-        }
+        CategoryAdapter(
+            onCategoryClick = {
+                categoryPresenter.showCategoryProducts(it)
+            }
+        )
 
     private val adapterViewedRecently =
         ViewedAdapter(
@@ -65,8 +67,18 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
 
         viewedProductDao.addProduct(TestDataSetForAddingProducts().getNextItem())
 
-        view.catalogRv.layoutManager = GridLayoutManager(activity, 3)
-        view.catalogRv.adapter = adapter
+        categoryPresenter.attachView(this)
+        categoryPresenter.setData()
+        recentlyVisitedPresenter.attachView(this)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        catalogRv.layoutManager = GridLayoutManager(activity, 3)
+        catalogRv.adapter = adapter
 
         recentlyVisitedRv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -74,12 +86,19 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
         recentlyVisitedRv.adapter = adapterViewedRecently
 
 
-        categoryPresenter.attachView(this)
-        categoryPresenter.setData()
-        recentlyVisitedPresenter.attachView(this)
+        backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
+    }
 
+    override fun setCategories(list: List<String>) {
+        adapter.setData(list)
+    }
 
-        return view
+    override fun navigateToCategory(category: String) {
+        val action = CatalogFragmentDirections.actionCatalogFragmentToProductsFragment(category)
+
+        findNavController().navigate(action)
     }
 
 
@@ -90,11 +109,4 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
         const val SAVE_INT_STATE = "SAVE_INT_STATE"
     }
 
-    override fun setCategories(list: List<String>) {
-        adapter.setData(list)
-    }
-
-    override fun getProducts(category: String) {
-      // val intent = Intent
-    }
 }

@@ -12,5 +12,5 @@ interface CategoryView : MvpView {
     fun setCategories(list: List<String>)
 
     @StateStrategyType(SkipStrategy::class)
-    fun getProducts(category: String)
+    fun navigateToCategory(category: String)
 }

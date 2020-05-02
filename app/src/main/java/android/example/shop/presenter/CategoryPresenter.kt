@@ -14,9 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class CategoryPresenter @Inject constructor(
-    private val addProductToCartUseCase: AddProductToCartUseCase
-) : BasePresenter<CategoryView>() {
+class CategoryPresenter: BasePresenter<CategoryView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         setData()
@@ -27,7 +25,7 @@ class CategoryPresenter @Inject constructor(
         viewState.setCategories(list)
     }
 
-//    fun addProductToCart() {
-//        addProductToCartUseCase()
-//    }
+    fun showCategoryProducts(category: String) {
+        viewState.navigateToCategory(category)
+    }
 }

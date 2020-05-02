@@ -35,6 +35,15 @@ class CartFragment : BaseFragment(), ShoppingCartView {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_cart, container, false)
 
+        shoppingCartPresenter.attachView(this)
+        shoppingCartPresenter.setData()
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         shoppingCartRv.layoutManager = LinearLayoutManager(activity)
         shoppingCartRv.adapter = adapter
 
@@ -43,15 +52,11 @@ class CartFragment : BaseFragment(), ShoppingCartView {
             shoppingCartPresenter.addItem(testData.getNextItem())
         }
 
-        shoppingCartPresenter.attachView(this)
-        shoppingCartPresenter.setData()
-
         backButton.setOnClickListener {
             activity?.onBackPressed()
         }
-
-        return view
     }
+
 
 
     override fun removeFromShoppingCart(position: Int) {

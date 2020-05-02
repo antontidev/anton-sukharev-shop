@@ -1,16 +1,13 @@
 package android.example.shop.utils.adapters
 
-import android.example.shop.R
 import android.example.shop.databinding.CategoryItemBinding
-import android.example.shop.databinding.CategoryItemBindingImpl
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class CategoryAdapter(
-    private val onNavigateClick: (string: String) -> Unit
+    private val onCategoryClick: (string: String) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private var categories: List<String> = listOf()
@@ -23,7 +20,7 @@ class CategoryAdapter(
         fun bind(text: String) {
             binding.categoryTv.text = text
             binding.root.setOnClickListener {
-                onNavigateClick(text)
+                onCategoryClick(text)
             }
         }
     }

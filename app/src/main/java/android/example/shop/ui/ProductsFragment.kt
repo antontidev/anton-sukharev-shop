@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.fragment_products.*
@@ -25,13 +26,14 @@ class ProductsFragment : BaseFragment(), ProductsView {
     @Inject
     lateinit var visitedProductDao: ViewedProductDao
 
-    private val productsPresenter by moxyPresenter {
-        ProductsPresenter(
-            mainApi
-        )
-    }
+    @Inject
+    lateinit var productsPresenter: ProductsPresenter
 
-    private val productsAdapter = ProductsAdapter()
+    private val productsAdapter = ProductsAdapter(
+        onProductClick = {
+            productsPresenter.showProductDetail(it)
+        }
+    )
 
 
     override fun onCreateView(
@@ -43,12 +45,23 @@ class ProductsFragment : BaseFragment(), ProductsView {
         super.onCreateView(inflater, container, savedInstanceState)
 
         val view = inflater.inflate(R.layout.fragment_products, container, false)
-        productsRv.layoutManager = LinearLayoutManager(activity)
-        productsRv.adapter = productsAdapter
 
         productsPresenter.attachView(this)
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        productsRv.layoutManager = LinearLayoutManager(activity)
+        productsRv.adapter = productsAdapter
+
+    }
+
+    override fun navigateToProductDetail(item: RemoteProduct) {
+        val action = ProductsFragmentDirections.actionProductsFragmentToDetailFragment(item)
+
+        findNavController().navigate(action)
     }
 
     override fun setProducts(list: List<RemoteProduct>) {

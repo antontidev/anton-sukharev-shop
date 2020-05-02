@@ -7,13 +7,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+class ProductsAdapter(
+    private val onProductClick: (product: RemoteProduct) -> Unit
+) : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
     private var data: List<RemoteProduct> = listOf()
 
     inner class ViewHolder(private val binding: CatalogItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RemoteProduct) {
             binding.itemCatalogName.text = item.name
+            binding.root.setOnClickListener{
+                onProductClick(item)
+            }
         }
     }
 

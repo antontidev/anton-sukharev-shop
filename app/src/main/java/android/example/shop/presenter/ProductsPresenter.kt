@@ -5,8 +5,9 @@ import android.example.shop.domain.MarsProperty
 import android.example.shop.domain.RemoteProduct
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import javax.inject.Inject
 
-class ProductsPresenter(
+class ProductsPresenter @Inject constructor(
     private val mainApi: MainApi
 ) : BasePresenter<ProductsView>() {
     var data: List<RemoteProduct> = listOf()
@@ -17,6 +18,10 @@ class ProductsPresenter(
             data = all
             viewState.setProducts(all)
         }
+    }
+
+    fun showProductDetail(item: RemoteProduct) {
+        viewState.navigateToProductDetail(item)
     }
 
     private fun setMarsData() {
