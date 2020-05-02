@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/catalogFragment">
+
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="android.example.shop.ui.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_cartFragment"
+        app:destination="@id/cartFragment" />
+    <fragment
+        android:id="@+id/catalogFragment"
+        android:name="android.example.shop.ui.CatalogFragment"
+        android:label="CatalogFragment"
+        tools:layout="@layout/fragment_catalog">
+        <action
+            android:id="@+id/action_catalogFragment_to_productsFragment"
+            app:destination="@id/productsFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_catalogFragment"
+        app:destination="@id/catalogFragment" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="android.example.shop.ui.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail"/>
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="android.example.shop.ui.ProductsFragment"
+        android:label="ProductsFragment"
+        tools:layout="@layout/fragment_products">
+        <action
+            android:id="@+id/action_productsFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="android.example.shop.ui.UserFragment"
+        android:label="UserFragment"
+        tools:layout="@layout/fragment_user"/>
+    <action
+        android:id="@+id/action_global_userFragment"
+        app:destination="@id/userFragment" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="android.example.shop.ui.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="android.example.shop.ui.CheckoutFragment"
+        android:label="fragment_checkout"
+        tools:layout="@layout/fragment_checkout" />
+</navigation>

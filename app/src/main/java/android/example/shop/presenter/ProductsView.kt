@@ -9,8 +9,5 @@ import moxy.viewstate.strategy.StateStrategyType
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface ProductsView : MvpView {
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun setCourseProducts()
-
-    @StateStrategyType(AddToEndSingleStrategy::class)
-    fun setMarsProducts()
+    fun setProducts(list: List<RemoteProduct>)
 }

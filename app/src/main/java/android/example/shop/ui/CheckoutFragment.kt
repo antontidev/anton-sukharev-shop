@@ -2,7 +2,6 @@ package android.example.shop.ui
 
 import android.example.shop.Product
 import android.example.shop.R
-import android.example.shop.databinding.CheckoutFragmentBinding
 import android.example.shop.presenter.CheckoutView
 import android.example.shop.presenter.CheckoutViewPresenter
 import android.os.Bundle
@@ -14,9 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import com.example.myapplication.ui.BaseFragment
+import com.example.myapplication.ui.BaseActivity
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.checkout_fragment.*
+import kotlinx.android.synthetic.main.fragment_checkout.*
 
 class CheckoutFragment : BaseFragment(),
     CheckoutView {
@@ -24,18 +23,13 @@ class CheckoutFragment : BaseFragment(),
     private val presenter = CheckoutViewPresenter()
     private var isAuth = true
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val binding: CheckoutFragmentBinding = CheckoutFragmentBinding.inflate(
-            inflater,
-            container,
-            false
-        )
+        val view = inflater.inflate(R.layout.fragment_checkout, container, false)
 
         getUserInfo()
 
@@ -80,10 +74,8 @@ class CheckoutFragment : BaseFragment(),
          */
         presenter.printShoppingCart()
 
-        return binding.root
+        return view
     }
-
-
     private fun getUserInfo() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         checkoutFirstName.setText(currentUser?.displayName)

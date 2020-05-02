@@ -2,6 +2,7 @@ package android.example.shop.presenter
 
 import android.example.shop.domain.MainApi
 import android.example.shop.domain.RemoteProduct
+import android.example.shop.domain.interactor.AddProductToCartUseCase
 import com.google.gson.JsonArray
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -11,8 +12,11 @@ import moxy.MvpPresenter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class CategoryPresenter() : BasePresenter<CategoryView>() {
+class CategoryPresenter @Inject constructor(
+    private val addProductToCartUseCase: AddProductToCartUseCase
+) : BasePresenter<CategoryView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         setData()
@@ -23,9 +27,7 @@ class CategoryPresenter() : BasePresenter<CategoryView>() {
         viewState.setCategories(list)
     }
 
-    fun removeItem(string: String) {
-        val position = list.indexOf(string)
-        list.remove(string)
-        viewState.removeItem(position)
-    }
+//    fun addProductToCart() {
+//        addProductToCartUseCase()
+//    }
 }
