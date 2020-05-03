@@ -7,12 +7,12 @@ interface ViewedProductDao {
     /**
      * Save product as viewed
      */
-    fun addProduct(product: TestShoppingCartItemModel)
+    fun addProduct(product: RemoteProduct)
 
     /**
      * Get all viewed product list
      */
-    fun getAllProducts(): List<TestShoppingCartItemModel>
+    fun getAllProducts(): List<RemoteProduct>
 
     /**
      * Clear list

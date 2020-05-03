@@ -1,22 +1,21 @@
 package android.example.shop.presenter
 
 import android.example.shop.domain.MainApi
-import android.example.shop.domain.MarsProperty
 import android.example.shop.domain.RemoteProduct
+import android.example.shop.domain.interactor.GetProductsUseCase
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 
 class ProductsPresenter @Inject constructor(
-    private val mainApi: MainApi
+    private val getProductsUseCase: GetProductsUseCase
 ) : BasePresenter<ProductsView>() {
-    var data: List<RemoteProduct> = listOf()
+    private var data: List<RemoteProduct> = listOf()
 
     fun setData() {
         launch {
-            val all = mainApi.allProducts("default")
-            data = all
-            viewState.setProducts(all)
+            data = getProductsUseCase.getProducts()
+            viewState.setProducts(data)
         }
     }
 
@@ -24,13 +23,8 @@ class ProductsPresenter @Inject constructor(
         viewState.navigateToProductDetail(item)
     }
 
-    private fun setMarsData() {
-
-    }
-
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         setData()
-     //   setMarsData()
     }
 }

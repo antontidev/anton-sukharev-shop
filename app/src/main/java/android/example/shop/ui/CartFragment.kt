@@ -1,9 +1,9 @@
 package android.example.shop.ui
 
 import android.example.shop.R
-import android.example.shop.domain.model.TestShoppingCartItemModel
-import android.example.shop.presenter.ShoppingCartPresenter
-import android.example.shop.presenter.ShoppingCartView
+import android.example.shop.domain.RemoteProduct
+import android.example.shop.presenter.CartPresenter
+import android.example.shop.presenter.CartView
 import android.example.shop.utils.RvItemClickListener
 import android.example.shop.utils.TestDataSetForAddingProducts
 import android.example.shop.utils.adapters.ShoppingCartAdapter
@@ -11,20 +11,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.fragment_cart.*
 
 
-class CartFragment : BaseFragment(), ShoppingCartView {
-    private val shoppingCartPresenter = ShoppingCartPresenter()
+class CartFragment : BaseFragment(), CartView {
+    private val shoppingCartPresenter = CartPresenter()
     private val adapter =
         ShoppingCartAdapter(
-            deleteClickListener = RvItemClickListener {
+            deleteClickListener = {
                 shoppingCartPresenter.removeItem(it)
             },
-            detailInfoClickListener = RvItemClickListener {
-                showDetailProductInformation(it)
+            detailInfoClickListener = {
+                shoppingCartPresenter.showProductDetail(it)
             })
 
     override fun onCreateView(
@@ -46,15 +46,6 @@ class CartFragment : BaseFragment(), ShoppingCartView {
 
         shoppingCartRv.layoutManager = LinearLayoutManager(activity)
         shoppingCartRv.adapter = adapter
-
-        addElementButton.setOnClickListener {
-            val testData = TestDataSetForAddingProducts()
-            shoppingCartPresenter.addItem(testData.getNextItem())
-        }
-
-        backButton.setOnClickListener {
-            activity?.onBackPressed()
-        }
     }
 
 
@@ -63,7 +54,7 @@ class CartFragment : BaseFragment(), ShoppingCartView {
         adapter.notifyItemRemoved(position)
     }
 
-    override fun setShoppingCart(list: List<TestShoppingCartItemModel>) {
+    override fun setShoppingCart(list: List<RemoteProduct>) {
         adapter.setData(list)
     }
 
@@ -71,11 +62,9 @@ class CartFragment : BaseFragment(), ShoppingCartView {
         adapter.notifyItemInserted(position)
     }
 
-    override fun showProductDetail(item: TestShoppingCartItemModel) {
+    override fun navigateToProductDetail(product: RemoteProduct) {
+        val action = CartFragmentDirections.actionCartFragmentToDetailFragment(product)
 
-    }
-
-    private fun showDetailProductInformation(shoppingCartItem: TestShoppingCartItemModel) {
-
+        findNavController().navigate(action)
     }
 }

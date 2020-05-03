@@ -1,7 +1,6 @@
 package android.example.shop.utils.adapters
 
 import android.example.shop.databinding.CatalogItemBinding
-import android.example.shop.domain.MarsProperty
 import android.example.shop.domain.RemoteProduct
 import android.view.LayoutInflater
 import android.view.ViewGroup

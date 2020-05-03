@@ -1,6 +1,7 @@
 package android.example.shop.utils
 
 import android.example.shop.R
+import android.example.shop.domain.RemoteProduct
 import android.example.shop.domain.model.TestShoppingCartItemModel
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,19 +11,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 @BindingAdapter("priceFormatted")
-fun TextView.formatPrice(item: TestShoppingCartItemModel) {
+fun TextView.formatPrice(item: RemoteProduct) {
     val priceUnit = resources.getString(R.string.price_units)
     text = formatString(item.price, priceUnit)
 }
 
 @BindingAdapter("discountFormatted")
-fun TextView.formatDiscount(item: TestShoppingCartItemModel) {
-    text = formatString(item.discount, "%")
+fun TextView.formatDiscount(product: RemoteProduct) {
+    text = formatString(product.discountPercent, "%")
 }
 
 @BindingAdapter("priceWithDiscountFormatted")
-fun TextView.formatPriceWithDiscount(item: TestShoppingCartItemModel) {
-    val totalPrice: Double = item.price * (1 - item.discount / 100.0)
+fun TextView.formatPriceWithDiscount(item: RemoteProduct) {
+    val totalPrice: Double = item.price * (1 - item.discountPercent / 100.0)
     val priceUnit = resources.getString(R.string.price_units)
 
     text = formatString(totalPrice, priceUnit)
@@ -49,7 +50,12 @@ private fun formatString(num: Double, unit: String = ""): String {
     return "$intPrice $unit"
 }
 
+private fun formatString(num: Int, unit: String = ""): String {
+    val intPrice = num.toString()
 
-class RvItemClickListener(val clickListener: (itemName: TestShoppingCartItemModel) -> Unit) {
-    fun onClick(item: TestShoppingCartItemModel) = clickListener(item)
+    return "$intPrice $unit"
+}
+
+class RvItemClickListener(val clickListener: (itemName: RemoteProduct) -> Unit) {
+    fun onClick(item: RemoteProduct) = clickListener(item)
 }

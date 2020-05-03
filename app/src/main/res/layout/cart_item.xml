@@ -7,15 +7,12 @@
 
         <variable
             name="shoppingCartItem"
-            type="android.example.shop.domain.model.TestShoppingCartItemModel" />
+            type="android.example.shop.domain.RemoteProduct" />
 
         <variable
             name="deleteClickListener"
             type="android.example.shop.utils.RvItemClickListener" />
 
-        <variable
-            name="detailInfoClickListener"
-            type="android.example.shop.utils.RvItemClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -55,9 +52,9 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/userPart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> detailInfoClickListener.onClick(shoppingCartItem)}">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/productNameText"

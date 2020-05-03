@@ -1,26 +1,23 @@
 package android.example.shop.ui
 
-import android.example.shop.Product
 import android.example.shop.R
 import android.example.shop.presenter.CheckoutView
-import android.example.shop.presenter.CheckoutViewPresenter
+import android.example.shop.presenter.CheckoutPresenter
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import com.example.myapplication.ui.BaseActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_checkout.*
 
 class CheckoutFragment : BaseFragment(),
     CheckoutView {
 
-    private val presenter = CheckoutViewPresenter()
+    private val presenter = CheckoutPresenter()
     private var isAuth = true
 
     override fun onCreateView(
@@ -34,14 +31,6 @@ class CheckoutFragment : BaseFragment(),
         getUserInfo()
 
         presenter.attachView(this)
-
-        //val productID = intent.extras?.getInt(PRODUCT_ID, -1)
-
-        //Log.d(tag, productID.toString())
-
-        backButton.setOnClickListener {
-            activity?.onBackPressed()
-        }
 
         val priceProducts = 10000
         val discountInPercent = 13
@@ -68,11 +57,6 @@ class CheckoutFragment : BaseFragment(),
         }
 
         setListeners()
-
-        /**
-         * This call could be removed someday
-         */
-        presenter.printShoppingCart()
 
         return view
     }
@@ -123,7 +107,7 @@ class CheckoutFragment : BaseFragment(),
         })
     }
 
-    fun EditText.showError(visible: Boolean) {
+    private fun EditText.showError(visible: Boolean) {
         val drawable = if (visible) R.drawable.ic_error
         else 0
 
@@ -144,21 +128,6 @@ class CheckoutFragment : BaseFragment(),
 
     override fun showErrorPhone(visible: Boolean) {
         checkoutPhone.showError(visible)
-    }
-
-    /**
-     * This methods could be removed someday
-     */
-    override fun print(price: Double) {
-        Log.i("Homework", "$price")
-    }
-
-    override fun print(name: String) {
-        Log.i("Homework", "$name")
-    }
-
-    override fun print(product: Product) {
-        Log.i("Homework", "${product.getProductName()}: ${product.calcDiscountPrice()}")
     }
 }
 

@@ -3,6 +3,7 @@ package android.example.shop.di
 import android.content.Context
 import android.example.shop.di.modules.MainApiModule
 import android.example.shop.di.modules.PreferencesModule
+import android.example.shop.di.modules.RemoteRepositoryModule
 import android.example.shop.ui.CatalogFragment
 import android.example.shop.ui.DetailFragment
 import android.example.shop.ui.ProductsFragment
@@ -13,7 +14,8 @@ import javax.inject.Singleton
 @Component(
     modules = [
         PreferencesModule::class,
-        MainApiModule::class
+        MainApiModule::class,
+        RemoteRepositoryModule::class
     ]
 )
 @Singleton

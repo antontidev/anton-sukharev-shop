@@ -1,7 +1,6 @@
 package android.example.shop.domain
 
 import android.content.SharedPreferences
-import android.example.shop.domain.model.TestShoppingCartItemModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -9,26 +8,26 @@ class ViewedProductDaoImpl(
     private val sharedPreferences: SharedPreferences
 ) : ViewedProductDao {
 
-    private var savedProductIds: List<TestShoppingCartItemModel>
+    private var savedProductIds: List<RemoteProduct>
         get() {
-            val type = object : TypeToken<List<TestShoppingCartItemModel>>() {}.type
+            val type = object : TypeToken<List<RemoteProduct>>() {}.type
             val list = sharedPreferences.getString(PRODUCT_TAG, null)
-            return Gson().fromJson(list, type) ?: listOf<TestShoppingCartItemModel>()
+            return Gson().fromJson(list, type) ?: listOf<RemoteProduct>()
         }
         set(value) {
             sharedPreferences.edit().putString(PRODUCT_TAG, Gson().toJson(value)).apply()
         }
 
-    override fun addProduct(product: TestShoppingCartItemModel) {
-        val productIds: List<TestShoppingCartItemModel> = savedProductIds
-        val newProductIds = mutableListOf<TestShoppingCartItemModel>().apply {
+    override fun addProduct(product: RemoteProduct) {
+        val productIds: List<RemoteProduct> = savedProductIds
+        val newProductIds = mutableListOf<RemoteProduct>().apply {
             add(0, product)
             addAll(productIds.filter { it != product })
         }
         savedProductIds = newProductIds
     }
 
-    override fun getAllProducts(): List<TestShoppingCartItemModel> {
+    override fun getAllProducts(): List<RemoteProduct> {
         return savedProductIds
     }
 

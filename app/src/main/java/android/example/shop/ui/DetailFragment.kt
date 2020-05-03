@@ -4,23 +4,23 @@ import android.example.shop.App
 import android.example.shop.R
 import android.example.shop.presenter.DetailPresenter
 import android.example.shop.presenter.DescriptionView
+import android.example.shop.utils.bindImage
+import android.example.shop.utils.formatPrice
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.fragment_detail.*
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
 class DetailFragment : BaseFragment(), DescriptionView {
+    private val args: DetailFragmentArgs by navArgs()
 
     @Inject
     lateinit var detailPresenter: DetailPresenter
-     private val descriptionPresenter by moxyPresenter {
-         detailPresenter
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,20 +32,20 @@ class DetailFragment : BaseFragment(), DescriptionView {
 
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
 
-
-        descriptionPresenter.attachView(this)
-
-//        description.text = args.item.fullDescription
-//        image.setBackgroundResource(
-//            args.item.id
-//        )
-//        price.formatPrice(args.item)
-//        goodName.text = args.item.name
-
-        backButton.setOnClickListener {
-            activity?.onBackPressed()
-        }
-
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        detailPresenter.attachView(this)
+
+        args.apply {
+            description.text = product.description
+
+            image.bindImage(product.imageUrl)
+            price.formatPrice(product)
+            goodName.text = product.name
+        }
     }
 }
