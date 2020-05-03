@@ -12,7 +12,6 @@ class MainApiModule {
     @Provides
     @Singleton
     fun provideMainApi(): MainApi = Retrofit.Builder()
-        //.baseUrl("https://mars.udacity.com/")
         .baseUrl("http://207.254.71.167:9191")
         .addConverterFactory(GsonConverterFactory.create())
         .build()

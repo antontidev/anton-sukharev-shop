@@ -1,6 +1,5 @@
 package android.example.shop.presenter
 
-import android.example.shop.domain.MarsProperty
 import android.example.shop.domain.RemoteProduct
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy

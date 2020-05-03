@@ -7,17 +7,6 @@
     tools:context=".ui.CheckoutFragment">
 
     <TextView
-        android:id="@+id/header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/checkout_header"
-        android:textSize="@dimen/header_text_size"
-        app:layout_constraintStart_toEndOf="@id/backButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,12 +60,12 @@
         android:id="@+id/priceWithoutDiscountText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/price_without_discount"
         android:textColor="#000"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/totalPriceText"
-        app:layout_constraintTop_toBottomOf="@+id/header" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/priceWithoutDiscount"
@@ -175,15 +164,5 @@
         app:layout_constraintTop_toBottomOf="@+id/checkoutPhone"
         app:layout_constraintVertical_bias="0.86" />
 
-    <ImageView
-        android:id="@+id/backButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/header"
-        app:srcCompat="@drawable/ic_arrow_back" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 

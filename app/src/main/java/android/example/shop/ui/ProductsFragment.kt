@@ -21,12 +21,6 @@ import javax.inject.Inject
 
 class ProductsFragment : BaseFragment(), ProductsView {
     @Inject
-    lateinit var mainApi: MainApi
-
-    @Inject
-    lateinit var visitedProductDao: ViewedProductDao
-
-    @Inject
     lateinit var productsPresenter: ProductsPresenter
 
     private val productsAdapter = ProductsAdapter(
@@ -34,7 +28,6 @@ class ProductsFragment : BaseFragment(), ProductsView {
             productsPresenter.showProductDetail(it)
         }
     )
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +48,6 @@ class ProductsFragment : BaseFragment(), ProductsView {
         super.onViewCreated(view, savedInstanceState)
         productsRv.layoutManager = LinearLayoutManager(activity)
         productsRv.adapter = productsAdapter
-
     }
 
     override fun navigateToProductDetail(item: RemoteProduct) {

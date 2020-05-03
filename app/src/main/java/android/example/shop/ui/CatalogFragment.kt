@@ -65,8 +65,6 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_catalog, container, false)
 
-        viewedProductDao.addProduct(TestDataSetForAddingProducts().getNextItem())
-
         categoryPresenter.attachView(this)
         categoryPresenter.setData()
         recentlyVisitedPresenter.attachView(this)
@@ -84,11 +82,6 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
         recentlyVisitedRv.adapter = adapterViewedRecently
-
-
-        backButton.setOnClickListener {
-            activity?.onBackPressed()
-        }
     }
 
     override fun setCategories(list: List<String>) {

@@ -1,6 +1,7 @@
 package android.example.shop.utils.adapters
 
 import android.example.shop.databinding.CartItemBinding
+import android.example.shop.domain.RemoteProduct
 import android.example.shop.domain.model.TestShoppingCartItemModel
 import android.example.shop.utils.RvItemClickListener
 import android.view.LayoutInflater
@@ -9,20 +10,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 
 class ShoppingCartAdapter(
-    val deleteClickListener: RvItemClickListener,
-    val detailInfoClickListener: RvItemClickListener
+    val deleteClickListener: (product: RemoteProduct) -> Unit,
+    val detailInfoClickListener: (product: RemoteProduct) -> Unit
 ) : RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder>() {
-    private var data: List<TestShoppingCartItemModel> = listOf()
+    private var data: List<RemoteProduct> = listOf()
 
-    fun setData(list: List<TestShoppingCartItemModel>) {
+    fun setData(list: List<RemoteProduct>) {
         data = list
     }
 
     inner class ViewHolder(private val binding: CartItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: TestShoppingCartItemModel) {
+        fun bind(item: RemoteProduct) {
             binding.shoppingCartItem = item
             binding.executePendingBindings()
+            binding.deleteButton.setOnClickListener {
+                deleteClickListener(item)
+            }
+            binding.userPart.setOnClickListener {
+                detailInfoClickListener(item)
+            }
         }
 
         fun setSwipes() {
@@ -38,8 +45,6 @@ class ShoppingCartAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = CartItemBinding.inflate(layoutInflater, parent, false)
 
-        binding.deleteClickListener = deleteClickListener
-        binding.detailInfoClickListener = detailInfoClickListener
         val item = ViewHolder(binding)
 
         item.setSwipes()

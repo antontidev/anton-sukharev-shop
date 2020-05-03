@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.Deferred
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -19,6 +20,13 @@ data class RemoteProduct(
     val imageUrl: String = "",
     val attributes: List<Attribute> = listOf()
 ): Parcelable {
+    /**
+     * @return price with applied discount determined by [discountPercent]
+     *
+     * If [discountPercent] is more than 100 than product will have negative price
+     * If [discountPercent] less than 0 product price will be increased
+     */
+    fun applyDiscount(): Double = price * (1 - discountPercent / 100.0)
     @Parcelize
     data class Attribute(
         val name: String,
@@ -26,17 +34,7 @@ data class RemoteProduct(
     ): Parcelable
 }
 
-data class MarsProperty(
-    val id: String,
-    @SerializedName("img_src")
-    val imgSrcUrl: String,
-    val type: String,
-    val price: Double)
-
 interface MainApi {
     @GET("products/all/{author}")
     suspend fun allProducts(@Path("author") author: String): List<RemoteProduct>
-
-    @GET("realestate")
-    suspend fun getPropertiesAsync(): List<MarsProperty>
 }
