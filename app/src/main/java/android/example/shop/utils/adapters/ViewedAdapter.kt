@@ -2,7 +2,6 @@ package android.example.shop.utils.adapters
 
 import android.example.shop.databinding.ViewedItemBinding
 import android.example.shop.domain.RemoteProduct
-import android.example.shop.domain.model.TestShoppingCartItemModel
 import android.example.shop.utils.RvItemClickListener
 import android.example.shop.utils.formatPrice
 import android.view.LayoutInflater

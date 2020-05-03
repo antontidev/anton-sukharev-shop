@@ -3,6 +3,7 @@ package android.example.shop.ui
 import android.example.shop.App
 import android.example.shop.R
 import android.example.shop.domain.MainApi
+import android.example.shop.domain.RemoteProduct
 import android.example.shop.domain.ViewedProductDao
 import android.example.shop.domain.interactor.AddProductToCartUseCase
 import android.example.shop.presenter.CategoryPresenter
@@ -10,7 +11,6 @@ import android.example.shop.presenter.CategoryView
 import android.example.shop.presenter.VisitedRecentlyPresenter
 import android.example.shop.presenter.VisitedRecentlyView
 import android.example.shop.utils.RvItemClickListener
-import android.example.shop.utils.TestDataSetForAddingProducts
 import android.example.shop.utils.adapters.CategoryAdapter
 import android.example.shop.utils.adapters.ViewedAdapter
 import android.os.Bundle
@@ -26,21 +26,14 @@ import javax.inject.Inject
 
 class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
     @Inject
-    lateinit var mainApi: MainApi
-
-    @Inject
-    lateinit var viewedProductDao: ViewedProductDao
-
-    @Inject
     lateinit var addProductToCartUseCase: AddProductToCartUseCase
 
     private val categoryPresenter: CategoryPresenter by moxyPresenter {
         CategoryPresenter()
     }
 
-    private val recentlyVisitedPresenter by moxyPresenter {
-        VisitedRecentlyPresenter()
-    }
+    @Inject
+    lateinit var recentlyVisitedPresenter: VisitedRecentlyPresenter
 
     private val adapter =
         CategoryAdapter(
@@ -52,7 +45,7 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
     private val adapterViewedRecently =
         ViewedAdapter(
             onClickDescriptionListener = RvItemClickListener {
-
+                recentlyVisitedPresenter.showProductDetail(it)
             }
         )
 
@@ -82,6 +75,11 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
         recentlyVisitedRv.adapter = adapterViewedRecently
+        recentlyVisitedPresenter
+    }
+
+    override fun setRecentlyVisitedData(list: List<RemoteProduct>) {
+        adapterViewedRecently.setData(list)
     }
 
     override fun setCategories(list: List<String>) {
@@ -94,6 +92,11 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
         findNavController().navigate(action)
     }
 
+    override fun navigateToProductDetail(product: RemoteProduct) {
+        val action = CatalogFragmentDirections.actionCatalogFragmentToDetailFragment(product)
+
+        findNavController().navigate(action)
+    }
 
     companion object {
         const val IS_USER_AUTH = "IS_USER_AUTH"

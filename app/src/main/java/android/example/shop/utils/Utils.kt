@@ -2,7 +2,6 @@ package android.example.shop.utils
 
 import android.example.shop.R
 import android.example.shop.domain.RemoteProduct
-import android.example.shop.domain.model.TestShoppingCartItemModel
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri

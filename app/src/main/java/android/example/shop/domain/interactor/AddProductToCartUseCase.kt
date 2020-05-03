@@ -1,15 +1,16 @@
 package android.example.shop.domain.interactor
 
+import android.example.shop.domain.CartDaoImpl
 import android.example.shop.domain.MainApi
+import android.example.shop.domain.RemoteProduct
 import android.example.shop.domain.ViewedProductDao
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class AddProductToCartUseCase @Inject constructor(
-   private val mainApi: MainApi,
-   private val viewedProductDao: ViewedProductDao
+   private val cartDaoImpl: CartDaoImpl
 ) {
-    suspend operator fun invoke() {
-        delay(1000)
+    operator fun invoke(product: RemoteProduct) {
+        cartDaoImpl.addToCart(product)
     }
 }

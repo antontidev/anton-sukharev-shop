@@ -2,8 +2,6 @@ package android.example.shop.utils.adapters
 
 import android.example.shop.databinding.CartItemBinding
 import android.example.shop.domain.RemoteProduct
-import android.example.shop.domain.model.TestShoppingCartItemModel
-import android.example.shop.utils.RvItemClickListener
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

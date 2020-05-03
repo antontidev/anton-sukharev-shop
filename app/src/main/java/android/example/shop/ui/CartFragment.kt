@@ -4,8 +4,6 @@ import android.example.shop.R
 import android.example.shop.domain.RemoteProduct
 import android.example.shop.presenter.CartPresenter
 import android.example.shop.presenter.CartView
-import android.example.shop.utils.RvItemClickListener
-import android.example.shop.utils.TestDataSetForAddingProducts
 import android.example.shop.utils.adapters.ShoppingCartAdapter
 import android.os.Bundle
 import android.view.LayoutInflater

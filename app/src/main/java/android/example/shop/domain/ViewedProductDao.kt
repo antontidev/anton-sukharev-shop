@@ -1,7 +1,5 @@
 package android.example.shop.domain
 
-import android.example.shop.domain.model.TestShoppingCartItemModel
-
 interface ViewedProductDao {
 
     /**

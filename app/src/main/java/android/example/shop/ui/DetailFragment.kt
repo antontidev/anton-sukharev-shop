@@ -2,6 +2,10 @@ package android.example.shop.ui
 
 import android.example.shop.App
 import android.example.shop.R
+import android.example.shop.domain.RemoteProduct
+import android.example.shop.domain.interactor.AddProductToCartUseCase
+import android.example.shop.domain.interactor.AddProductToFavoriteUseCase
+import android.example.shop.domain.interactor.AddProductToViewedUseCase
 import android.example.shop.presenter.DetailPresenter
 import android.example.shop.presenter.DescriptionView
 import android.example.shop.utils.bindImage
@@ -11,13 +15,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.fragment_detail.*
-import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
 class DetailFragment : BaseFragment(), DescriptionView {
     private val args: DetailFragmentArgs by navArgs()
+
+    @Inject
+    lateinit var addProductToCartUseCase: AddProductToCartUseCase
+
+    @Inject
+    lateinit var addProductToFavoriteUseCase: AddProductToFavoriteUseCase
+
+    @Inject
+    lateinit var addProductToViewedUseCase: AddProductToViewedUseCase
 
     @Inject
     lateinit var detailPresenter: DetailPresenter
@@ -30,9 +41,7 @@ class DetailFragment : BaseFragment(), DescriptionView {
         App.appComponent.inject(this)
         super.onCreateView(inflater, container, savedInstanceState)
 
-        val view = inflater.inflate(R.layout.fragment_detail, container, false)
-
-        return view
+        return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +49,30 @@ class DetailFragment : BaseFragment(), DescriptionView {
 
         detailPresenter.attachView(this)
 
+        detailPresenter.addToViewed(args.product)
+
+        addToCartButton.setOnClickListener {
+            detailPresenter.addToCart(args.product)
+        }
+
+        addToFavoriteButton.setOnClickListener {
+            detailPresenter.addToFavorite(args.product)
+        }
+    }
+
+    override fun addToFavorite(product: RemoteProduct) {
+        addProductToFavoriteUseCase(product)
+    }
+
+    override fun addToCart(product: RemoteProduct) {
+        addProductToCartUseCase(product)
+    }
+
+    override fun addToViewed(product: RemoteProduct) {
+        addProductToViewedUseCase(product)
+    }
+
+    override fun showDetail() {
         args.apply {
             description.text = product.description
 

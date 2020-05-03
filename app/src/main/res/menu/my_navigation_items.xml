@@ -10,6 +10,6 @@
         android:title="@string/favorite_header"
         android:icon="@drawable/ic_heart" />
     <item android:id="@+id/cartFragment"
-        android:title="@string/shopping_cart_header"
+        android:title="@string/cart_header"
         android:icon="@drawable/ic_shopping_cart" />
 </menu>

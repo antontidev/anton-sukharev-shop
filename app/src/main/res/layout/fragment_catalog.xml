@@ -7,9 +7,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/catalogRv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center_horizontal|top"
         app:layout_constraintBottom_toTopOf="@+id/recentlyVisitedRv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +18,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recentlyVisitedRv"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:itemCount="16"

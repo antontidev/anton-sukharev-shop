@@ -5,6 +5,9 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class ViewedProductDaoImpl(
+    /**
+     * Row of table should be here
+     */
     private val sharedPreferences: SharedPreferences
 ) : ViewedProductDao {
 
