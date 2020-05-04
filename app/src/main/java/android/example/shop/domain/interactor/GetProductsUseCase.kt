@@ -15,13 +15,6 @@ class GetProductsUseCase @Inject constructor(
     private val errorHandler: ErrorHandler
 ) {
     suspend fun getProducts(): List<RemoteProduct> {
-        var list: List<RemoteProduct> = listOf()
-        try {
-            list =  mainApi.allProducts("default")
-        } catch (e: ConnectException) {
-            val errorModel: ErrorModel = ErrorModel(e)
-            errorHandler.dispatchError(errorModel)
-        }
-        return list
+        return mainApi.allProducts("default")
     }
 }

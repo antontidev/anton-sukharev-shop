@@ -60,7 +60,7 @@ class ProductsFragment : BaseFragment(), ProductsView {
     }
 
     override fun showError(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun setProducts(list: List<RemoteProduct>) {

@@ -3,6 +3,7 @@ package android.example.shop.presenter
 import android.example.shop.domain.RemoteProduct
 import android.example.shop.domain.interactor.GetErrorUseCase
 import android.example.shop.domain.interactor.GetProductsUseCase
+import java.net.ConnectException
 import javax.inject.Inject
 
 class ProductsPresenter @Inject constructor(
@@ -13,9 +14,13 @@ class ProductsPresenter @Inject constructor(
 
     fun setData() {
         launch {
-            data = getProductsUseCase.getProducts()
-            checkErrors()
-            viewState.setProducts(data)
+            try {
+                data = getProductsUseCase.getProducts()
+
+                viewState.setProducts(data)
+            } catch(e: ConnectException) {
+                viewState.showError("No internet")
+            }
         }
     }
 
