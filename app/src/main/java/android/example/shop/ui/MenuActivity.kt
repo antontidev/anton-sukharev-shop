@@ -3,13 +3,15 @@ package android.example.shop.ui
 import android.example.shop.App
 import android.example.shop.R
 import android.example.shop.domain.ViewedProductDao
-import android.example.shop.domain.interactor.GetCartProductsUseCase
-import android.example.shop.domain.interactor.GetFavoriteProductsUseCase
+import android.example.shop.domain.interactor.*
+import android.example.shop.domain.model.ErrorModel
+import android.example.shop.presenter.MenuPresenter
 import android.example.shop.presenter.MenuView
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.myapplication.ui.BaseActivity
 import com.google.android.material.badge.BadgeDrawable
@@ -19,14 +21,16 @@ import javax.inject.Inject
 
 class MenuActivity : BaseActivity(), MenuView {
     @Inject
-    lateinit var getCartProductsUseCase: GetCartProductsUseCase
-
-    @Inject
-    lateinit var getFavoriteProductsUseCase: GetFavoriteProductsUseCase
-
-    @Inject
     lateinit var viewedProductDao: ViewedProductDao
 
+    @Inject
+    lateinit var getFavoriteProductsCountUseCase: GetFavoriteProductsCountUseCase
+
+    @Inject
+    lateinit var getCartProductsCountUseCase: GetCartProductsCountUseCase
+
+    @Inject
+    lateinit var menuPresenter: MenuPresenter
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,15 +39,21 @@ class MenuActivity : BaseActivity(), MenuView {
         setContentView(R.layout.activity_menu)
         setSupportActionBar(toolBar)
 
-
         navController = findNavController(this, R.id.navHostFragment)
         NavigationUI.setupWithNavController(bottomNavigation, navController)
         /**
          * I have no idea hot to observe value by badge
          */
-        addBadge(998, R.id.favoriteFragment)
 
-        addBadge(10, R.id.cartFragment)
+        menuPresenter.attachView(this)
+
+        getCartProductsCountUseCase().observe(this, Observer {
+            addBadge(it, R.id.cartFragment)
+        })
+
+        getFavoriteProductsCountUseCase().observe(this, Observer {
+            addBadge(it, R.id.favoriteFragment)
+        })
 
         NavigationUI.setupActionBarWithNavController(this, navController)
     }
@@ -58,7 +68,7 @@ class MenuActivity : BaseActivity(), MenuView {
         return true
     }
 
-    private fun addBadge(count : Int, id: Int) {
+    override fun addBadge(count : Int, id: Int) {
         val badge: BadgeDrawable = bottomNavigation.getOrCreateBadge(id)
         badge.number = count
 

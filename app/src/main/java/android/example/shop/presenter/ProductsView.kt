@@ -13,4 +13,7 @@ interface ProductsView : MvpView {
 
     @StateStrategyType(SkipStrategy::class)
     fun navigateToProductDetail(item: RemoteProduct)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun showError(message: String)
 }

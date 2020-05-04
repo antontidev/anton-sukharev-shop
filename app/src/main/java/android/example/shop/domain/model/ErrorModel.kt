@@ -1,5 +1,9 @@
 package android.example.shop.domain.model
 
-sealed class ErrorModel {
-    object network: ErrorModel()
+class ErrorModel(
+    error: Throwable
+) {
+    private var message: String = error.message!!
+
+    fun getMessage() = message
 }

@@ -1,10 +1,7 @@
 package android.example.shop.di
 
 import android.content.Context
-import android.example.shop.di.modules.CartModule
-import android.example.shop.di.modules.MainApiModule
-import android.example.shop.di.modules.PreferencesModule
-import android.example.shop.di.modules.RemoteRepositoryModule
+import android.example.shop.di.modules.*
 import android.example.shop.ui.*
 import dagger.BindsInstance
 import dagger.Component
@@ -14,8 +11,9 @@ import javax.inject.Singleton
     modules = [
         PreferencesModule::class,
         MainApiModule::class,
-        RemoteRepositoryModule::class,
-        CartModule::class
+        CartModule::class,
+        FavoriteModule::class,
+        ErrorHandlerModule::class
     ]
 )
 @Singleton

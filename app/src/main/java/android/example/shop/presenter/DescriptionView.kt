@@ -9,15 +9,6 @@ import moxy.viewstate.strategy.alias.Skip
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface DescriptionView: MvpView {
-    @StateStrategyType(SkipStrategy::class)
-    fun addToFavorite(product: RemoteProduct)
-
-    @StateStrategyType(SkipStrategy::class)
-    fun addToCart(product: RemoteProduct)
-
-    @StateStrategyType(AddToEndSingleStrategy::class)
-    fun addToViewed(product: RemoteProduct)
-
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showDetail()
 }

@@ -1,21 +1,28 @@
 package android.example.shop.presenter
 
-import android.example.shop.domain.MainApi
 import android.example.shop.domain.RemoteProduct
+import android.example.shop.domain.interactor.GetErrorUseCase
 import android.example.shop.domain.interactor.GetProductsUseCase
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 
 class ProductsPresenter @Inject constructor(
-    private val getProductsUseCase: GetProductsUseCase
+    private val getProductsUseCase: GetProductsUseCase,
+    private val getErrorUseCase: GetErrorUseCase
 ) : BasePresenter<ProductsView>() {
     private var data: List<RemoteProduct> = listOf()
 
     fun setData() {
         launch {
             data = getProductsUseCase.getProducts()
+            checkErrors()
             viewState.setProducts(data)
+        }
+    }
+
+    private fun checkErrors() {
+        if (getErrorUseCase.errorsCount() > 0) {
+            val error = getErrorUseCase()
+            viewState.showError(error.getMessage())
         }
     }
 
