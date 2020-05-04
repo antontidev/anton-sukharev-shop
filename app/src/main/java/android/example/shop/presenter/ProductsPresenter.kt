@@ -5,6 +5,8 @@ import android.example.shop.domain.RemoteProduct
 import android.example.shop.domain.interactor.GetProductsUseCase
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import java.net.ConnectException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ProductsPresenter @Inject constructor(
@@ -14,8 +16,13 @@ class ProductsPresenter @Inject constructor(
 
     fun setData() {
         launch {
-            data = getProductsUseCase.getProducts()
-            viewState.setProducts(data)
+            try {
+                data = getProductsUseCase.getProducts()
+
+                viewState.setProducts(data)
+            } catch(e: ConnectException) {
+                viewState.showError("No internet")
+            }
         }
     }
 

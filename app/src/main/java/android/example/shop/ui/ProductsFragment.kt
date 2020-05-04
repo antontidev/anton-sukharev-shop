@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.ui.BaseActivity
@@ -54,6 +55,10 @@ class ProductsFragment : BaseFragment(), ProductsView {
         val action = ProductsFragmentDirections.actionProductsFragmentToDetailFragment(item)
 
         findNavController().navigate(action)
+    }
+
+    override fun showError(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun setProducts(list: List<RemoteProduct>) {

@@ -11,12 +11,6 @@ class GetProductsUseCase @Inject constructor(
 ) {
 
     suspend fun getProducts(): List<RemoteProduct> {
-//        var list: List<RemoteProduct> = listOf()
-//        try {
-            return mainApi.allProducts("default")
-//        } catch (e: UnknownHostException) {
-//
-//        }
-//        return list
+        return mainApi.allProducts("default")
     }
 }
