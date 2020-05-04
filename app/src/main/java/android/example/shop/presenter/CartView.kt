@@ -10,13 +10,13 @@ import moxy.viewstate.strategy.StateStrategyType
 interface CartView : MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun removeFromShoppingCart(position: Int)
+    fun removeCartProduct(position: Int)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun setShoppingCart(list: List<RemoteProduct>)
+    fun setCartProducts(list: List<RemoteProduct>)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun addShoppingCartItem(position: Int)
+    fun addCartProduct(position: Int)
 
     @StateStrategyType(SkipStrategy::class)
     fun navigateToProductDetail(product: RemoteProduct)

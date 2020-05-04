@@ -22,15 +22,6 @@ class DetailFragment : BaseFragment(), DescriptionView {
     private val args: DetailFragmentArgs by navArgs()
 
     @Inject
-    lateinit var addProductToCartUseCase: AddProductToCartUseCase
-
-    @Inject
-    lateinit var addProductToFavoriteUseCase: AddProductToFavoriteUseCase
-
-    @Inject
-    lateinit var addProductToViewedUseCase: AddProductToViewedUseCase
-
-    @Inject
     lateinit var detailPresenter: DetailPresenter
 
     override fun onCreateView(
@@ -58,18 +49,6 @@ class DetailFragment : BaseFragment(), DescriptionView {
         addToFavoriteButton.setOnClickListener {
             detailPresenter.addToFavorite(args.product)
         }
-    }
-
-    override fun addToFavorite(product: RemoteProduct) {
-        addProductToFavoriteUseCase(product)
-    }
-
-    override fun addToCart(product: RemoteProduct) {
-        addProductToCartUseCase(product)
-    }
-
-    override fun addToViewed(product: RemoteProduct) {
-        addProductToViewedUseCase(product)
     }
 
     override fun showDetail() {

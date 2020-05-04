@@ -1,6 +1,10 @@
 package android.example.shop.domain
 
+import androidx.databinding.ObservableInt
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 class CartDaoImpl @Inject constructor(
     /**
@@ -8,7 +12,12 @@ class CartDaoImpl @Inject constructor(
      */
 ): CartDao {
 
-    private val productsList: List<RemoteProduct> = listOf()
+    private val count = MutableLiveData<Int>()
+
+    /**
+     * This is deprecated
+     */
+    private val productsList: MutableList<RemoteProduct> = mutableListOf()
     /**
      * Calculate price of all RemoteProducts in shopping cart
      * @return price
@@ -24,6 +33,18 @@ class CartDaoImpl @Inject constructor(
     }
 
     override fun addToCart(product: RemoteProduct) {
-        TODO("Not yet implemented")
+        productsList.add(product)
+        count.value = productsList.size
+    }
+
+    override fun removeFromCart(product: RemoteProduct) {
+        productsList.remove(product)
+        count.value = productsList.size
+    }
+
+    override fun getCartProductsCount() = count
+
+    override fun getCartProducts(): List<RemoteProduct> {
+        return productsList
     }
 }

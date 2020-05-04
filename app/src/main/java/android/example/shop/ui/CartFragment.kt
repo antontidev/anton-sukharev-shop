@@ -1,5 +1,6 @@
 package android.example.shop.ui
 
+import android.example.shop.App
 import android.example.shop.R
 import android.example.shop.domain.RemoteProduct
 import android.example.shop.presenter.CartPresenter
@@ -12,10 +13,12 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_cart.*
+import javax.inject.Inject
 
 
 class CartFragment : BaseFragment(), CartView {
-    private val shoppingCartPresenter = CartPresenter()
+    @Inject
+    lateinit var shoppingCartPresenter: CartPresenter
     private val adapter =
         ShoppingCartAdapter(
             deleteClickListener = {
@@ -30,11 +33,11 @@ class CartFragment : BaseFragment(), CartView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        App.appComponent.inject(this)
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_cart, container, false)
 
         shoppingCartPresenter.attachView(this)
-        shoppingCartPresenter.setData()
 
         return view
     }
@@ -46,17 +49,15 @@ class CartFragment : BaseFragment(), CartView {
         shoppingCartRv.adapter = adapter
     }
 
-
-
-    override fun removeFromShoppingCart(position: Int) {
+    override fun removeCartProduct(position: Int) {
         adapter.notifyItemRemoved(position)
     }
 
-    override fun setShoppingCart(list: List<RemoteProduct>) {
+    override fun setCartProducts(list: List<RemoteProduct>) {
         adapter.setData(list)
     }
 
-    override fun addShoppingCartItem(position: Int) {
+    override fun addCartProduct(position: Int) {
         adapter.notifyItemInserted(position)
     }
 

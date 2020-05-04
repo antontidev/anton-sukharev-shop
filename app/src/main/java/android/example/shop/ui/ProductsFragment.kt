@@ -5,6 +5,8 @@ import android.example.shop.R
 import android.example.shop.domain.MainApi
 import android.example.shop.domain.RemoteProduct
 import android.example.shop.domain.ViewedProductDao
+import android.example.shop.domain.interactor.GetErrorUseCase
+import android.example.shop.domain.model.ErrorModel
 import android.example.shop.presenter.ProductsPresenter
 import android.example.shop.presenter.ProductsView
 import android.example.shop.utils.adapters.ProductsAdapter

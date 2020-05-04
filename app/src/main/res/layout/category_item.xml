@@ -8,7 +8,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -16,18 +16,19 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="4dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@id/categoryTv"
-            app:layout_constraintEnd_toEndOf="@id/categoryTv"
             app:layout_constraintBottom_toTopOf="@id/categoryTv"
-            app:srcCompat="@drawable/ic_shopping_cart"/>
+            app:layout_constraintEnd_toEndOf="@id/categoryTv"
+            app:layout_constraintStart_toStartOf="@id/categoryTv"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_shopping_cart" />
+
         <TextView
             android:id="@+id/categoryTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
             android:layout_margin="4dp"
             android:textAlignment="center"
+            android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

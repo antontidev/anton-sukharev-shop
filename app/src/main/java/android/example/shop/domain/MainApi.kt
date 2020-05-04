@@ -1,10 +1,7 @@
 package android.example.shop.domain
 
 import android.os.Parcelable
-import com.google.gson.JsonArray
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
