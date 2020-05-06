@@ -5,11 +5,9 @@ import androidx.lifecycle.LiveData
 interface CartDao {
     fun calcProductsPrice(): Double
 
-    fun addToCart(product: RemoteProduct)
+    fun addProduct(product: RemoteProduct)
 
-    fun removeFromCart(product: RemoteProduct)
+    fun removeProduct(product: RemoteProduct)
 
-    fun getCartProductsCount(): LiveData<Int>
-
-    fun getCartProducts(): List<RemoteProduct>
+    fun getProducts(): List<RemoteProduct>
 }

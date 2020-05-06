@@ -4,10 +4,9 @@ import android.example.shop.domain.FavoriteDao
 import android.example.shop.domain.RemoteProduct
 import javax.inject.Inject
 
-class RemoveProductFromFavoriteUseCase @Inject constructor(
+class RemoveFromFavoriteUseCase @Inject constructor(
     private val favoriteDao: FavoriteDao
 ) {
-    operator fun invoke(product: RemoteProduct) {
+    operator fun invoke(product: RemoteProduct) = favoriteDao.removeProduct(product)
 
-    }
 }

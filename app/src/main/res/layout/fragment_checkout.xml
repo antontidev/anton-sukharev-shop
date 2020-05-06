@@ -41,15 +41,12 @@
         app:layout_constraintBottom_toBottomOf="@+id/moneyImage"
         app:layout_constraintStart_toEndOf="@+id/moneyImage" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/catalogCheckoutBtn"
-        style="@android:style/Widget.Button"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:background="@android:color/holo_blue_dark"
+        android:layout_margin="8dp"
+        android:background="@drawable/round_shape"
         android:text="@string/checkout_text"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -141,7 +138,6 @@
         android:id="@+id/checkoutPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/phone_hint"
         android:inputType="phone"
@@ -149,20 +145,7 @@
         app:layout_constraintStart_toStartOf="@+id/checkoutMiddleName"
         app:layout_constraintTop_toBottomOf="@+id/checkoutMiddleName" />
 
-    <Button
-        android:id="@+id/checkoutPay"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/black"
-        android:text="оплатить"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/catalogCheckoutBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkoutPhone"
-        app:layout_constraintVertical_bias="0.86" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

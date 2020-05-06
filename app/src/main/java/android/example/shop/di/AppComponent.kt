@@ -29,5 +29,6 @@ interface AppComponent {
     fun inject(fragment: CatalogFragment)
     fun inject(fragment: DetailFragment)
     fun inject(fragment: CartFragment)
+    fun inject(fragment: CheckoutFragment)
     fun inject(activity: MenuActivity)
 }

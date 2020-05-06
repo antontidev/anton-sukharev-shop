@@ -21,8 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="6dp"
+        android:fadingEdge="vertical"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="1dp"
         app:cardUseCompatPadding="true">
 
         <com.daimajia.swipe.SwipeLayout
@@ -39,7 +40,6 @@
                     android:id="@+id/deleteButton"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_margin="4dp"
                     android:onClick="@{() -> deleteClickListener.onClick(shoppingCartItem) }"
                     android:tint="@android:color/holo_red_light"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -60,9 +60,8 @@
                     android:id="@+id/productNameText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
                     android:text="@{ shoppingCartItem.name }"
                     app:layout_constraintEnd_toStartOf="@+id/priceText"
                     app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +108,15 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/priceText"
                     app:priceWithDiscountFormatted="@{ shoppingCartItem }" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/productNameText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_account_circle" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.daimajia.swipe.SwipeLayout>
     </com.google.android.material.card.MaterialCardView>

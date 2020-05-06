@@ -3,14 +3,16 @@ package android.example.shop.presenter
 import android.example.shop.domain.RemoteProduct
 import android.example.shop.domain.interactor.AddProductToCartUseCase
 import android.example.shop.domain.interactor.GetCartProductsUseCase
-import android.example.shop.domain.interactor.RemoveProductFromCartUseCase
+import android.example.shop.domain.interactor.GetCartTotalPriceUseCase
+import android.example.shop.domain.interactor.RemoveFromCartUseCase
 import moxy.MvpPresenter
 import javax.inject.Inject
 
 class CartPresenter @Inject constructor(
     private val getCartProductsUseCase: GetCartProductsUseCase,
-    private val removeCartProductUseCase: RemoveProductFromCartUseCase,
-    private val addProductToCartUseCase: AddProductToCartUseCase
+    private val removeCartProductUseCase: RemoveFromCartUseCase,
+    private val addProductToCartUseCase: AddProductToCartUseCase,
+    private val getCartTotalPriceUseCase: GetCartTotalPriceUseCase
 ) : MvpPresenter<CartView>() {
     fun showProductDetail(product: RemoteProduct) {
         viewState.navigateToProductDetail(product)
@@ -34,6 +36,10 @@ class CartPresenter @Inject constructor(
         val position = data.indexOf(product)
         viewState.addCartProduct(position)
     }
+
+    fun navigateToCheckout() = viewState.navigateToCheckout()
+
+    fun getTotalPrice() = getCartTotalPriceUseCase()
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

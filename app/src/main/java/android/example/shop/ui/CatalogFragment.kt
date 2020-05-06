@@ -59,7 +59,6 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
         val view = inflater.inflate(R.layout.fragment_catalog, container, false)
 
         categoryPresenter.attachView(this)
-        categoryPresenter.setData()
         recentlyVisitedPresenter.attachView(this)
 
         return view
@@ -75,7 +74,6 @@ class CatalogFragment : BaseFragment(), CategoryView, VisitedRecentlyView {
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
         recentlyVisitedRv.adapter = adapterViewedRecently
-        recentlyVisitedPresenter
     }
 
     override fun setRecentlyVisitedData(list: List<RemoteProduct>) {

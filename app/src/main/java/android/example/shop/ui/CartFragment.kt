@@ -6,12 +6,15 @@ import android.example.shop.domain.RemoteProduct
 import android.example.shop.presenter.CartPresenter
 import android.example.shop.presenter.CartView
 import android.example.shop.utils.adapters.ShoppingCartAdapter
+import android.example.shop.utils.formatPrice
+import android.example.shop.utils.formatPriceWithDiscount
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.cart_item.*
 import kotlinx.android.synthetic.main.fragment_cart.*
 import javax.inject.Inject
 
@@ -47,6 +50,11 @@ class CartFragment : BaseFragment(), CartView {
 
         shoppingCartRv.layoutManager = LinearLayoutManager(activity)
         shoppingCartRv.adapter = adapter
+
+        totalPrice.text = shoppingCartPresenter.getTotalPrice().toString()
+        checkoutButton.setOnClickListener {
+            shoppingCartPresenter.navigateToCheckout()
+        }
     }
 
     override fun removeCartProduct(position: Int) {
@@ -63,6 +71,12 @@ class CartFragment : BaseFragment(), CartView {
 
     override fun navigateToProductDetail(product: RemoteProduct) {
         val action = CartFragmentDirections.actionCartFragmentToDetailFragment(product)
+
+        findNavController().navigate(action)
+    }
+
+    override fun navigateToCheckout() {
+        val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment()
 
         findNavController().navigate(action)
     }

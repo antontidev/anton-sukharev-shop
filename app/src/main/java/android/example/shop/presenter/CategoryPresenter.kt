@@ -28,4 +28,6 @@ class CategoryPresenter: BasePresenter<CategoryView>() {
     fun showCategoryProducts(category: String) {
         viewState.navigateToCategory(category)
     }
+
+
 }

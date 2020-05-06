@@ -4,8 +4,12 @@ import android.example.shop.domain.FavoriteDao
 import android.example.shop.domain.RemoteProduct
 import javax.inject.Inject
 
-class GetFavoriteProductsUseCase @Inject constructor(
+class IsInFavoriteUseCase @Inject constructor(
     private val favoriteDao: FavoriteDao
-) {
-    operator fun invoke() = favoriteDao.getProducts()
+){
+    operator fun invoke(product: RemoteProduct): Boolean {
+        val products = favoriteDao.getProducts()
+
+        return products.contains(product)
+    }
 }

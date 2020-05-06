@@ -8,6 +8,6 @@ class GetCartProductsUseCase @Inject constructor(
     private val cartDao: CartDao
 ) {
     operator fun invoke(): List<RemoteProduct> {
-        return cartDao.getCartProducts()
+        return cartDao.getProducts()
     }
 }

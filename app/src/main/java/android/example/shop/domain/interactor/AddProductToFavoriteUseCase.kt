@@ -8,6 +8,6 @@ class AddProductToFavoriteUseCase @Inject constructor(
     private val favoriteDao: FavoriteDao
 ) {
     operator fun invoke(product: RemoteProduct) {
-        favoriteDao.addToFavorite(product)
+        favoriteDao.addProduct(product)
     }
 }

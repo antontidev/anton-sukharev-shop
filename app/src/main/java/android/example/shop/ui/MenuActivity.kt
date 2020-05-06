@@ -4,18 +4,19 @@ import android.example.shop.App
 import android.example.shop.R
 import android.example.shop.domain.ViewedProductDao
 import android.example.shop.domain.interactor.*
-import android.example.shop.domain.model.ErrorModel
 import android.example.shop.presenter.MenuPresenter
 import android.example.shop.presenter.MenuView
+import android.example.shop.utils.CartChangedEvent
+import android.example.shop.utils.FavoriteChangedEvent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.myapplication.ui.BaseActivity
 import com.google.android.material.badge.BadgeDrawable
 import kotlinx.android.synthetic.main.activity_menu.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
 
 
@@ -24,13 +25,8 @@ class MenuActivity : BaseActivity(), MenuView {
     lateinit var viewedProductDao: ViewedProductDao
 
     @Inject
-    lateinit var getFavoriteProductsCountUseCase: GetFavoriteProductsCountUseCase
-
-    @Inject
-    lateinit var getCartProductsCountUseCase: GetCartProductsCountUseCase
-
-    @Inject
     lateinit var menuPresenter: MenuPresenter
+
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,15 +43,23 @@ class MenuActivity : BaseActivity(), MenuView {
 
         menuPresenter.attachView(this)
 
-        getCartProductsCountUseCase().observe(this, Observer {
-            addBadge(it, R.id.cartFragment)
-        })
-
-        getFavoriteProductsCountUseCase().observe(this, Observer {
-            addBadge(it, R.id.favoriteFragment)
-        })
-
         NavigationUI.setupActionBarWithNavController(this, navController)
+    }
+
+    @Subscribe
+    fun onCartCapacityChanged(event: CartChangedEvent) = addBadge(event.count, R.id.cartFragment)
+
+    @Subscribe
+    fun onFavoriteCapacityChanged(event: FavoriteChangedEvent) = addBadge(event.count, R.id.favoriteFragment)
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        EventBus.getDefault().unregister(this)
+        super.onStop()
     }
 
     override fun onDestroy() {

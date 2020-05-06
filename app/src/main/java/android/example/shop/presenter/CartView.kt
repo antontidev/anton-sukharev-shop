@@ -20,4 +20,7 @@ interface CartView : MvpView {
 
     @StateStrategyType(SkipStrategy::class)
     fun navigateToProductDetail(product: RemoteProduct)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun navigateToCheckout()
 }

@@ -82,4 +82,7 @@
     <action
         android:id="@+id/action_global_favoriteFragment"
         app:destination="@id/favoriteFragment" />
+    <action
+        android:id="@+id/action_global_detailFragment"
+        app:destination="@id/detailFragment" />
 </navigation>

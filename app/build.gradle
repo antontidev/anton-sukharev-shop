@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId "android.example.shop"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -75,6 +75,7 @@ dependencies {
     implementation "com.github.moxy-community:moxy-ktx:$moxy_version"
     implementation 'com.google.android.material:material:1.1.0'
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'org.greenrobot:eventbus:3.2.0'
 
     def dagger_version = '2.27'
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"

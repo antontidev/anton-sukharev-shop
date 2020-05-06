@@ -3,11 +3,9 @@ package android.example.shop.domain
 import androidx.lifecycle.LiveData
 
 interface FavoriteDao {
-    fun addToFavorite(product: RemoteProduct)
+    fun addProduct(product: RemoteProduct)
 
-    fun removeFromFavorite(product: RemoteProduct)
+    fun removeProduct(product: RemoteProduct)
 
-    fun getFavoriteProducts(): List<RemoteProduct>
-
-    fun getFavoriteProductsCount(): LiveData<Int>
+    fun getProducts(): List<RemoteProduct>
 }
