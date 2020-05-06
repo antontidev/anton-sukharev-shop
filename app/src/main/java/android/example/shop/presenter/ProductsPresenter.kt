@@ -4,6 +4,10 @@ import android.example.shop.domain.RemoteProduct
 import android.example.shop.domain.interactor.GetErrorUseCase
 import android.example.shop.domain.interactor.GetProductsUseCase
 import java.net.ConnectException
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import java.net.ConnectException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ProductsPresenter @Inject constructor(
