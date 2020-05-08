@@ -2,7 +2,7 @@ package android.example.shop.presenter
 
 import android.example.shop.domain.RemoteProduct
 import android.example.shop.domain.interactor.*
-import android.view.MenuItem
+import android.example.shop.presenter.view.DescriptionView
 import moxy.MvpPresenter
 import javax.inject.Inject
 

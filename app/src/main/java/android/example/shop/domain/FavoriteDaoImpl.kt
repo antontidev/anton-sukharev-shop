@@ -1,8 +1,7 @@
 package android.example.shop.domain
 
+import android.example.shop.domain.dao.FavoriteDao
 import android.example.shop.utils.FavoriteChangedEvent
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 

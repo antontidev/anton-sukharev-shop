@@ -1,4 +1,4 @@
-package android.example.shop.presenter
+package android.example.shop.presenter.view
 
 import android.example.shop.domain.RemoteProduct
 import moxy.MvpView

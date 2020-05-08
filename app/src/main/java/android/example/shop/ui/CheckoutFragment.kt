@@ -3,8 +3,8 @@ package android.example.shop.ui
 import android.example.shop.App
 import android.example.shop.R
 import android.example.shop.domain.RemoteProduct
-import android.example.shop.presenter.CheckoutView
 import android.example.shop.presenter.CheckoutPresenter
+import android.example.shop.presenter.view.CheckoutView
 import android.example.shop.utils.RvItemClickListener
 import android.example.shop.utils.adapters.ViewedAdapter
 import android.os.Bundle
@@ -14,13 +14,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_checkout.*
-import kotlinx.android.synthetic.main.horizontal_products.view.*
 import javax.inject.Inject
 
 class CheckoutFragment : BaseFragment(),

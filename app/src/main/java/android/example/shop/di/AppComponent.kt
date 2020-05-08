@@ -11,8 +11,8 @@ import javax.inject.Singleton
     modules = [
         PreferencesModule::class,
         MainApiModule::class,
-        CartModule::class,
-        FavoriteModule::class,
+        CollectionsModule::class,
+        CategoryModule::class,
         ErrorHandlerModule::class
     ]
 )

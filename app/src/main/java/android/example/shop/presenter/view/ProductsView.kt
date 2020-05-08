@@ -1,15 +1,19 @@
-package android.example.shop.presenter
+package android.example.shop.presenter.view
 
 import android.example.shop.domain.RemoteProduct
-import android.view.MenuItem
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.SkipStrategy
 import moxy.viewstate.strategy.StateStrategyType
-import moxy.viewstate.strategy.alias.Skip
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface DescriptionView: MvpView {
+interface ProductsView : MvpView {
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun showDetail()
+    fun setProducts(list: List<RemoteProduct>)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun navigateToProductDetail(item: RemoteProduct)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun showError(message: String)
 }

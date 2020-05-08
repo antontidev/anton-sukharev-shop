@@ -15,6 +15,11 @@ fun TextView.formatPrice(item: RemoteProduct) {
     text = formatString(item.price, priceUnit)
 }
 
+fun TextView.formatPrice(price: Double) {
+    val priceUnit = resources.getString(R.string.price_units)
+    text = formatString(price, priceUnit)
+}
+
 @BindingAdapter("discountFormatted")
 fun TextView.formatDiscount(product: RemoteProduct) {
     text = formatString(product.discountPercent, "%")

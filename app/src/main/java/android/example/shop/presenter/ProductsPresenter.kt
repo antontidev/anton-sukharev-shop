@@ -1,25 +1,22 @@
 package android.example.shop.presenter
 
 import android.example.shop.domain.RemoteProduct
+import android.example.shop.domain.interactor.GetCategoryProductsUseCase
 import android.example.shop.domain.interactor.GetErrorUseCase
-import android.example.shop.domain.interactor.GetProductsUseCase
+import android.example.shop.presenter.view.ProductsView
 import java.net.ConnectException
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import java.net.ConnectException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ProductsPresenter @Inject constructor(
-    private val getProductsUseCase: GetProductsUseCase,
+    private val getCategoryProductsUseCase: GetCategoryProductsUseCase,
     private val getErrorUseCase: GetErrorUseCase
 ) : BasePresenter<ProductsView>() {
     private var data: List<RemoteProduct> = listOf()
 
-    fun setData() {
+    fun setData(category: String) {
         launch {
             try {
-                data = getProductsUseCase.getProducts()
+                data = getCategoryProductsUseCase(category)
 
                 viewState.setProducts(data)
             } catch(e: ConnectException) {
@@ -41,6 +38,5 @@ class ProductsPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        setData()
     }
 }

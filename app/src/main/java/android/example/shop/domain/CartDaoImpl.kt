@@ -1,5 +1,6 @@
 package android.example.shop.domain
 
+import android.example.shop.domain.dao.CartDao
 import android.example.shop.utils.CartChangedEvent
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject

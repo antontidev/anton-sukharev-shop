@@ -25,7 +25,7 @@ class ShoppingCartAdapter(
             binding.deleteButton.setOnClickListener {
                 deleteClickListener(item)
             }
-            binding.userPart.setOnClickListener {
+            binding.productImage.setOnClickListener {
                 detailInfoClickListener(item)
             }
         }

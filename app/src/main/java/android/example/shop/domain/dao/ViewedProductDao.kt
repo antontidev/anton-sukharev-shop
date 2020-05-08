@@ -1,4 +1,6 @@
-package android.example.shop.domain
+package android.example.shop.domain.dao
+
+import android.example.shop.domain.RemoteProduct
 
 interface ViewedProductDao {
 

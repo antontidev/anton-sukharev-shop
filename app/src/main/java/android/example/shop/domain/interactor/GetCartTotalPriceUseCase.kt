@@ -1,6 +1,6 @@
 package android.example.shop.domain.interactor
 
-import android.example.shop.domain.CartDao
+import android.example.shop.domain.dao.CartDao
 import javax.inject.Inject
 
 class GetCartTotalPriceUseCase @Inject constructor(

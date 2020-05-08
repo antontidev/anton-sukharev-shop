@@ -3,36 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/categoryIv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="4dp"
-            app:layout_constraintBottom_toTopOf="@id/categoryTv"
-            app:layout_constraintEnd_toEndOf="@id/categoryTv"
-            app:layout_constraintStart_toStartOf="@id/categoryTv"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_shopping_cart" />
-
-        <TextView
-            android:id="@+id/categoryTv"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/categoryName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
+            android:textSize="@dimen/header_text_size"
+            android:layout_margin="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/favorite_header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/viewAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/category_view_all"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/categoryName"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productsPreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Категория" />
+            app:layout_constraintTop_toBottomOf="@id/categoryName"
+
+            tools:listitem="@layout/category_product_preview"
+            tools:itemCount="16"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

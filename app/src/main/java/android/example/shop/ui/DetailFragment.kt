@@ -2,8 +2,8 @@ package android.example.shop.ui
 
 import android.example.shop.App
 import android.example.shop.R
-import android.example.shop.presenter.DescriptionView
 import android.example.shop.presenter.DetailPresenter
+import android.example.shop.presenter.view.DescriptionView
 import android.example.shop.utils.bindImage
 import android.example.shop.utils.formatPrice
 import android.os.Bundle
@@ -12,7 +12,8 @@ import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_detail.*
 import javax.inject.Inject
 
-class DetailFragment : BaseFragment(), DescriptionView {
+class DetailFragment : BaseFragment(),
+    DescriptionView {
     private val args: DetailFragmentArgs by navArgs()
 
     @Inject

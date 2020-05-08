@@ -4,6 +4,7 @@ import android.example.shop.domain.RemoteProduct
 import android.example.shop.domain.interactor.GetCartProductsUseCase
 import android.example.shop.domain.interactor.GetCartTotalPriceUseCase
 import android.example.shop.domain.model.CreateOrderModel
+import android.example.shop.presenter.view.CheckoutView
 import moxy.MvpPresenter
 import javax.inject.Inject
 

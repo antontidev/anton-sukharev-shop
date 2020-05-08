@@ -5,6 +5,7 @@ import android.example.shop.domain.interactor.AddProductToCartUseCase
 import android.example.shop.domain.interactor.GetCartProductsUseCase
 import android.example.shop.domain.interactor.GetCartTotalPriceUseCase
 import android.example.shop.domain.interactor.RemoveFromCartUseCase
+import android.example.shop.presenter.view.CartView
 import moxy.MvpPresenter
 import javax.inject.Inject
 
@@ -28,6 +29,12 @@ class CartPresenter @Inject constructor(
         val position = data.indexOf(item)
         removeCartProductUseCase(item)
         viewState.removeCartProduct(position)
+    }
+
+    fun showCartTotalPrice() {
+        val price = getCartTotalPriceUseCase()
+
+        viewState.showTotalPrice(price)
     }
 
     fun addItem(product: RemoteProduct) {

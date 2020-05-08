@@ -13,77 +13,67 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <!--        <com.google.android.material.card.MaterialCardView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_alignParentStart="true"-->
-        <!--            android:layout_alignParentTop="true"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:cardCornerRadius="4dp"-->
-        <!--            app:cardElevation="12dp"-->
-        <!--            app:cardUseCompatPadding="true">-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/productImage"-->
-<!--            android:layout_width="308dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginBottom="8dp"-->
-<!--            android:adjustViewBounds="true"-->
-
-<!--            app:imageUrl="@{property.imageUrl}"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            tools:ignore="ContentDescription"-->
-<!--            tools:src="@tools:sample/backgrounds/scenic" />-->
-
-        <TextView
-            android:id="@+id/itemCatalogName"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            android:layout_margin="8dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="Catalog item" />
+            app:cardPreventCornerOverlap="false"
+            app:cardCornerRadius="30dp">
 
-<!--        <TextView-->
-<!--            android:id="@+id/priceText"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content" />-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-<!--        <TextView-->
-<!--            android:id="@+id/discountPercentText"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintStart_toStartOf="@id/productImage"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/addToLoveButton"/>-->
+                <ImageView
+                    android:id="@+id/categoryIv"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_margin="0dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toTopOf="@id/categoryTv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_shopping_cart" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/discountPriceText"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content" />-->
+                <TextView
+                    android:id="@+id/categoryTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/categoryIv"
+                    tools:text="Категория" />
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/propertyRv"-->
-<!--            android:layout_width="80dp"-->
-<!--            android:layout_height="178dp" />-->
+                <TextView
+                    android:id="@+id/productPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/categoryIv"
+                    tools:text="20 руб" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/addToLoveButton"-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:tint="@android:color/holo_red_light"-->
-<!--            app:srcCompat="@drawable/ic_heart" />-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:srcCompat="@drawable/ic_favorite"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <Button-->
-<!--            android:id="@+id/addToCartButton"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content" />-->
-        <!--       </com.google.android.material.card.MaterialCardView>-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

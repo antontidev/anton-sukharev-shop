@@ -2,6 +2,8 @@ package android.example.shop.utils.adapters
 
 import android.example.shop.databinding.CatalogItemBinding
 import android.example.shop.domain.RemoteProduct
+import android.example.shop.utils.bindImage
+import android.example.shop.utils.formatPrice
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +16,9 @@ class ProductsAdapter(
     inner class ViewHolder(private val binding: CatalogItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RemoteProduct) {
-            binding.itemCatalogName.text = item.name
+            binding.categoryTv.text = item.name
+            binding.categoryIv.bindImage(item.imageUrl)
+            binding.productPrice.formatPrice(item)
             binding.root.setOnClickListener{
                 onProductClick(item)
             }
