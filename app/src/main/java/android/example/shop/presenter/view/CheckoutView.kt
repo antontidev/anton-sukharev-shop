@@ -1,7 +1,9 @@
-package android.example.shop.presenter
+package android.example.shop.presenter.view
 
+import android.example.shop.domain.RemoteProduct
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.SkipStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
@@ -22,4 +24,10 @@ interface CheckoutView : MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showErrorPhone(visible: Boolean)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun navigateToDescription(product: RemoteProduct)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun setCartProducts(list: List<RemoteProduct>)
 }

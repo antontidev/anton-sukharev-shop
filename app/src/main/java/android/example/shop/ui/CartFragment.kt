@@ -4,8 +4,10 @@ import android.example.shop.App
 import android.example.shop.R
 import android.example.shop.domain.RemoteProduct
 import android.example.shop.presenter.CartPresenter
-import android.example.shop.presenter.CartView
+import android.example.shop.presenter.view.CartView
+import android.example.shop.utils.CartChangedEvent
 import android.example.shop.utils.adapters.ShoppingCartAdapter
+import android.example.shop.utils.formatPrice
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +15,13 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_cart.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
 
 
-class CartFragment : BaseFragment(), CartView {
+class CartFragment : BaseFragment(),
+    CartView {
     @Inject
     lateinit var shoppingCartPresenter: CartPresenter
     private val adapter =
@@ -47,6 +52,27 @@ class CartFragment : BaseFragment(), CartView {
 
         shoppingCartRv.layoutManager = LinearLayoutManager(activity)
         shoppingCartRv.adapter = adapter
+
+        shoppingCartPresenter.showCartTotalPrice()
+
+        checkoutButton.setOnClickListener {
+            shoppingCartPresenter.navigateToCheckout()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        EventBus.getDefault().unregister(this)
+        super.onStop()
+    }
+
+    @Subscribe
+    fun onCartCapacityChanged(event: CartChangedEvent) {
+        shoppingCartPresenter.showCartTotalPrice()
     }
 
     override fun removeCartProduct(position: Int) {
@@ -63,6 +89,16 @@ class CartFragment : BaseFragment(), CartView {
 
     override fun navigateToProductDetail(product: RemoteProduct) {
         val action = CartFragmentDirections.actionCartFragmentToDetailFragment(product)
+
+        findNavController().navigate(action)
+    }
+
+    override fun showTotalPrice(price: Double) {
+        totalPrice.formatPrice(price)
+    }
+
+    override fun navigateToCheckout() {
+        val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment()
 
         findNavController().navigate(action)
     }

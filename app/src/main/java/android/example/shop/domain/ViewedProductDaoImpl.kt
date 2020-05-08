@@ -1,6 +1,7 @@
 package android.example.shop.domain
 
 import android.content.SharedPreferences
+import android.example.shop.domain.dao.ViewedProductDao
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

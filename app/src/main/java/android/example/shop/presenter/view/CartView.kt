@@ -1,4 +1,4 @@
-package android.example.shop.presenter
+package android.example.shop.presenter.view
 
 import android.example.shop.domain.RemoteProduct
 import moxy.MvpView
@@ -20,4 +20,10 @@ interface CartView : MvpView {
 
     @StateStrategyType(SkipStrategy::class)
     fun navigateToProductDetail(product: RemoteProduct)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showTotalPrice(price: Double)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun navigateToCheckout()
 }

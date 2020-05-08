@@ -1,30 +1,27 @@
 package android.example.shop.presenter
 
-import android.content.SharedPreferences
 import android.example.shop.domain.RemoteProduct
-import android.example.shop.domain.interactor.AddProductToCartUseCase
-import android.example.shop.domain.interactor.AddProductToFavoriteUseCase
-import android.example.shop.domain.interactor.AddProductToViewedUseCase
+import android.example.shop.domain.interactor.*
+import android.example.shop.presenter.view.DescriptionView
 import moxy.MvpPresenter
 import javax.inject.Inject
 
 class DetailPresenter @Inject constructor(
-    private val sharedPreferences: SharedPreferences,
     private val addProductToCartUseCase: AddProductToCartUseCase,
     private val addProductToFavoriteUseCase: AddProductToFavoriteUseCase,
-    private val addProductToViewedUseCase: AddProductToViewedUseCase
+    private val addProductToViewedUseCase: AddProductToViewedUseCase,
+    private val removeProductFromFavoriteUseCase: RemoveFromFavoriteUseCase,
+    private val isInFavoriteUseCase: IsInFavoriteUseCase
 ): MvpPresenter<DescriptionView>() {
-    fun addToCart(product: RemoteProduct) {
-        addProductToCartUseCase(product)
-    }
+    fun addToCart(product: RemoteProduct) = addProductToCartUseCase(product)
 
-    fun addToFavorite(product: RemoteProduct) {
-        addProductToFavoriteUseCase(product)
-    }
+    fun addToFavorite(product: RemoteProduct) = addProductToFavoriteUseCase(product)
 
-    fun addToViewed(product: RemoteProduct) {
-        addProductToViewedUseCase(product)
-    }
+    fun removeFromFavorite(product: RemoteProduct) = removeProductFromFavoriteUseCase(product)
+
+    fun addToViewed(product: RemoteProduct) = addProductToViewedUseCase(product)
+
+    fun inFavorite(product: RemoteProduct) = isInFavoriteUseCase(product)
 
     private fun showDetail() {
         viewState.showDetail()

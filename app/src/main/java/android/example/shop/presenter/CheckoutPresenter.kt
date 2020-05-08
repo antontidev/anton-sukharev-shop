@@ -1,9 +1,17 @@
 package android.example.shop.presenter
 
+import android.example.shop.domain.RemoteProduct
+import android.example.shop.domain.interactor.GetCartProductsUseCase
+import android.example.shop.domain.interactor.GetCartTotalPriceUseCase
 import android.example.shop.domain.model.CreateOrderModel
+import android.example.shop.presenter.view.CheckoutView
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class CheckoutPresenter : MvpPresenter<CheckoutView>() {
+class CheckoutPresenter @Inject constructor(
+    private val getCartTotalPriceUseCase: GetCartTotalPriceUseCase,
+    private val getCartProductsUseCase: GetCartProductsUseCase
+): MvpPresenter<CheckoutView>() {
     private fun checkSymbols(text: String) = text.length < 3
 
     private fun checkSymbolsPhone(text: String) = text.length > 12
@@ -36,5 +44,15 @@ class CheckoutPresenter : MvpPresenter<CheckoutView>() {
 
         if (correctPhone) model.phone = text
         viewState.showErrorPhone(!correctPhone)
+    }
+
+    fun showProductDetail(product: RemoteProduct) {
+        viewState.navigateToDescription(product)
+    }
+
+    fun setCartProducts() {
+        val products = getCartProductsUseCase()
+
+        viewState.setCartProducts(products)
     }
 }

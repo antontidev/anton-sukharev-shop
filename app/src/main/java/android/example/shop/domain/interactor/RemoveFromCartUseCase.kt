@@ -1,13 +1,13 @@
 package android.example.shop.domain.interactor
 
-import android.example.shop.domain.FavoriteDao
 import android.example.shop.domain.RemoteProduct
+import android.example.shop.domain.dao.CartDao
 import javax.inject.Inject
 
-class RemoveProductFromFavoriteUseCase @Inject constructor(
-    private val favoriteDao: FavoriteDao
+class RemoveFromCartUseCase @Inject constructor(
+    private val cartDao: CartDao
 ) {
     operator fun invoke(product: RemoteProduct) {
-
+        cartDao.removeProduct(product)
     }
 }

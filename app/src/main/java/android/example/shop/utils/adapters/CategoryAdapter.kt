@@ -1,26 +1,39 @@
 package android.example.shop.utils.adapters
 
+import android.content.Context
 import android.example.shop.databinding.CategoryItemBinding
+import android.example.shop.domain.RemoteCategory
+import android.example.shop.domain.RemoteProduct
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class CategoryAdapter(
-    private val onCategoryClick: (string: String) -> Unit
+    private val context: Context,
+    private val onCategoryClick: (category: String) -> Unit,
+    private val onProductClick: (product: RemoteProduct) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-    private var categories: List<String> = listOf()
+    private var categories: List<RemoteCategory> = listOf()
 
-    fun setData(list: List<String>) {
+    fun setData(list: List<RemoteCategory>) {
         categories = list
+        notifyDataSetChanged()
     }
 
-    inner class ViewHolder(val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(text: String) {
-            binding.categoryTv.text = text
-            binding.root.setOnClickListener {
-                onCategoryClick(text)
+    inner class ViewHolder(
+        private val binding: CategoryItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(category: RemoteCategory) {
+            binding.categoryName.text = category.name
+            binding.productsPreview.adapter =
+                CategoryProductPreviewAdapter(category.products, onProductClick)
+            binding.productsPreview.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            binding.viewAll.setOnClickListener {
+                onCategoryClick(category.name)
             }
         }
     }

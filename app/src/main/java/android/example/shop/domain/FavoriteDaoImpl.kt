@@ -1,7 +1,8 @@
 package android.example.shop.domain
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.example.shop.domain.dao.FavoriteDao
+import android.example.shop.utils.FavoriteChangedEvent
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 class FavoriteDaoImpl @Inject constructor(
@@ -10,18 +11,16 @@ class FavoriteDaoImpl @Inject constructor(
      */
 ): FavoriteDao {
     private val data: MutableList<RemoteProduct> = mutableListOf()
-    private val count = MutableLiveData<Int>()
-    override fun addToFavorite(product: RemoteProduct) {
+
+    override fun addProduct(product: RemoteProduct) {
         data.add(product)
-        count.value = data.size
+        EventBus.getDefault().post(FavoriteChangedEvent(data.size))
     }
 
-    override fun removeFromFavorite(product: RemoteProduct) {
+    override fun removeProduct(product: RemoteProduct) {
         data.remove(product)
-        count.value = data.size
+        EventBus.getDefault().post(FavoriteChangedEvent(data.size))
     }
 
-    override fun getFavoriteProducts() = data
-
-    override fun getFavoriteProductsCount() = count
+    override fun getProducts() = data
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -15,15 +16,14 @@
 
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="6dp"
-        app:cardUseCompatPadding="true">
+    <!--    <com.google.android.material.card.MaterialCardView-->
+    <!--        android:id="@+id/card"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fadingEdge="vertical"-->
+    <!--        app:cardCornerRadius="30dp"-->
+    <!--        app:cardElevation="1dp"-->
+    <!--        app:cardUseCompatPadding="true">-->
 
         <com.daimajia.swipe.SwipeLayout
             android:id="@+id/swipeLayout"
@@ -34,12 +34,10 @@
                 android:id="@+id/bottomWrapper"
                 android:layout_width="80dp"
                 android:layout_height="match_parent">
-
                 <ImageView
                     android:id="@+id/deleteButton"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_margin="4dp"
                     android:onClick="@{() -> deleteClickListener.onClick(shoppingCartItem) }"
                     android:tint="@android:color/holo_red_light"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -47,69 +45,105 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_delete" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/userPart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/productNameText"
-                    android:layout_width="0dp"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardTop"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@{ shoppingCartItem.name }"
-                    app:layout_constraintEnd_toStartOf="@+id/priceText"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/descriptionText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@{ shoppingCartItem.description }"
+                    app:cardPreventCornerOverlap="false"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/productNameText"
-                    app:layout_constraintStart_toStartOf="@+id/productNameText"
-                    app:layout_constraintTop_toBottomOf="@+id/productNameText" />
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="1dp"
+                    app:cardUseCompatPadding="true">
 
-                <TextView
-                    android:id="@+id/priceText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/productNameText"
-                    app:layout_constraintEnd_toStartOf="@id/discountPercentText"
-                    app:layout_constraintTop_toTopOf="@+id/productNameText"
-                    app:priceFormatted="@{ shoppingCartItem }" />
-
-                <TextView
-                    android:id="@+id/discountPercentText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/darker_gray"
-                    app:discountFormatted="@{ shoppingCartItem }"
-                    app:layout_constraintBottom_toBottomOf="@+id/priceText"
-                    app:layout_constraintEnd_toEndOf="@+id/priceWithDiscountText"
-                    app:layout_constraintTop_toTopOf="@+id/priceText" />
-
-                <TextView
-                    android:id="@+id/priceWithDiscountText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/descriptionText"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/priceText"
-                    app:priceWithDiscountFormatted="@{ shoppingCartItem }" />
+                    <ImageView
+                        android:id="@+id/productImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        app:imageUrl="@{shoppingCartItem.imageUrl}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/ic_favorite" />
+                </com.google.android.material.card.MaterialCardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                android:id="@+id/userPart"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content">-->
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/productNameText"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginTop="8dp"-->
+            <!--                    android:layout_marginStart="8dp"-->
+            <!--                    android:text="@{ shoppingCartItem.name }"-->
+            <!--                    app:layout_constraintEnd_toStartOf="@+id/priceText"-->
+            <!--                    app:layout_constraintStart_toStartOf="parent"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/descriptionText"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginTop="8dp"-->
+            <!--                    android:layout_marginBottom="8dp"-->
+            <!--                    android:text="@{ shoppingCartItem.description }"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                    app:layout_constraintEnd_toEndOf="@+id/productNameText"-->
+            <!--                    app:layout_constraintStart_toStartOf="@+id/productNameText"-->
+            <!--                    app:layout_constraintTop_toBottomOf="@+id/productNameText" />-->
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/priceText"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginEnd="8dp"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="@+id/productNameText"-->
+            <!--                    app:layout_constraintEnd_toStartOf="@id/discountPercentText"-->
+            <!--                    app:layout_constraintTop_toTopOf="@+id/productNameText"-->
+            <!--                    app:priceFormatted="@{ shoppingCartItem }" />-->
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/discountPercentText"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:textColor="@android:color/darker_gray"-->
+            <!--                    app:discountFormatted="@{ shoppingCartItem }"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="@+id/priceText"-->
+            <!--                    app:layout_constraintEnd_toEndOf="@+id/priceWithDiscountText"-->
+            <!--                    app:layout_constraintTop_toTopOf="@+id/priceText" />-->
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/priceWithDiscountText"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginEnd="8dp"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="@+id/descriptionText"-->
+            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                    app:layout_constraintStart_toStartOf="@+id/priceText"-->
+            <!--                    app:priceWithDiscountFormatted="@{ shoppingCartItem }" />-->
+
+            <!--                <ImageView-->
+            <!--                    android:id="@+id/imageView"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    app:layout_constraintBottom_toTopOf="@+id/productNameText"-->
+            <!--                    app:layout_constraintStart_toStartOf="parent"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent"-->
+            <!--                    app:srcCompat="@drawable/ic_account_circle" />-->
+            <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
         </com.daimajia.swipe.SwipeLayout>
-    </com.google.android.material.card.MaterialCardView>
+    <!--    </com.google.android.material.card.MaterialCardView>-->
 </layout>

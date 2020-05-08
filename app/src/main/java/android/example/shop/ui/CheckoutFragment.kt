@@ -1,8 +1,12 @@
 package android.example.shop.ui
 
+import android.example.shop.App
 import android.example.shop.R
-import android.example.shop.presenter.CheckoutView
+import android.example.shop.domain.RemoteProduct
 import android.example.shop.presenter.CheckoutPresenter
+import android.example.shop.presenter.view.CheckoutView
+import android.example.shop.utils.RvItemClickListener
+import android.example.shop.utils.adapters.ViewedAdapter
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,42 +15,39 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_checkout.*
+import javax.inject.Inject
 
 class CheckoutFragment : BaseFragment(),
     CheckoutView {
 
-    private val presenter = CheckoutPresenter()
-    private var isAuth = true
+    @Inject
+    lateinit var presenter: CheckoutPresenter
+
+    private val viewedAdapter = ViewedAdapter(
+        onClickDescriptionListener = RvItemClickListener {
+            presenter.showProductDetail(it)
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        App.appComponent.inject(this)
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_checkout, container, false)
 
-        getUserInfo()
-
         presenter.attachView(this)
+        return view
+    }
 
-        val priceProducts = 10000
-        val discountInPercent = 13
-        val discountPrice = priceProducts - (priceProducts * discountInPercent / 100.0)
-
-        priceWithoutDiscount.text = priceProducts.toString()
-        discount.text = (priceProducts - discountPrice).toString()
-        price.text = discountPrice.toString()
-
-        checkoutPay.setOnClickListener {
-            isAuth = true
-//            setResult(REQUEST_AUTH, Intent().apply {
-//                putExtra(IS_USER_AUTH, isAuth )
-//            })
-        }
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setListeners()
         catalogCheckoutBtn.setOnClickListener {
             val firstName =
                 Toast.makeText(
@@ -56,13 +57,17 @@ class CheckoutFragment : BaseFragment(),
                 ).show()
         }
 
-        setListeners()
+//        cartProducts.productsHorizontal.adapter = viewedAdapter
+//        cartProducts.productsHorizontal.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        presenter.setCartProducts()
 
-        return view
+        getUserInfo()
     }
+
     private fun getUserInfo() {
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        checkoutFirstName.setText(currentUser?.displayName)
+        FirebaseAuth.getInstance().currentUser?.let {
+            checkoutFirstName.setText(it.displayName)
+        }
     }
 
     private fun setListeners() {
@@ -128,6 +133,16 @@ class CheckoutFragment : BaseFragment(),
 
     override fun showErrorPhone(visible: Boolean) {
         checkoutPhone.showError(visible)
+    }
+
+    override fun navigateToDescription(product: RemoteProduct) {
+        val action = CheckoutFragmentDirections.actionGlobalDetailFragment(product)
+
+        findNavController().navigate(action)
+    }
+
+    override fun setCartProducts(list: List<RemoteProduct>) {
+        viewedAdapter.setData(list)
     }
 }
 

@@ -15,7 +15,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- Headers for fragments -->
+    <!-- Headers for screens -->
     <string name="products_header">Товары</string>
     <string name="detail_header">О товаре</string>
     <string name="cart_header">Корзина</string>
@@ -23,6 +23,10 @@
     <string name="catalog_header">Каталог</string>
     <string name="account_header">Аккаунт</string>
     <string name="favorite_header">Избранное</string>
+    <string name="order_header">Добавление товара</string>
+
     <string name="add_to_cart_text">добавить в корзину</string>
     <string name="add_to_favorite_text">добавить в избранное</string>
+    <string name="category_view_all">посмотреть все</string>
+    <string name="add_product">Добавить продукт</string>
 </resources>
