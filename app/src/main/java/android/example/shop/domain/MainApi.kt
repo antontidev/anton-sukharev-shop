@@ -3,11 +3,12 @@ package android.example.shop.domain
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 data class RemoteCategory(
-    var name: String,
-    var products: List<RemoteProduct>
+    val name: String,
+    val products: List<RemoteProduct>
 )
 
 @Parcelize
@@ -38,6 +39,9 @@ interface MainApi {
     @GET("products/all/{author}")
     suspend fun allProducts(@Path("author") author: String): List<RemoteProduct>
 
-    @GET("products/allWithCategories/{author}")
+    @GET("products/allWithCategories/{author}/")
     suspend fun allCategories(@Path("author") author: String): List<RemoteCategory>
+
+    @POST("products/all/{author}/")
+    suspend fun addProduct(@Path("author") author: String, product: RemoteProduct)
 }

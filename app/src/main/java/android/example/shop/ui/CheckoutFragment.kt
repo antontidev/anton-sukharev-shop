@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_checkout.*
 import javax.inject.Inject
@@ -57,8 +58,9 @@ class CheckoutFragment : BaseFragment(),
                 ).show()
         }
 
-//        cartProducts.productsHorizontal.adapter = viewedAdapter
-//        cartProducts.productsHorizontal.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        cartProducts.productsHorizontal.adapter = viewedAdapter
+        cartProducts.productsHorizontal.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         presenter.setCartProducts()
 
         getUserInfo()

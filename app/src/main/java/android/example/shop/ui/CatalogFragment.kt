@@ -72,9 +72,9 @@ class CatalogFragment : BaseFragment(),
 
         recentlyVisitedRv.adapter = adapterViewedRecently
 
-        fab.setOnClickListener {
-            navigateToOrder()
-        }
+//        fab.setOnClickListener {
+//            navigateToOrder()
+//        }
     }
 
     override fun setRecentlyVisitedData(list: List<RemoteProduct>) {
