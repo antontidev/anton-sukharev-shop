@@ -9,6 +9,6 @@ class AddOrderUseCase @Inject constructor(
     private val getUserUseCase: GetUserUseCase
 ) {
     suspend operator fun invoke(product: RemoteProduct) {
-        mainApi.addProduct(getUserUseCase(), product)
+        // mainApi.addProducgetUserUseCase(), product)
     }
 }

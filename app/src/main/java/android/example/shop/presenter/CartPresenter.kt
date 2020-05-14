@@ -44,6 +44,13 @@ class CartPresenter @Inject constructor(
         viewState.addCartProduct(position)
     }
 
+    fun showCart() {
+        val cart = getCartProductsUseCase()
+
+        val isEmpty = cart.isEmpty()
+        viewState.showCart(isEmpty)
+    }
+
     fun navigateToCheckout() = viewState.navigateToCheckout()
 
     fun getTotalPrice() = getCartTotalPriceUseCase()
@@ -51,5 +58,6 @@ class CartPresenter @Inject constructor(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         setData()
+        showCart()
     }
 }

@@ -2,12 +2,28 @@ package android.example.shop.utils
 
 import android.example.shop.R
 import android.example.shop.domain.RemoteProduct
+import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+
+fun viewVisibilityToBoolean(visible: Boolean): Int {
+    return when (visible) {
+        false -> View.VISIBLE
+        else -> View.GONE
+    }
+}
+
+fun EditText.showError(visible: Boolean) {
+    val drawable = if (visible) R.drawable.ic_error
+    else 0
+
+    this.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0)
+}
 
 @BindingAdapter("priceFormatted")
 fun TextView.formatPrice(item: RemoteProduct) {

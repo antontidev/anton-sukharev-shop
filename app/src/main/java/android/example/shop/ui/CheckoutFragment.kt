@@ -7,13 +7,13 @@ import android.example.shop.presenter.CheckoutPresenter
 import android.example.shop.presenter.view.CheckoutView
 import android.example.shop.utils.RvItemClickListener
 import android.example.shop.utils.adapters.ViewedAdapter
+import android.example.shop.utils.showError
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,10 +58,9 @@ class CheckoutFragment : BaseFragment(),
                 ).show()
         }
 
-        cartProducts.productsHorizontal.adapter = viewedAdapter
-        cartProducts.productsHorizontal.layoutManager =
+        cartProducts.adapter = viewedAdapter
+        cartProducts.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        presenter.setCartProducts()
 
         getUserInfo()
     }
@@ -112,13 +111,6 @@ class CheckoutFragment : BaseFragment(),
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-    }
-
-    private fun EditText.showError(visible: Boolean) {
-        val drawable = if (visible) R.drawable.ic_error
-        else 0
-
-        this.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0)
     }
 
     override fun showErrorFirstName(visible: Boolean) {

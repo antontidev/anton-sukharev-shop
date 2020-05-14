@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 import javax.inject.Inject
 
 class DetailFragment : BaseFragment(),
-    DescriptionView {
+    DescriptionView, StatefulMenuItem {
     private val args: DetailFragmentArgs by navArgs()
 
     @Inject
@@ -54,13 +54,13 @@ class DetailFragment : BaseFragment(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_menu_favorite -> {
-                setupFavorite(item)
+                setupMenuItem(item)
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun getFavoriteIcon(state: Boolean): Int {
+    override fun getIcon(state: Boolean): Int {
         return when (state) {
             true -> R.drawable.ic_favorite
             else -> R.drawable.ic_favorite_border
@@ -71,7 +71,7 @@ class DetailFragment : BaseFragment(),
         super.onPrepareOptionsMenu(menu)
         val inFavorite = detailPresenter.inFavorite(args.product)
 
-        val icon = getFavoriteIcon(inFavorite)
+        val icon = getIcon(inFavorite)
 
         val item = menu.findItem(R.id.action_menu_favorite)
         item.isChecked = inFavorite
@@ -88,9 +88,9 @@ class DetailFragment : BaseFragment(),
         }
     }
 
-    private fun setupFavorite(item: MenuItem): Boolean {
+    override fun setupMenuItem(item: MenuItem): Boolean {
         item.isChecked = !item.isChecked
-        val icon = getFavoriteIcon(item.isChecked)
+        val icon = getIcon(item.isChecked)
 
         if (item.isChecked) detailPresenter.addToFavorite(args.product)
         else detailPresenter.removeFromFavorite(args.product)

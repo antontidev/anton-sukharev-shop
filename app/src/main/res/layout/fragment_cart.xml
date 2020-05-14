@@ -5,47 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/checkoutButton"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/emptyCartText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@drawable/round_shape"
-        android:text="@string/checkout_text"
+        android:text="@string/empty_cart_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/totalPriceText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/total_price_text"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/checkoutButton"
-        app:layout_constraintStart_toStartOf="@id/checkoutButton" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/totalPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@id/totalPriceText"
-        app:layout_constraintEnd_toEndOf="@id/checkoutButton"
-        app:layout_constraintTop_toTopOf="@id/totalPriceText" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/shoppingCartRv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/totalPriceText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/cart_item">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone" />
 
-    </androidx.recyclerview.widget.RecyclerView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contentCart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/checkoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/round_shape"
+            android:text="@string/checkout_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/totalPriceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/total_price_text"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/checkoutButton"
+            app:layout_constraintStart_toStartOf="@id/checkoutButton" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/totalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/totalPriceText"
+            app:layout_constraintEnd_toEndOf="@id/checkoutButton"
+            app:layout_constraintTop_toTopOf="@id/totalPriceText" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/shoppingCartRv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/totalPriceText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/cart_item">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

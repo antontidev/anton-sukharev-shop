@@ -33,7 +33,6 @@
                     android:id="@+id/categoryIv"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
-                    android:layout_margin="0dp"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toTopOf="@id/categoryTv"
                     app:layout_constraintEnd_toEndOf="parent"

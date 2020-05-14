@@ -5,6 +5,8 @@ import android.example.shop.domain.RemoteProduct
 interface CartDao {
     fun calcProductsPrice(): Double
 
+    fun getProductsCount(): Int
+
     fun addProduct(product: RemoteProduct)
 
     fun removeProduct(product: RemoteProduct)

@@ -8,6 +8,7 @@ import android.example.shop.presenter.view.CartView
 import android.example.shop.utils.CartChangedEvent
 import android.example.shop.utils.adapters.ShoppingCartAdapter
 import android.example.shop.utils.formatPrice
+import android.example.shop.utils.viewVisibilityToBoolean
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,8 +43,6 @@ class CartFragment : BaseFragment(),
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_cart, container, false)
 
-        shoppingCartPresenter.attachView(this)
-
         return view
     }
 
@@ -53,6 +52,7 @@ class CartFragment : BaseFragment(),
         shoppingCartRv.layoutManager = LinearLayoutManager(activity)
         shoppingCartRv.adapter = adapter
 
+        shoppingCartPresenter.attachView(this)
         shoppingCartPresenter.showCartTotalPrice()
 
         checkoutButton.setOnClickListener {
@@ -72,7 +72,15 @@ class CartFragment : BaseFragment(),
 
     @Subscribe
     fun onCartCapacityChanged(event: CartChangedEvent) {
-        shoppingCartPresenter.showCartTotalPrice()
+        shoppingCartPresenter.apply {
+            showCart()
+            showCartTotalPrice()
+        }
+    }
+
+    override fun showCart(empty: Boolean) {
+        contentCart.visibility = viewVisibilityToBoolean(empty)
+        emptyCartText.visibility = viewVisibilityToBoolean(!empty)
     }
 
     override fun removeCartProduct(position: Int) {

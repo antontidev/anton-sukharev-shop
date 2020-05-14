@@ -29,6 +29,8 @@ class CartDaoImpl @Inject constructor(
         return productsPrice
     }
 
+    override fun getProductsCount() = productsList.size
+
     override fun addProduct(product: RemoteProduct) {
         productsList.find {
             product == it

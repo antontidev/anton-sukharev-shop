@@ -50,9 +50,14 @@ class CheckoutPresenter @Inject constructor(
         viewState.navigateToDescription(product)
     }
 
-    fun setCartProducts() {
+    private fun setCartProducts() {
         val products = getCartProductsUseCase()
 
         viewState.setCartProducts(products)
+    }
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        setCartProducts()
     }
 }

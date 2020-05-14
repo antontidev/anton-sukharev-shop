@@ -12,6 +12,7 @@
         android:layout_margin="8dp"
         android:background="@drawable/round_shape"
         android:text="@string/add_to_cart_text"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="8dp" />
 

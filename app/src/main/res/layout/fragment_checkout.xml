@@ -41,18 +41,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/moneyImage"
         app:layout_constraintStart_toEndOf="@+id/moneyImage" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/catalogCheckoutBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@drawable/round_shape"
-        android:text="@string/checkout_text"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/priceWithoutDiscountText"
         android:layout_width="wrap_content"
@@ -146,6 +134,30 @@
         app:layout_constraintTop_toBottomOf="@+id/checkoutMiddleName" />
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cartProducts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@id/catalogCheckoutBtn"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="16"
+        tools:orientation="horizontal"
+        tools:listitem="@layout/viewed_item" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/catalogCheckoutBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/round_shape"
+        android:text="@string/checkout_text"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
