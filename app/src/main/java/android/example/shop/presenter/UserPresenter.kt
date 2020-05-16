@@ -36,7 +36,7 @@ class UserPresenter @Inject constructor(
     }
 
     fun signAction(item: MenuItem): Boolean {
-
+        return true
     }
 
     /**

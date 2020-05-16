@@ -23,8 +23,21 @@ class CartDaoImpl @Inject constructor(
         var productsPrice = 0.0
 
         productsList.forEach {cartProduct ->
-            val productPriceWithDiscount = cartProduct.applyDiscount()
-            productsPrice += productPriceWithDiscount
+            productsPrice += cartProduct.price
+        }
+        return productsPrice
+    }
+
+    override fun calcDiscountPrice(): Double {
+        return calcProductsPrice() - calcProductsPriceWithDiscount()
+    }
+
+    override fun calcProductsPriceWithDiscount(): Double {
+        var productsPrice = 0.0
+
+        productsList.forEach { cartProduct ->
+            val discountPrice = cartProduct.applyDiscount()
+            productsPrice += discountPrice
         }
         return productsPrice
     }

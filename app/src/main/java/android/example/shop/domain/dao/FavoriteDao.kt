@@ -7,5 +7,7 @@ interface FavoriteDao {
 
     fun removeProduct(product: RemoteProduct)
 
+    fun removeAllProducts()
+
     fun getProducts(): List<RemoteProduct>
 }

@@ -9,11 +9,12 @@ import android.example.shop.utils.formatPrice
 import android.os.Bundle
 import android.view.*
 import androidx.navigation.fragment.navArgs
+import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.fragment_detail.*
 import javax.inject.Inject
 
 class DetailFragment : BaseFragment(),
-    DescriptionView, StatefulMenuItem {
+    DescriptionView {
     private val args: DetailFragmentArgs by navArgs()
 
     @Inject
@@ -22,7 +23,9 @@ class DetailFragment : BaseFragment(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //if (!isSampleData(args.product)) {
         setHasOptionsMenu(true)
+        //}
     }
 
     override fun onCreateView(
@@ -39,12 +42,10 @@ class DetailFragment : BaseFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as BaseActivity).setSupportActionBar(toolBar)
+
         detailPresenter.attachView(this)
         detailPresenter.addToViewed(args.product)
-
-        addToCartButton.setOnClickListener {
-            detailPresenter.addToCart(args.product)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -54,28 +55,43 @@ class DetailFragment : BaseFragment(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_menu_favorite -> {
-                setupMenuItem(item)
+                setupFavoriteMenuItem(item)
+            }
+            R.id.action_menu_cart -> {
+                setupCartMenuItem(item)
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    override fun getIcon(state: Boolean): Int {
+
+    private fun getFavoriteIcon(state: Boolean): Int {
         return when (state) {
             true -> R.drawable.ic_favorite
             else -> R.drawable.ic_favorite_border
         }
     }
 
+    private fun getCartIcon(state: Boolean): Int {
+        return when (state) {
+            false -> R.drawable.ic_add_shopping_cart
+            else -> R.drawable.ic_remove_shopping_cart_menu
+        }
+    }
+
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         val inFavorite = detailPresenter.inFavorite(args.product)
+        val iconFavorite = getFavoriteIcon(inFavorite)
+        val itemFavorite = menu.findItem(R.id.action_menu_favorite)
+        itemFavorite.isChecked = inFavorite
+        itemFavorite.setIcon(iconFavorite)
 
-        val icon = getIcon(inFavorite)
-
-        val item = menu.findItem(R.id.action_menu_favorite)
-        item.isChecked = inFavorite
-        item.setIcon(icon)
+        val inCart = detailPresenter.inCart(args.product)
+        val iconCart = getCartIcon(inCart)
+        val itemCart = menu.findItem(R.id.action_menu_cart)
+        itemCart.isChecked = inCart
+        itemCart.setIcon(iconCart)
     }
 
     override fun showDetail() {
@@ -84,16 +100,27 @@ class DetailFragment : BaseFragment(),
 
             image.bindImage(product.imageUrl)
             price.formatPrice(product)
-            goodName.text = product.name
+            (requireActivity() as BaseActivity).supportActionBar?.title = product.name
         }
     }
 
-    override fun setupMenuItem(item: MenuItem): Boolean {
+    private fun setupFavoriteMenuItem(item: MenuItem): Boolean {
         item.isChecked = !item.isChecked
-        val icon = getIcon(item.isChecked)
+        val icon = getFavoriteIcon(item.isChecked)
 
         if (item.isChecked) detailPresenter.addToFavorite(args.product)
         else detailPresenter.removeFromFavorite(args.product)
+
+        item.setIcon(icon)
+        return true
+    }
+
+    private fun setupCartMenuItem(item: MenuItem): Boolean {
+        item.isChecked = !item.isChecked
+        val icon = getCartIcon(item.isChecked)
+
+        if (item.isChecked) detailPresenter.addToCart(args.product)
+        else detailPresenter.removeFromCart(args.product)
 
         item.setIcon(icon)
         return true

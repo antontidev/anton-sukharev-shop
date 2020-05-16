@@ -2,7 +2,6 @@ package android.example.shop.ui
 
 import android.example.shop.App
 import android.example.shop.R
-import android.example.shop.domain.dao.ViewedProductDao
 import android.example.shop.presenter.MenuPresenter
 import android.example.shop.presenter.view.MenuView
 import android.example.shop.utils.CartChangedEvent
@@ -22,9 +21,6 @@ import javax.inject.Inject
 class MenuActivity : BaseActivity(),
     MenuView {
     @Inject
-    lateinit var viewedProductDao: ViewedProductDao
-
-    @Inject
     lateinit var menuPresenter: MenuPresenter
 
     private lateinit var navController: NavController
@@ -33,24 +29,19 @@ class MenuActivity : BaseActivity(),
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
-        setSupportActionBar(toolBar)
 
         navController = findNavController(this, R.id.navHostFragment)
         NavigationUI.setupWithNavController(bottomNavigation, navController)
-        /**
-         * I have no idea hot to observe value by badge
-         */
 
         menuPresenter.attachView(this)
-
-        NavigationUI.setupActionBarWithNavController(this, navController)
     }
 
     @Subscribe
-    fun onCartCapacityChanged(event: CartChangedEvent) = addBadge(event.count, R.id.cartFragment)
+    fun onCartCapacityChanged(event: CartChangedEvent) = menuPresenter.setCartBadge(event.count)
 
     @Subscribe
-    fun onFavoriteCapacityChanged(event: FavoriteChangedEvent) = addBadge(event.count, R.id.favoriteFragment)
+    fun onFavoriteCapacityChanged(event: FavoriteChangedEvent) =
+        menuPresenter.setFavoriteBadge(event.count)
 
     override fun onStart() {
         super.onStart()
@@ -62,18 +53,15 @@ class MenuActivity : BaseActivity(),
         super.onStop()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        viewedProductDao.clear()
+    override fun showFavoriteBadge(count: Int) {
+        val badge: BadgeDrawable = bottomNavigation.getOrCreateBadge(R.id.favoriteFragment)
+        badge.number = count
+
+        badge.isVisible = count > 0
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
-    override fun addBadge(count : Int, id: Int) {
-        val badge: BadgeDrawable = bottomNavigation.getOrCreateBadge(id)
+    override fun showCartBadge(count: Int) {
+        val badge: BadgeDrawable = bottomNavigation.getOrCreateBadge(R.id.cartFragment)
         badge.number = count
 
         badge.isVisible = count > 0

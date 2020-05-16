@@ -18,28 +18,17 @@
         app:layout_constraintTop_toTopOf="@+id/totalPriceText"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/moneyImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:contentDescription="@string/money_image_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priceWithoutDiscountText"
-        app:layout_constraintVertical_bias="0.120000005"
-        app:srcCompat="@drawable/ic_money" />
-
     <TextView
         android:id="@+id/totalPriceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="24dp"
         android:text="@string/total_price_text"
         android:textColor="#000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/moneyImage"
-        app:layout_constraintStart_toEndOf="@+id/moneyImage" />
+        app:layout_constraintBottom_toTopOf="@+id/checkoutLastName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/discountPriceText" />
 
     <TextView
         android:id="@+id/priceWithoutDiscountText"
@@ -49,6 +38,7 @@
         android:text="@string/price_without_discount"
         android:textColor="#000"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/discountPriceText"
         app:layout_constraintStart_toStartOf="@+id/totalPriceText"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,49 +79,36 @@
         android:id="@+id/checkoutLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/second_name_hint"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/checkoutFirstName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/moneyImage"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/totalPriceText" />
 
     <EditText
         android:id="@+id/checkoutFirstName"
-        android:layout_width="wrap_content"
+        android:layout_width="214dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
         android:hint="@string/name_hint"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/checkoutPhone"
         app:layout_constraintEnd_toEndOf="@+id/checkoutLastName"
         app:layout_constraintStart_toStartOf="@+id/checkoutLastName"
         app:layout_constraintTop_toBottomOf="@+id/checkoutLastName" />
 
     <EditText
-        android:id="@+id/checkoutMiddleName"
-        android:layout_width="wrap_content"
+        android:id="@+id/checkoutPhone"
+        android:layout_width="214dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/third_name_hint"
-        android:inputType="textPersonName"
+        android:hint="@string/phone_hint"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="@+id/checkoutFirstName"
         app:layout_constraintStart_toStartOf="@+id/checkoutFirstName"
         app:layout_constraintTop_toBottomOf="@+id/checkoutFirstName" />
-
-    <EditText
-        android:id="@+id/checkoutPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/phone_hint"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="@+id/checkoutMiddleName"
-        app:layout_constraintStart_toStartOf="@+id/checkoutMiddleName"
-        app:layout_constraintTop_toBottomOf="@+id/checkoutMiddleName" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -139,19 +116,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@id/catalogCheckoutBtn"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/catalogCheckoutBtn"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         tools:itemCount="16"
-        tools:orientation="horizontal"
-        tools:listitem="@layout/viewed_item" />
+        tools:listitem="@layout/horizontal_products_item"
+        tools:orientation="horizontal" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/cartProducts"
+        app:layout_constraintTop_toBottomOf="@+id/checkoutPhone">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioButtonCash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_method_cash" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioButtonCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_method_card" />
+    </RadioGroup>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/catalogCheckoutBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/round_shape"
         android:text="@string/checkout_text"
         android:textColor="#fff"

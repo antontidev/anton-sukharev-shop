@@ -20,7 +20,18 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|top"
             tools:listitem="@layout/category_item" />
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@id/recentlyVisitedRv"
+        android:src="@drawable/ic_add"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recentlyVisitedRv"
@@ -31,6 +42,6 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="16"
         tools:orientation="horizontal"
-        tools:listitem="@layout/viewed_item" />
+        tools:listitem="@layout/horizontal_products_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_catalogFragment_to_orderFragment"
             app:destination="@id/orderFragment" />
+        <action
+            android:id="@+id/action_catalogFragment_to_createProductFragment"
+            app:destination="@id/createProductFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_catalogFragment"
@@ -93,4 +96,9 @@
         android:name="android.example.shop.ui.OrderFragment"
         android:label="@string/order_header"
         tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/createProductFragment"
+        android:name="android.example.shop.ui.CreateProductFragment"
+        android:label="fragment_create_product"
+        tools:layout="@layout/fragment_create_product" />
 </navigation>

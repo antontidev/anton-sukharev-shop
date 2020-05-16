@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Магазин</string>
+    <string name="app_name">Draw And Sell</string>
     <string name="total_price_text">итого</string>
     <string name="checkout_text">оформить заказ</string>
     <string name="money_image_text">изображение доллара</string>
@@ -15,6 +15,12 @@
     <string name="empty_cart_text">Ваша корзина пуста</string>
     <string name="user_login_text">Войти/Зарегистрироваться</string>
     <string name="please_login_text">пожалуйста, войдите</string>
+    <string name="payment_method_card">Оплатить картой</string>
+    <string name="payment_method_cash">Оплатить наличными</string>
+    <string name="yes_word">Да</string>
+    <string name="no_word">Нет</string>
+    <string name="do_you_wanna_delete">Вы действительно хотите все удалить?</string>
+    <string name="delete_favorite_alert_title">Удаление всех избранных</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -32,4 +38,10 @@
     <string name="add_to_favorite_text">добавить в избранное</string>
     <string name="category_view_all">посмотреть все</string>
     <string name="add_product">Добавить продукт</string>
+    <string name="add_product_text">Добавить продукт</string>
+    <string name="add_product_name">Название</string>
+    <string name="add_product_author">Автор</string>
+    <string name="add_product_price">Цена</string>
+    <string name="add_product_description">Описание</string>
+    <string name="add_product_image_url">Ссылка на фото</string>
 </resources>

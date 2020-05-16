@@ -9,7 +9,7 @@ import android.example.shop.presenter.CatalogPresenter
 import android.example.shop.presenter.view.CatalogView
 import android.example.shop.utils.RvItemClickListener
 import android.example.shop.utils.adapters.CategoryAdapter
-import android.example.shop.utils.adapters.ViewedAdapter
+import android.example.shop.utils.adapters.HorizontalProductsAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_catalog.*
 import javax.inject.Inject
 
+
 class CatalogFragment : BaseFragment(),
     CatalogView {
     @Inject
@@ -27,7 +28,7 @@ class CatalogFragment : BaseFragment(),
     private lateinit var adapter: CategoryAdapter
 
     private val adapterViewedRecently =
-        ViewedAdapter(
+        HorizontalProductsAdapter(
             onClickDescriptionListener = RvItemClickListener {
                 catalogPresenter.showProductDetail(it)
             }
@@ -72,9 +73,15 @@ class CatalogFragment : BaseFragment(),
 
         recentlyVisitedRv.adapter = adapterViewedRecently
 
-//        fab.setOnClickListener {
-//            navigateToOrder()
-//        }
+        swipeContainer.setOnRefreshListener { // Your code to refresh the list here.
+            // Make sure you call swipeContainer.setRefreshing(false)
+            // once the network request has completed successfully.
+            catalogPresenter.setData()
+            swipeContainer.isRefreshing = false
+        }
+        fab.setOnClickListener {
+            catalogPresenter.showCreateProduct()
+        }
     }
 
     override fun setRecentlyVisitedData(list: List<RemoteProduct>) {
@@ -87,6 +94,12 @@ class CatalogFragment : BaseFragment(),
 
     override fun navigateToCategory(category: String) {
         val action = CatalogFragmentDirections.actionCatalogFragmentToProductsFragment(category)
+
+        findNavController().navigate(action)
+    }
+
+    override fun navigateToCreateProduct() {
+        val action = CatalogFragmentDirections.actionCatalogFragmentToCreateProductFragment()
 
         findNavController().navigate(action)
     }

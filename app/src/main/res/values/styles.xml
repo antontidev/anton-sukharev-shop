@@ -9,4 +9,10 @@
         <item name="colorSecondary">@color/colorSecondary</item>
     </style>
 
+    <style name="ExpandedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">24.5sp</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 </resources>
