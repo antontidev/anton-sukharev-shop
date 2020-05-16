@@ -1,16 +1,16 @@
 package android.example.shop.utils.adapters
 
-import android.example.shop.databinding.ViewedItemBinding
+import android.example.shop.databinding.HorizontalProductsItemBinding
 import android.example.shop.domain.RemoteProduct
 import android.example.shop.utils.RvItemClickListener
-import android.example.shop.utils.formatPrice
+import android.example.shop.utils.bindImage
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class ViewedAdapter(
+class HorizontalProductsAdapter(
     private val onClickDescriptionListener: RvItemClickListener
-) : RecyclerView.Adapter<ViewedAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<HorizontalProductsAdapter.ViewHolder>() {
     private var data: List<RemoteProduct> = listOf()
 
     fun setData(list: List<RemoteProduct>) {
@@ -18,11 +18,10 @@ class ViewedAdapter(
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(private val binding: ViewedItemBinding) :
+    inner class ViewHolder(private val binding: HorizontalProductsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RemoteProduct) {
-            binding.recentlyVisitedName.text = item.name
-            binding.recentlyVisitedPrice.formatPrice(item)
+            binding.productImage.bindImage(item.imageUrl)
             binding.viewedRecentlyItem.setOnClickListener {
                 onClickDescriptionListener.onClick(item)
             }
@@ -31,7 +30,7 @@ class ViewedAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ViewedItemBinding.inflate(layoutInflater, parent, false)
+        val binding = HorizontalProductsItemBinding.inflate(layoutInflater, parent, false)
 
         return ViewHolder(binding)
     }

@@ -17,13 +17,22 @@ interface CheckoutView : MvpView {
     fun showErrorFirstName(visible: Boolean)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showPriceWithDiscount(price: Double)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showDiscount(price: Double)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showPrice(price: Double)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
     fun showErrorLastName(visible: Boolean)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun showErrorMiddleName(visible: Boolean)
-
-    @StateStrategyType(AddToEndSingleStrategy::class)
     fun showErrorPhone(visible: Boolean)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun showOrderInfo()
 
     @StateStrategyType(SkipStrategy::class)
     fun navigateToDescription(product: RemoteProduct)

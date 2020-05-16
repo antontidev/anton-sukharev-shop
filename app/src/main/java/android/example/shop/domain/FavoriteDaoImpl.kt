@@ -22,5 +22,10 @@ class FavoriteDaoImpl @Inject constructor(
         EventBus.getDefault().post(FavoriteChangedEvent(data.size))
     }
 
+
+    override fun removeAllProducts() {
+        data.clear()
+        EventBus.getDefault().post(FavoriteChangedEvent(data.size))
+    }
     override fun getProducts() = data
 }

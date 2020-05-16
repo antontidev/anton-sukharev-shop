@@ -12,6 +12,4 @@ interface UserView : MvpView {
     fun showUserName(name: String)
 
     fun showSignInUI(providers: List<AuthUI.IdpConfig>)
-
-    fun showSignButton(): Boolean
 }

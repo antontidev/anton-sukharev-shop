@@ -20,6 +20,9 @@ interface CatalogView : MvpView {
     fun navigateToCategory(category: String)
 
     @StateStrategyType(SkipStrategy::class)
+    fun navigateToCreateProduct()
+
+    @StateStrategyType(SkipStrategy::class)
     fun navigateToDetail(product: RemoteProduct)
 
     @StateStrategyType(SkipStrategy::class)

@@ -7,6 +7,7 @@ import android.example.shop.presenter.view.UserView
 import android.example.shop.utils.bindImage
 import android.os.Bundle
 import android.view.*
+import com.example.myapplication.ui.BaseActivity
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.fragment_user.*
 import javax.inject.Inject
@@ -41,6 +42,8 @@ class UserFragment : BaseFragment(),
         super.onViewCreated(view, savedInstanceState)
 
         userPresenter.attachView(this)
+
+        (requireActivity() as BaseActivity).setSupportActionBar(toolBar)
     }
 
     override fun showSignInUI(providers: List<AuthUI.IdpConfig>) {
@@ -92,13 +95,13 @@ class UserFragment : BaseFragment(),
         }
     }
 
-    override fun showSignButton(): Boolean {
-//        val icon = getIcon(item.isChecked)
-//
-//        if (item.isChecked) userPresenter.makeSignIn()
-//        else userPresenter.makeSignOut()
-//
-//        item.setIcon(icon)
-        return true
-    }
+//    override fun showSignButton(): Boolean {
+////        val icon = getIcon(item.isChecked)
+////
+////        if (item.isChecked) userPresenter.makeSignIn()
+////        else userPresenter.makeSignOut()
+////
+////        item.setIcon(icon)
+//        return true
+//    }
 }

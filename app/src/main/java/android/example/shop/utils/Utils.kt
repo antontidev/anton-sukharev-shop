@@ -2,6 +2,8 @@ package android.example.shop.utils
 
 import android.example.shop.R
 import android.example.shop.domain.RemoteProduct
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -10,6 +12,22 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+
+fun isSampleData(product: RemoteProduct): Boolean {
+    return product.price < 0.001
+}
+
+fun EditText.setListener(lambda: (text: String) -> Unit) {
+    addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            lambda(s.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    })
+}
 
 fun viewVisibilityToBoolean(visible: Boolean): Int {
     return when (visible) {

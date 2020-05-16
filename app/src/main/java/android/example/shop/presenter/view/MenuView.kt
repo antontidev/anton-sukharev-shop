@@ -6,5 +6,8 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface MenuView: MvpView {
-    fun addBadge(count: Int, id: Int)
+    fun showCartBadge(count: Int)
+
+
+    fun showFavoriteBadge(count: Int)
 }

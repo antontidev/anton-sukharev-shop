@@ -25,6 +25,8 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
+    fun inject(fragment: CreateProductFragment)
+    fun inject(fragment: FavoriteFragment)
     fun inject(fragment: ProductsFragment)
     fun inject(fragment: CatalogFragment)
     fun inject(fragment: DetailFragment)
