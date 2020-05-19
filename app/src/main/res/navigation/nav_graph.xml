@@ -64,14 +64,6 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/userFragment"
-        android:name="android.example.shop.ui.UserFragment"
-        android:label="@string/account_header"
-        tools:layout="@layout/fragment_user"/>
-    <action
-        android:id="@+id/action_global_userFragment"
-        app:destination="@id/userFragment" />
-    <fragment
         android:id="@+id/favoriteFragment"
         android:name="android.example.shop.ui.FavoriteFragment"
         android:label="@string/favorite_header"
