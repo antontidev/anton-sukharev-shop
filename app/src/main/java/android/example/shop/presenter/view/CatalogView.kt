@@ -26,5 +26,8 @@ interface CatalogView : MvpView {
     fun navigateToDetail(product: RemoteProduct)
 
     @StateStrategyType(SkipStrategy::class)
+    fun showError(message: String)
+
+    @StateStrategyType(SkipStrategy::class)
     fun navigateToOrder()
 }

@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:expandedTitleTextAppearance="@style/ExpandedAppBar"
-            app:maxLines="8"
+            app:maxLines="100"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"

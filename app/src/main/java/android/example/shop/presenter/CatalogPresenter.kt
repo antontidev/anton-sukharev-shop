@@ -5,6 +5,7 @@ import android.example.shop.domain.dao.ViewedProductDao
 import android.example.shop.domain.interactor.AddProductUseCase
 import android.example.shop.domain.interactor.GetCategoriesUseCase
 import android.example.shop.presenter.view.CatalogView
+import java.net.ConnectException
 import javax.inject.Inject
 
 class CatalogPresenter @Inject constructor(
@@ -28,8 +29,13 @@ class CatalogPresenter @Inject constructor(
     }
     fun setData() {
         launch {
-            val categories = getCategoriesUseCase()
-            viewState.setCategories(categories)
+            try {
+                val categories = getCategoriesUseCase()
+                viewState.setCategories(categories)
+            }
+            catch (e: ConnectException) {
+                viewState.showError(e.message!!)
+            }
         }
     }
 

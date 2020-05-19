@@ -16,7 +16,7 @@ class CheckoutPresenter @Inject constructor(
 ) : BasePresenter<CheckoutView>() {
     private fun checkSymbols(text: String) = text.length < 3
 
-    private fun checkSymbolsPhone(text: String) = text.length > 12
+    private fun checkSymbolsPhone(text: String) = text.length > 10
 
     private fun checkFirstPhoneSymbol(text: String): Boolean {
         val firstSymbol = text.getOrElse(0) { 0.toChar() }

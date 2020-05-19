@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_catalog.*
@@ -115,6 +116,10 @@ class CatalogFragment : BaseFragment(),
         val action = CatalogFragmentDirections.actionCatalogFragmentToDetailFragment(product)
 
         findNavController().navigate(action)
+    }
+
+    override fun showError(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
